@@ -15,7 +15,6 @@ import { HeaderComponent } from './shared/header/header.component';
 import { NavBarComponent } from './shared/nav-bar/nav-bar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import {HomeComponent} from "./home/home.component";
-import {IconsModule, MDBRootModule} from "angular-bootstrap-md";
 
 @NgModule({
   declarations: [
@@ -35,9 +34,7 @@ import {IconsModule, MDBRootModule} from "angular-bootstrap-md";
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    IconsModule,
-    MDBRootModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
