@@ -113,6 +113,10 @@ To run this project you first need to install and set up:
 3. Start the front-end of the project:
    ```sh
    cd zealroom--room-booking-system/front-end
+   npm update
+   npm i bootstrap
+   npm i --save bootstrap@3
+   npm i @angular-devkit/build-angular
    ng serve
    ```
    It is running on ```localhost:4200```.
