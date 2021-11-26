@@ -28,6 +28,10 @@ import {MatCardModule} from "@angular/material/card";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { RegistrationComponent } from './registration/registration.component';
+import { ProfileComponent } from './profile/profile.component';
+
+import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from "./core/app.routing.module";
 
 
 @NgModule({
@@ -46,7 +50,9 @@ import { RegistrationComponent } from './registration/registration.component';
     FooterComponent,
     HomeComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    ProfileComponent
+
   ],
   imports: [
     BrowserModule,
@@ -61,7 +67,9 @@ import { RegistrationComponent } from './registration/registration.component';
     MatCardModule,
     MatFormFieldModule,
     MatProgressSpinnerModule,
-    FormsModule
+    FormsModule,
+    RouterModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
