@@ -1,0 +1,30 @@
+<mat-card class="card">
+  <div class="loginForm">
+  <mat-card-header>
+    <mat-card-title class="title">Login</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form class="form">
+      <table class="full-width">
+        <tr>
+          <td>
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Username" name="username" required>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td><mat-form-field class="full-width">
+            <input matInput placeholder="Password" type="password" name="password" required>
+          </mat-form-field></td>
+        </tr></table>
+    </form>
+<!--    <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>-->
+  </mat-card-content>
+  <mat-card-actions>
+    <div class="loginButton">
+    <button mat-raised-button color="primary">Login</button>
+    </div>
+  </mat-card-actions>
+  </div>
+</mat-card>

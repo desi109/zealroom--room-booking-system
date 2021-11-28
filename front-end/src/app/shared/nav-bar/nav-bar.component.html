@@ -8,11 +8,19 @@
 
     <div class="collapse navbar-collapse" style="">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">HOME</a></li>
-        <li><a href="#">BOOK ROOM</a></li>
-        <li><a href="#">RESERVATIONS</a></li>
-        <li><a href="#">FAQ</a></li>
-        <li><a href="#">CONTACT</a></li>
+        <li><a routerLink="/home">HOME</a></li>
+        <li><a routerLink="/bookRoom">BOOK ROOM</a></li>
+        <li><a routerLink="/reservations">RESERVATIONS</a></li>
+        <li><a routerLink="/profile">PROFILE</a></li>
+        <li><a routerLink="/bookRoom">FAQ</a></li>
+        <li class="nav-item dropdown" dropdown>
+          <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+            PROFILE<span class="caret"></span></a>
+          <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
+            <a class="dropdown-item waves-light" mdbWavesEffect href="#">My account</a>
+            <a class="dropdown-item waves-light" mdbWavesEffect href="#">Log out</a>
+          </div>
+        </li>
         <!--<li class="dropdown">
           <a href="#" class="dropdown-toggle" role="button">Account<span class="caret"></span></a>
           <ul class="dropdown-menu">

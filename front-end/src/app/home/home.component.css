@@ -1,0 +1,28 @@
+.img-fluid {
+  margin-right: 30%;
+  width: 650px;
+  display: flex;
+  margin-left: 10%;
+}
+
+/*img {*/
+/*  max-width: 150%;*/
+/*}*/
+
+
+.view {
+  margin-top: 0%;
+  margin-left: 20%;
+  font-size: 20px;
+}
+
+
+.box {
+  display: flex;
+  align-items:center;
+}
+
+.title {
+  font-size: 50px;
+  font-style: italic;
+}
