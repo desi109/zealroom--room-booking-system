@@ -1,1 +1,14 @@
-<p>rooms-list works!</p>
+<div class="main-content">
+  <h2 style="color: #2c0092; font-family: Gargi;">Search results:</h2>
+  <a href="#" class="list-group-item clearfix" *ngFor="let room of rooms">
+    <div class="pull-left">
+      <h4 class="list-group-item-heading">{{ room.name }}</h4>
+      <p class="list-group-item-text">{{ room.description }}</p>
+    </div>
+    <span class="pull-right">
+      <img [src]="room.imagePath" alt="{{ room.name }}" class="img-responsive" style="max-height: 50px;">
+    </span>
+  </a>
+  <app-room-item></app-room-item>
+</div>
+

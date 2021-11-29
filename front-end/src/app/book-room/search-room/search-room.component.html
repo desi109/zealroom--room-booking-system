@@ -1,1 +1,164 @@
-<p>search-room works!</p>
+<div class="main-content">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 style="color: #2c0092; font-family: Gargi;">Find a room according to your demands</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="input-group">
+          <label for="validationCustom01" class="form-label">Room:</label>
+          <input type="search" id="form1" placeholder="Search for exact room" class="form-control" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="input-group">
+          <label for="validationCustom01" class="form-label">Date: </label>
+          <input [matDatepicker]="basicDatepicker">
+          <mat-datepicker-toggle [for]="basicDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #basicDatepicker></mat-datepicker>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row"></div>
+    <div class="row"></div>
+    
+    <div class="row">
+      <div class="col-md-6">
+        <label for="validationCustom01" class="form-label">Start time:</label>
+        <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+          <option selected>Select start time</option>
+          <option value="1">7.00</option>
+          <option value="2">7.15</option>
+          <option value="3">7.30</option>
+          <option value="4">7.45</option>
+          <option value="5">8.00</option>
+          <option value="6">8.15</option>
+          <option value="7">8.30</option>
+          <option value="8">8.45</option>
+          <option value="9">9.00</option>
+          <option value="10">9.15</option>
+          <option value="11">9.30</option>
+          <option value="12">9.45</option>
+          <option value="13">10.00</option>
+          <option value="14">10.15</option>
+          <option value="15">10.30</option>
+          <option value="16">10.45</option>
+          <option value="17">11.00</option>
+          <option value="18">11.15</option>
+          <option value="19">11.30</option>
+          <option value="20">11.45</option>
+          <option value="21">12.00</option>
+          <option value="22">12.15</option>
+          <option value="23">12.30</option>
+          <option value="24">12.45</option>
+          <option value="25">13.00</option>
+          <option value="26">13.15</option>
+          <option value="27">13.30</option>
+          <option value="28">13.45</option>
+          <option value="29">14.00</option>
+          <option value="30">14.15</option>
+          <option value="31">14.30</option>
+          <option value="32">14.45</option>
+          <option value="33">15.00</option>
+          <option value="34">15.15</option>
+          <option value="35">15.30</option>
+          <option value="36">15.45</option>
+          <option value="37">16.00</option>
+          <option value="38">16.15</option>
+          <option value="39">16.30</option>
+          <option value="40">16.45</option>
+          <option value="41">17.00</option>
+          <option value="42">17.15</option>
+          <option value="43">17.30</option>
+          <option value="44">17.45</option>
+          <option value="45">18.00</option>
+          <option value="46">18.15</option>
+          <option value="47">18.30</option>
+          <option value="48">18.45</option>
+          <option value="49">19.00</option>
+          <option value="50">19.15</option>
+          <option value="51">19.30</option>
+          <option value="52">19.45</option>
+          <option value="53">20.00</option>
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <label for="validationCustom01" class="form-label">End time:</label>
+        <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+          <option selected>Select end time</option>
+          <option value="1">7.00</option>
+          <option value="2">7.15</option>
+          <option value="3">7.30</option>
+          <option value="4">7.45</option>
+          <option value="5">8.00</option>
+          <option value="6">8.15</option>
+          <option value="7">8.30</option>
+          <option value="8">8.45</option>
+          <option value="9">9.00</option>
+          <option value="10">9.15</option>
+          <option value="11">9.30</option>
+          <option value="12">9.45</option>
+          <option value="13">10.00</option>
+          <option value="14">10.15</option>
+          <option value="15">10.30</option>
+          <option value="16">10.45</option>
+          <option value="17">11.00</option>
+          <option value="18">11.15</option>
+          <option value="19">11.30</option>
+          <option value="20">11.45</option>
+          <option value="21">12.00</option>
+          <option value="22">12.15</option>
+          <option value="23">12.30</option>
+          <option value="24">12.45</option>
+          <option value="25">13.00</option>
+          <option value="26">13.15</option>
+          <option value="27">13.30</option>
+          <option value="28">13.45</option>
+          <option value="29">14.00</option>
+          <option value="30">14.15</option>
+          <option value="31">14.30</option>
+          <option value="32">14.45</option>
+          <option value="33">15.00</option>
+          <option value="34">15.15</option>
+          <option value="35">15.30</option>
+          <option value="36">15.45</option>
+          <option value="37">16.00</option>
+          <option value="38">16.15</option>
+          <option value="39">16.30</option>
+          <option value="40">16.45</option>
+          <option value="41">17.00</option>
+          <option value="42">17.15</option>
+          <option value="43">17.30</option>
+          <option value="44">17.45</option>
+          <option value="45">18.00</option>
+          <option value="46">18.15</option>
+          <option value="47">18.30</option>
+          <option value="48">18.45</option>
+          <option value="49">19.00</option>
+          <option value="50">19.15</option>
+          <option value="51">19.30</option>
+          <option value="52">19.45</option>
+          <option value="53">20.00</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="input-group">
+          <label for="customRange1" class="form-label">Example range</label>
+          <input type="range" class="form-range" id="customRange1">
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <button type="button" class="btn btn-secondary btn-lg"
+          style="color: #ffffff; background-color: #2c0092;">Search</button>
+      </div>
+    </div>
+
+</div>

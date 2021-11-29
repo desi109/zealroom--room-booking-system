@@ -28,3 +28,10 @@ body {
   font-size: 18px;
   background-color: #f5f6fa;
 }
+
+.main-content {
+  margin-left: 10%;
+  margin-right: 10%;
+  padding-top: 5%;
+  padding-bottom: 7%;
+}

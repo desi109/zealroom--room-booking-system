@@ -12,7 +12,7 @@ import { LoginComponent } from './login/login.component';
 
 import { ReservationEditComponent } from './reservations/reservation-edit/reservation-edit.component';
 import { ReservationItemComponent } from './reservations/reservation-item/reservation-item.component';
-import { RoomItemComponent } from './book-room/room-item/room-item.component';
+import { RoomItemComponent } from './book-room/rooms-list/room-item/room-item.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { NavBarComponent } from './shared/nav-bar/nav-bar.component';
 import { FooterComponent } from './shared/footer/footer.component';
