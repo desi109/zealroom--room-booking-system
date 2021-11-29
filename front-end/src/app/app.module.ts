@@ -32,6 +32,8 @@ import { ProfileComponent } from './profile/profile.component';
 
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from "./core/app.routing.module";
+import { FaqComponent } from './faq/faq.component';
+import {MatExpansionModule} from "@angular/material/expansion";
 
 
 @NgModule({
@@ -51,7 +53,8 @@ import { AppRoutingModule } from "./core/app.routing.module";
     HomeComponent,
     LoginComponent,
     RegistrationComponent,
-    ProfileComponent
+    ProfileComponent,
+    FaqComponent
 
   ],
   imports: [
@@ -69,7 +72,8 @@ import { AppRoutingModule } from "./core/app.routing.module";
     MatProgressSpinnerModule,
     FormsModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

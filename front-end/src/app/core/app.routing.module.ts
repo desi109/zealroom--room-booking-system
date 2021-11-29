@@ -6,14 +6,16 @@ import {ReservationsComponent} from "../reservations/reservations.component";
 import {ProfileComponent} from "../profile/profile.component";
 import {LoginComponent} from "../login/login.component";
 import {RegistrationComponent} from "../registration/registration.component";
+import {FaqComponent} from "../faq/faq.component";
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
+  { path: '', component: HomeComponent },
   { path: 'bookRoom', component: BookRoomComponent },
   { path: 'reservations', component: ReservationsComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'registration', component: RegistrationComponent }
+  { path: 'registration', component: RegistrationComponent },
+  { path: 'faq', component: FaqComponent }
 
 ];
 
