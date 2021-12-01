@@ -34,6 +34,11 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from "./core/app.routing.module";
 import { FaqComponent } from './faq/faq.component';
 import {MatExpansionModule} from "@angular/material/expansion";
+import { CreateSpaceComponent } from './create-space/create-space.component';
+import {MatOptionModule} from "@angular/material/core";
+import {MatSelectModule} from "@angular/material/select";
+import {MatDialogModule} from '@angular/material/dialog';
+import { JoinWCodeComponent } from './join-w-code/join-w-code.component';;
 
 
 @NgModule({
@@ -54,7 +59,9 @@ import {MatExpansionModule} from "@angular/material/expansion";
     LoginComponent,
     RegistrationComponent,
     ProfileComponent,
-    FaqComponent
+    FaqComponent,
+    CreateSpaceComponent,
+    JoinWCodeComponent
 
   ],
   imports: [
@@ -73,9 +80,13 @@ import {MatExpansionModule} from "@angular/material/expansion";
     FormsModule,
     RouterModule,
     AppRoutingModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatDialogModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [CreateSpaceComponent]
 })
 export class AppModule { }

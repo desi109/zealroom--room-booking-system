@@ -7,6 +7,7 @@ import {ProfileComponent} from "../profile/profile.component";
 import {LoginComponent} from "../login/login.component";
 import {RegistrationComponent} from "../registration/registration.component";
 import {FaqComponent} from "../faq/faq.component";
+import {CreateSpaceComponent} from "../create-space/create-space.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },

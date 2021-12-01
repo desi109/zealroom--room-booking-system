@@ -14,7 +14,7 @@ body {
 }
 
 .container {
-  margin: 50px;
+  margin-top: 50px;
 }
 
 .mat-expansion-panel-header-description {
@@ -34,4 +34,7 @@ body {
   margin-right: 10%;
   padding-top: 5%;
   padding-bottom: 7%;
+}
+.title {
+  text-align: center;
 }
