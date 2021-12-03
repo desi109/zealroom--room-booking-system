@@ -1,14 +1,35 @@
 <div class="main-content">
   <h2 style="color: #2c0092; font-family: Gargi;">Search results:</h2>
   <a href="#" class="list-group-item clearfix" *ngFor="let room of rooms">
-    <div class="pull-left">
-      <h4 class="list-group-item-heading">{{ room.name }}</h4>
-      <p class="list-group-item-text">{{ room.description }}</p>
-    </div>
-    <span class="pull-right">
-      <img [src]="room.imagePath" alt="{{ room.name }}" class="img-responsive" style="max-height: 50px;">
-    </span>
-  </a>
-  <app-room-item></app-room-item>
-</div>
+    <div class="row room-list">
 
+      <div class="row row-content">
+        <div class="col-md-8">
+          <h4 class="list-group-item-heading"><img class="image-write" src="../../../assets/images/content-writing.png">
+            {{ room.name }}</h4>
+        </div>
+        <div class="col-md-4">
+          <div class="row">
+            <h5 class="list-group-item-text"><b>Capacity: {{ room.capacity }}</b></h5>
+          </div>
+          <div class="row">
+            <h6 class="list-group-item-text"><b>Equipment:</b> {{ room.getEquipment(room) }}</h6>
+          </div>
+        </div>
+      </div>
+
+      <div class="row row-content"></div>
+
+      <div class="row row-content">
+        <div class="col-md-8">
+          <h6 class="text-avaliable"><img class="image-avaliable" src="../../../assets/images/available.png">
+            Available</h6>
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-secondary btn-md" style="background-color: #6351ce; color:white; width: 100%;">Book
+            room</button>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>

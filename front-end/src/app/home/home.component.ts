@@ -11,9 +11,6 @@ import {JoinWCodeComponent} from "../join-w-code/join-w-code.component";
 })
 export class HomeComponent implements OnInit {
 
-  animal: string;
-  name: string;
-
   constructor(public dialog: MatDialog) {}
 
   ngOnInit(): void {

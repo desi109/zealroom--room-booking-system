@@ -25,3 +25,8 @@ mat-card{
 .loginButton {
   margin-left: 20%;
 }
+
+.card {
+  margin-top: 8%;
+  margin-bottom: 8%;
+}
