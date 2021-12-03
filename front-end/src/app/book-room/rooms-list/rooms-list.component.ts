@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Room } from '../book-room.module';
+import { Room } from '../room.module';
+import { Equipment } from '../search-room/equipment-room.module';
 
 @Component({
   selector: 'app-rooms-list',
@@ -9,25 +9,29 @@ import { Room } from '../book-room.module';
 })
 export class RoomsListComponent implements OnInit {
   rooms: Room[] = [
-    new Room(
-      'A Test Recipe',
-      'This is simply a test',
-      'https://upload.wikimedia.org/wikipedia/commons/1/15/Recipe_logo.jpeg'
+    new Room( 1, 'Room 1', 100,
+      [    
+        new Equipment( 3, 'Projector screen', ''),
+        new Equipment( 4, 'Projector', ''),
+        new Equipment( 5, 'HDMI', '')
+      ]
     ),
-    new Room(
-      'A Test Recipe',
-      'This is simply a test',
-      'https://upload.wikimedia.org/wikipedia/commons/1/15/Recipe_logo.jpeg'
+    new Room( 2, 'Room 2', 20,
+      [    
+        new Equipment( 1, 'Computers', ''),
+        new Equipment( 2, 'Board', '')
+      ]
+    ),
+    new Room( 3, 'Room 3', 30,
+      [    
+        new Equipment( 1, 'Board', ''),
+        new Equipment( 6, 'TV', ''),
+        new Equipment( 5, 'HDMI', '')
+      ]
     ),
   ];
 
   constructor() {}
 
   ngOnInit(): void {}
-
-  /*getRooms(): Room {
-    return this.rooms$.pipe(
-      pluck('rooms')
-    );
-  }*/
 }
