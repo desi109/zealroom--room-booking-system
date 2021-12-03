@@ -1,3 +1,4 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -13,16 +14,36 @@
         <li><a routerLink="/">HOME</a></li>
         <li><a routerLink="/book-room">BOOK ROOM</a></li>
         <li><a routerLink="/reservations">RESERVATIONS</a></li>
-        <li><a routerLink="/profile">PROFILE</a></li>
+<!--        <li><a routerLink="/profile">PROFILE</a></li>-->
         <li><a routerLink="/faq">FAQ</a></li>
-        <li class="nav-item dropdown" dropdown>
-          <a routerLink="/login"dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
-            LOG IN<span class="caret"></span></a>
-          <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
-            <a class="dropdown-item waves-light" mdbWavesEffect href="#">My account</a>
-            <a class="dropdown-item waves-light" mdbWavesEffect href="#">Log out</a>
+        <li><a routerLink="/moderator">MODERATOR</a></li>
+        <li><a routerLink="/login">LOG IN</a></li>
+        <li>
+          <div class="example-menu-row">
+            <button class="profileButton"mat-stroked-button [matMenuTriggerFor]="menuHero" color="primary" ng-init>
+              <img class="profileImageNav" src="./assets/images/profile.png" alt=""> </button>
+            <mat-menu #menuHero="matMenu" class="uxg-user-profile box">
+              <div class="uxg-menu-header">
+                <div class="uxg-avatar-hero-block content" >
+                  <h6 class="uxg-h6">Petar Petrov</h6>
+                  <span class="uxg-caption">p.petrov@zealroom.com</span>
+                </div>
+              </div>
+              <div class="uxg-menu-footer navbuttons">
+                <button mat-flat-button color="primary" dense>
+                  <mat-icon>exit_to_app</mat-icon>
+                  Logout
+                </button>
+                <a routerLink="/profile" mat-button color="primary" dense>
+                  View profile
+                </a>
+              </div>
+            </mat-menu>
           </div>
+
         </li>
+
+
         <!--<li class="dropdown">
           <a href="#" class="dropdown-toggle" role="button">Account<span class="caret"></span></a>
           <ul class="dropdown-menu">

@@ -18,7 +18,10 @@ import { FaqComponent } from './faq/faq.component';
 
 
 import { CreateSpaceComponent } from './create-space/create-space.component';
-import { JoinWCodeComponent } from './join-w-code/join-w-code.component';;
+import { JoinWCodeComponent } from './join-w-code/join-w-code.component';
+import { ModeratorComponent } from './moderator/moderator.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { GenerateCodeComponent } from './generate-code/generate-code.component';
 
 import { CustomMaterialModule } from './core/material.module';
 import { RouterModule } from '@angular/router';
@@ -42,7 +45,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ProfileComponent,
     FaqComponent,
     CreateSpaceComponent,
-    JoinWCodeComponent
+    JoinWCodeComponent,
+    ModeratorComponent,
+    UserProfileComponent,
+    GenerateCodeComponent
+
   ],
   imports: [
     BrowserModule,

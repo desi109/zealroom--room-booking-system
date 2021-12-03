@@ -1,0 +1,14 @@
+.passImage {
+  width: 60px;
+}
+
+.dialog-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.code {
+  font-size: 30px;
+  color: dimgrey;
+}

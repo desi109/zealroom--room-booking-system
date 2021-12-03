@@ -3,3 +3,35 @@
   background-color: #ffffff;
   font-size: medium;
 }
+
+.profileImageNav {
+  width: 30px;
+  margin-top: 5px;
+}
+
+.profileButton {
+  margin-top: 5px;
+  outline: none !important;
+}
+
+.example-menu-row {
+  margin-bottom: 24px;
+}
+body {
+  font-family: Roboto, Arial, sans-serif;
+  margin: 0;
+}
+
+.basic-container {
+  padding: 30px;
+}
+
+.content {
+  margin: 20px;
+}
+
+.navbuttons {
+  margin: 10px;
+}
+
+

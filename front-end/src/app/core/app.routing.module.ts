@@ -8,6 +8,7 @@ import {LoginComponent} from "../login/login.component";
 import {RegistrationComponent} from "../registration/registration.component";
 import {FaqComponent} from "../faq/faq.component";
 import {CreateSpaceComponent} from "../create-space/create-space.component";
+import {ModeratorComponent} from "../moderator/moderator.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,7 +17,8 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
-  { path: 'faq', component: FaqComponent }
+  { path: 'faq', component: FaqComponent },
+  { path: 'moderator', component: ModeratorComponent }
 
 ];
 

@@ -39,3 +39,8 @@ body {
 .title {
   text-align: center;
 }
+
+.faqTitleImage {
+  margin-top: 30px;
+  width: 150px;
+}
