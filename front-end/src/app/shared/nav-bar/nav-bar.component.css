@@ -14,7 +14,7 @@
   outline: none !important;
 }
 
-.example-menu-row {
+.menu-row {
   margin-bottom: 24px;
 }
 body {
@@ -30,8 +30,18 @@ body {
   margin: 20px;
 }
 
-.navbuttons {
+.navButtons {
   margin: 10px;
 }
+
+.dropdownNav {
+  width:100%
+}
+
+.logoutButton {
+  margin-right: 5px;
+}
+
+
 
 

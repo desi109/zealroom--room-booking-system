@@ -14,7 +14,7 @@
       <mat-card class="addRoomsSection section">
         <div class="button-container addRoomsButton">
           <i class="material-icons">info_outline</i><i>Add all the rooms you want to share with your team and make their usage easier. Create rooms here. <b></b></i><br><br>
-          <button mat-fab color="primary" aria-label="">
+          <button (click)="openDialogCreateRoom()" mat-fab color="primary" aria-label="">
             <mat-icon>add</mat-icon>
           </button>
           Add new room
@@ -22,7 +22,7 @@
         <img class="addRoomsImage" src="./assets/images/addRoomsImage.jpg">
       </mat-card>
       <mat-card class="listRooms section scrollable-content">
-        //list of rooms in this organization + scrollable
+        <app-all-rooms-list></app-all-rooms-list>
       </mat-card>
     </div>
   </mat-card>
@@ -43,7 +43,7 @@
         <img class="addUsersImage" src="./assets/images/addUsersImage.jpg">
       </mat-card>
       <mat-card class="listRooms section scrollable-content">
-        //list of all users, requests on top  + scrollable
+        <app-users-list></app-users-list>
       </mat-card>
     </div>
   </mat-card>
@@ -53,7 +53,7 @@
   <mat-card class="allReservationsSection section">
     <mat-card-title class="title">All booked rooms</mat-card-title>
       <mat-card class="listRooms section scrollable-content">
-        //list of all booked rooms + scrollable
+        <app-all-booked-rooms-list></app-all-booked-rooms-list>
       </mat-card>
   </mat-card>
 </div>

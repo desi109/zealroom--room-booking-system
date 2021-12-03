@@ -27,6 +27,10 @@ import { CustomMaterialModule } from './core/material.module';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './core/app.routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UsersListComponent } from './users-list/users-list.component';
+import { AllRoomsListComponent } from './all-rooms-list/all-rooms-list.component';
+import { AllBookedRoomsListComponent } from './all-booked-rooms-list/all-booked-rooms-list.component';
+import { CreateRoomComponent } from './create-room/create-room.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +52,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     JoinWCodeComponent,
     ModeratorComponent,
     UserProfileComponent,
-    GenerateCodeComponent
+    GenerateCodeComponent,
+    UsersListComponent,
+    AllRoomsListComponent,
+    AllBookedRoomsListComponent,
+    CreateRoomComponent
 
   ],
   imports: [
