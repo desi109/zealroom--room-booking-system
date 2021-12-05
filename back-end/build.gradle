@@ -15,8 +15,18 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.jetbrains:annotations:20.1.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+	implementation group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.6.1'
+	implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.18'
+	implementation group: 'org.springframework.security', name: 'spring-security-core', version: '5.6.0'
+	implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.6.0'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jdbc', version: '2.6.1'
+
 }
 
 test {
