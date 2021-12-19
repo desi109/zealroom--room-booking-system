@@ -20,7 +20,7 @@ import com.zealroom.room.booking.system.helpers.HelperService;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "localhost:3000")
+@CrossOrigin(origins = "localhost:3001")
 @RequestMapping("/user")
 public class UserController {
     @Autowired
