@@ -13,7 +13,7 @@ import com.zealroom.room.booking.system.exceptions.UserAuthenticationException;
 import com.zealroom.room.booking.system.helpers.HelperService;
 
 @RestController
-@CrossOrigin(origins = "localhost:3000")
+@CrossOrigin(origins = "localhost:3001")
 @RequestMapping("/user")
 public class UserController {
     //TODO add automated getting of meetings of user
