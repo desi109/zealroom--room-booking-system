@@ -24,6 +24,30 @@ public class RoomController {
     @Autowired
     private BookingRepository bookingRepository;
 
+    @PostMapping
+    private Room add(@RequestBody Room room){
+        return roomRepository.save(room);
+    }
+
+    @DeleteMapping("/{id}")
+    private void delete(@PathVariable Integer id){
+        roomRepository.deleteById(id.toString());
+    }
+
+    @PostMapping("/book/room")
+    private void bookExactRoom(@RequestBody Booking booking) {
+        //Check if there is any booking record for some room and time period. If this list is empty this room is available for that period
+        //if it is not empty it is already booked
+        List<Booking> bookings = bookingRepository.findAllByRoomAndCheckInCheckOut(booking.getRoom(),
+                booking.getCheckIn(), booking.getCheckOut());
+        
+        if (bookings!=null) {
+            bookingRepository.save(booking);
+        } else {
+            throw new IllegalArgumentException("This room is already booked for this time period");
+        }
+    }
+
     @GetMapping("/date/{checkIn}{checkOut}")
     private List<Room> date(@PathVariable LocalDate checkIn, @PathVariable LocalDate checkOut) {
         return bookingRepository.findByCheckInAndCheckOut(checkIn, checkOut);
