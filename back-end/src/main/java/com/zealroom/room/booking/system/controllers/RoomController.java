@@ -58,12 +58,13 @@ public class RoomController {
         return roomRepository.findByCapacityGreaterThanEqual(cap);
     }
 
-    @GetMapping("/Number/{roomNum}")
+    @GetMapping("/number/{roomNum}")
     private List<Room> roomNumber(@PathVariable String roomNum) {
         return roomRepository.findByRoomNumber(roomNum);
     }
 
-    private List<Room> FindRoomByDescription(List<String> desc){
+    @GetMapping("/description/{desc}")
+    private List<Room> FindRoomByDescription(@PathVariable List<String> desc){
         List<Room> rooms = roomRepository.findByRoomDescriptionIsContaining(desc.get(0));
         List<Room> filter = new ArrayList<>();
 
