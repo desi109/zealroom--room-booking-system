@@ -1,0 +1,26 @@
+.main-content {
+  padding: 10%;
+}
+
+.room-list {
+  margin: 2%;
+}
+
+.image-write {
+  width: 10%;
+}
+
+.image-avaliable{
+  width: 5%;
+}
+
+.row-content {
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+
+.text-avaliable {
+  color: #8dc640;
+  font-size: medium;
+  margin-top: 3%;
+}

@@ -1,0 +1,59 @@
+<span style="font-size: 20px;">Navigate to:</span>
+<button class="navButtons" mat-raised-button (click)="goDown1()">Rooms section</button>
+<button class="navButtons" mat-raised-button (click)="goDown2()">Users section</button>
+<button class="navButtons" mat-raised-button (click)="goDown3()">Reservations section</button>
+<div class="titleTop">
+  <h1>Moderator page</h1>
+  <h5><i>As a moderator you have the rights to add rooms, invite people to the team and view all booked rooms...</i></h5>
+  <img class="analysis" src="./assets/images/analysis.png">
+</div>
+<div class="twoSections" id="targetRooms">
+  <mat-card class="addRoomsSection section">
+    <mat-card-title class="title">Rooms</mat-card-title>
+    <div class="twoSections">
+      <mat-card class="addRoomsSection section">
+        <div class="button-container addRoomsButton">
+          <i class="material-icons">info_outline</i><i>Add all the rooms you want to share with your team and make their usage easier. Create rooms here. <b></b></i><br><br>
+          <button (click)="openDialogCreateRoom()" mat-fab color="primary" aria-label="">
+            <mat-icon>add</mat-icon>
+          </button>
+          Add new room
+        </div>
+        <img class="addRoomsImage" src="./assets/images/addRoomsImage.jpg">
+      </mat-card>
+      <mat-card class="listRooms section scrollable-content">
+        <app-all-rooms-list></app-all-rooms-list>
+      </mat-card>
+    </div>
+  </mat-card>
+</div>
+<div class="twoSections"  id="targetUsers">
+  <mat-card class="addUsersSection section">
+    <mat-card-title class="title">Users</mat-card-title>
+    <div class="twoSections">
+      <mat-card class="addRoomsSection section">
+        <div class="button-container addRoomsButton">
+          <i class="material-icons">info_outline</i><i>Add users that belong to your team or organization and let them book rooms. <br>
+            To add users, click on the "Add" button and we'll generate unique code for your space.</i><br><br>
+          <button (click)="openDialogCode()" mat-fab color="primary" aria-label="">
+            <mat-icon>add</mat-icon>
+          </button>
+          Add users
+        </div>
+        <img class="addUsersImage" src="./assets/images/addUsersImage.jpg">
+      </mat-card>
+      <mat-card class="listRooms section scrollable-content">
+        <app-users-list></app-users-list>
+      </mat-card>
+    </div>
+  </mat-card>
+</div>
+
+<div class="twoSections" id="targetReservations">
+  <mat-card class="allReservationsSection section">
+    <mat-card-title class="title">All booked rooms</mat-card-title>
+      <mat-card class="listRooms section scrollable-content">
+        <app-all-booked-rooms-list></app-all-booked-rooms-list>
+      </mat-card>
+  </mat-card>
+</div>

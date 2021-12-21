@@ -1,0 +1,71 @@
+.section {
+  margin: 10px;
+  width: 100%;
+}
+
+.twoSections {
+  display: flex;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 10px;
+}
+
+.button-container {
+  margin-top: 30px;
+  margin-left: 30px;
+}
+
+.title {
+  margin-top: 100px;
+  margin-left: 30px;
+}
+
+.addRoomsImage {
+  width: 500px;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 15px;
+}
+
+.addRoomsButton {
+  margin-left: 10%;
+  padding-top: 7%;
+}
+
+.mat-card.scrollable-content {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-card-content {
+  overflow-y: auto;
+}
+
+.addUsersImage {
+  width: 450px;
+  margin-left: 15%;
+  margin-right: 10%;
+  margin-top: 15px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.navButtons {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.titleTop {
+  text-align: center;
+  margin: 5%;
+}
+
+.analysis {
+  margin-top: 30px;
+  width: 150px;
+}
+
+

@@ -1,0 +1,44 @@
+.main-content {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.text-header {
+  padding-top: 5%;
+  padding-bottom: 5%;
+  color: #2c0092;
+  font-family: Gargi;
+}
+
+.room-list {
+  margin: 2%;
+}
+
+.image-write {
+  width: 5%;
+}
+
+.image-booked {
+  width: 3%;
+}
+
+.row-content {
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+
+.text-booked {
+  color: rgba(109,42,246,255);
+  font-size: medium;
+  margin-top: 3%;
+}
+
+.button-reservation-edit {
+  background-color: #6351ce;
+  color:white;
+  margin-top: 5%;
+}
+
+.button-reservation-delete {
+  margin-top: 5%;
+}

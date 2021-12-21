@@ -13,3 +13,39 @@
   margin-bottom: 20px;
   margin-right: 3%;
 }
+
+body {
+  margin-bottom: 4%;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: auto;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.title {
+  color: grey;
+  font-size: 18px;
+}
+
+a {
+  text-decoration: none;
+  font-size: 22px;
+  color: black;
+}
+
+.userIcon {
+  width: 100px;
+}
+
+.titleTop {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.userImage {
+  margin-top: 30px;
+  width: 150px;
+}
