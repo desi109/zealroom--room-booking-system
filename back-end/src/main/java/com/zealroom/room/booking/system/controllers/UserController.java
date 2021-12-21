@@ -1,6 +1,11 @@
 package com.zealroom.room.booking.system.controllers;
 
+import com.zealroom.room.booking.system.entities.Organization;
+import com.zealroom.room.booking.system.entities.UserOrganizationConnection;
+import com.zealroom.room.booking.system.repositories.OrganizationRepository;
+import com.zealroom.room.booking.system.repositories.UserOrganizationConnectionRepository;
 import com.zealroom.room.booking.system.repositories.UserRepository;
+import org.graalvm.compiler.nodes.spi.SwitchFoldable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,13 +17,20 @@ import com.zealroom.room.booking.system.entities.User;
 import com.zealroom.room.booking.system.exceptions.UserAuthenticationException;
 import com.zealroom.room.booking.system.helpers.HelperService;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "localhost:3000")
 @RequestMapping("/user")
 public class UserController {
-    //TODO add automated getting of meetings of user
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserOrganizationConnectionRepository userOrganizationConnectionRepository;
+
+    @Autowired
+    private OrganizationRepository organizationRepository;
 
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -88,7 +100,7 @@ public class UserController {
         return userRepository.findByUuid(uuid);
     }
 
-    @PostMapping("/login")
+    @PutMapping("/login")
     private User login(@RequestBody ObjectNode emailAndPasswordInJson) {
         String email = emailAndPasswordInJson.get("email").asText();
         String password = emailAndPasswordInJson.get("password").asText();
@@ -104,15 +116,15 @@ public class UserController {
         }
     }
 
-    @PostMapping("/logout")
+    @PutMapping("/logout")
     private String logout(@RequestBody String sessionToken){
         User user = getUserBySessionTokenInJson(userRepository,sessionToken);
         if(user == null){
-            return "Incorrect sessionToken";
+            return HelperService.toJson("error","Incorrect sessionToken");
         }
         user.setSessionToken(null);
         userRepository.save(user);
-        return "Logout successful.";
+        return HelperService.toJson("success", "Logout successful.");
     }
 
     @GetMapping("/get")
@@ -120,6 +132,36 @@ public class UserController {
         return getUserBySessionTokenInJson(userRepository,sessionToken);
     }
 
+    @PostMapping("/register/moderator/{sessionToken}/{organizationUuid}")
+    private String registerModerator(@RequestBody User newUser, @PathVariable String sessionToken, @PathVariable String organizationUuid) {
+        Organization organization = organizationRepository.findByUuid(organizationUuid);
+        if(organization == null){
+            return HelperService.toJson("error", "Incorrect organization uuid.");
+        }
+        User moderator = userRepository.findBySessionToken(sessionToken);
+        if(moderator == null){
+            return HelperService.toJson("error", "Incorrect session token.");
+        }
+        if(!isModerator(moderator,organization)) {
+            return HelperService.toJson("error", "Only moderators can add moderator accounts !");
+        }
+        if(!checkUser(newUser).equals("")){
+            return checkUser(newUser);
+        }
+        if(userRepository.findByEmail(newUser.getEmail()) != null){
+            return HelperService.toJson("error", "Email already in use.");
+        }
+        try{
+            newUser.setPassword(encoder.encode(newUser.getPassword()));
+            newUser.setIsAdmin(false);
+            userRepository.save(newUser);
+            UserOrganizationConnection userOrganizationConnection = new UserOrganizationConnection(organization,newUser,true);
+            userOrganizationConnectionRepository.save(userOrganizationConnection);
+            return HelperService.toJson("message","Manager creation successful!");
+        }catch(DataIntegrityViolationException e){
+            return HelperService.toJson("error", e.getMessage());
+        }
+    }
 
     private User authenticateAndReturnUser(String email, String password) {
         User user = userRepository.findByEmail(email);
@@ -136,6 +178,15 @@ public class UserController {
     public static User getUserBySessionTokenInJson(UserRepository userRepository,String jsonBody) {
         String sessionToken = HelperService.valueOfARepresentingKeyInJsonString("sessionToken",jsonBody);
         return userRepository.findBySessionToken(sessionToken);
+    }
+
+    public boolean isModerator(User user, Organization organization){
+       List<User> moderators = userOrganizationConnectionRepository.getOrganizationModerators(organization);
+
+       if(moderators.contains(user)){
+           return true;
+       }
+       return false;
     }
 
 }
