@@ -1,4 +1,4 @@
-Project setup: clone the project import project in intellij/eclipse install https://www.enterprisedb.com/downloads/postgres-postgresql-downloads *im using 13.1 go in pgAdmin4 create a database zealroom right click the database and open QueryTool write and execute this:
+Project setup: clone the project import project in intellij/eclipse install https://www.enterprisedb.com/downloads/postgres-postgresql-downloads *im using 13.1 go in pgAdmin4 create a database zealroom then open the db folder and right click on it - then choose import/restore . Select zealroom.sql file.
 
 DROP TABLE IF EXISTS users CASCADE;
 CREATE TABLE users(
@@ -28,4 +28,3 @@ INSERT INTO users(user_uuid,first_name,last_name,is_admin,email,pwd) VALUES('1ad
 INSERT INTO organizations(organization_uuid) VALUES ('orgid123');
 INSERT INTO userorganizationconnections(connection_id,is_manager,user_uuid,organization_uuid) VALUES(1,True,'1admin1','orgid123')
 DROP TABLE IF EXISTS users CASCADE; CREATE TABLE users( user_uuid VARCHAR(255) NOT NULL PRIMARY KEY UNIQUE, first_name VARCHAR(255) NOT NULL, last_name VARCHAR(255) NOT NULL, is_admin BOOLEAN NOT NULL, session_token VARCHAR(255), email VARCHAR(255) NOT NULL, pwd VARCHAR(255) NOT NULL );
-
