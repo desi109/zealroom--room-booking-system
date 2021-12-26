@@ -1,14 +1,13 @@
 package com.zealroom.room.booking.system.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.Email;
+import java.util.List;
 
 @Entity
 @Table(name="users")
@@ -43,6 +42,10 @@ public class User {
     @NotNull
     @Column(name = "is_admin")
     private Boolean isAdmin;
+
+    @OneToMany(mappedBy="user",fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<UserOrganizationConnection> organizationConnections;
 
 
     public User() {}
@@ -109,5 +112,9 @@ public class User {
         this.id = uuid;
     }
 
+
+    public List<UserOrganizationConnection> getOrganizationConnections(){
+        return organizationConnections;
+    }
 
 }

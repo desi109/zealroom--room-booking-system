@@ -24,7 +24,7 @@ public class HelperService {
     public static String valueOfARepresentingKeyInJsonString(String key, String json) {
         String[] temp = json.replaceAll("\\{|\\}", "").split(",");
         for(int i = 0; i < temp.length; i++){
-            String[] currentKeyValuePair = temp[i].trim().split("\":\"");
+            String[] currentKeyValuePair = temp[i].trim().replaceAll(" ","").split("\":\"");
             if(currentKeyValuePair[0].replace("\"","").equals(key)){
                 return currentKeyValuePair[1].replace("\"","");
             }

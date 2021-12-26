@@ -1,0 +1,107 @@
+1. POST http://localhost:5000/user/register
+    Registers a user
+    Needs a json body.
+    Example:
+    {
+        "firstName" : "name",
+        "lastName": "lastname",
+        "email": "abv@avb.bg",
+        "password": "123123"
+    }
+    Returns json message
+
+2. PUT http://localhost:5000/user/login
+    Logs a person in the platform
+    Needs a json body.
+    Example:
+    {
+        "email": "abv@avb.bg",
+        "password": "123123"
+    }
+    Returns a json body with the user information.
+    Example:
+    {
+        "id": "3976a13a-4274-43f9-b219-8bfd098616b1",
+        "firstName": "name",
+        "lastName": "lastname",
+        "sessionToken": "LTGFTiGyG632n9bNlVaxZWpBvxisusI6",
+        "email": "abv@avb.bg",
+        "password": "$2a$10$yMjS8PUuvFEGDKKCjb4Ag.e9gdgozL4i58ZfBUcWVC.BdnWLA0yUa",
+        "isAdmin": false
+    }
+3. PUT http://localhost:5000/user/logout
+    Logs a person out from the platform
+    Needs a json body.
+    Example:
+    {
+        "sessionToken":"6AApE_2lqBGhqugHyJfqwxpV4V3-Z-el"
+    }
+    Returns a json message.
+    Example:
+    {"success":"Logout successful."}
+
+4. GET http://localhost:5000/user/{uuid}
+    Gets a user by uuid;
+    Needs a path variable uuid.
+    Example:
+        http://localhost:5000/user/3976a13a-4274-43f9-b219-8bfd098616b1
+
+    Returns a json body with the user.
+    Example:
+    {
+        "id": "3976a13a-4274-43f9-b219-8bfd098616b1",
+        "firstName": "name",
+        "lastName": "lastname",
+        "sessionToken": null,
+        "email": "abv@avb.bg",
+        "password": "$2a$10$yMjS8PUuvFEGDKKCjb4Ag.e9gdgozL4i58ZfBUcWVC.BdnWLA0yUa",
+        "isAdmin": false
+    }
+
+5. GET http://localhost:5000/user/get
+    Gets a user by sessionToken.
+    Needs a body
+    Example:
+    {
+        "sessionToken":"nF6uZcAbmaDQw4QhIZ7bNsf_s--LFLCM"
+    }
+    Returns a json body with the user.
+    Example:
+    {
+        "id": "3976a13a-4274-43f9-b219-8bfd098616b1",
+        "firstName": "name",
+        "lastName": "lastname",
+        "sessionToken": "nF6uZcAbmaDQw4QhIZ7bNsf_s--LFLCM",
+        "email": "abv@avb.bg",
+        "password": "$2a$10$yMjS8PUuvFEGDKKCjb4Ag.e9gdgozL4i58ZfBUcWVC.BdnWLA0yUa",
+        "isAdmin": false
+    }
+6. POST http://localhost:5000/user/register/admin/{sessionToken}
+    Registers a new user with admin privileges.
+    Needs a user body.
+    Example:
+    {
+        "firstName" : "name",
+        "lastName": "lastname",
+        "email" : "abvv@ab.bg",
+        "password": "123123"
+    }
+    Needs a sessionToken path variable (the registering user has to be an admin}
+    Example:
+    http://localhost:5000/user/register/admin/cn3_ZMq4XCyJL0h5yoDvkfd4e-ChtvdK
+
+    Returns a json message
+
+7. POST http://localhost:5000/user/register/moderator/{sessionToken}/{organizationUuid}
+    Registers a new user with moderator privileges for the given organization.
+    Needs a user body.
+    Example:
+        {
+            "firstName" : "name",
+            "lastName": "lastname",
+            "email" : "abvv@ab.bg",
+            "password": "123123"
+        }
+    Needs a sessionToken and organizationUuid path variables (the registering user has to be a moderator for the given organization)
+    Example:
+    http://localhost:5000/user/register/moderator/cn3_ZMq4XCyJL0h5yoDvkfd4e-ChtvdK/orgid123
