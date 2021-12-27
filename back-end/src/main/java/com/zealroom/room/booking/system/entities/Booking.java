@@ -22,10 +22,10 @@ public class Booking {
     @Column(name = "is_booked", nullable = false)
     private Boolean isBooked = false;
 
-    @Column(name = "checkIn", nullable = false)
+    @Column(name = "check_in", nullable = false)
     private LocalDateTime checkIn;
 
-    @Column(name = "checkOut", nullable = false)
+    @Column(name = "check_out", nullable = false)
     private LocalDateTime checkOut;
 
     public LocalDateTime getCheckOut() {
