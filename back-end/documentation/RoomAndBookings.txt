@@ -1,0 +1,71 @@
+1. GET http://localhost:5000/booking
+    Returns all bookings as a json message
+
+2. GET http://localhost:5000/booking/{id} - replace "{id}" in the url with some booking id as path variable
+    Returns booking by id as a json message
+
+3. GET http://localhost:5000/booking/user/{id} replace "{id}" in the url with some user id as a path variable
+       Returns all bookings for some user
+
+4. GET http://localhost:5000/booking/user/{id} replace "{id}" in the url with some user id as a path variable
+       Returns all bookings for some user
+
+5. POST http://localhost:5000/room
+    Add a room
+    Needs a json body.
+    Example:
+    {
+        "capacity" : 20,
+        "roomDescription": "test room",
+        "roomNumber": 123
+    }
+
+6. DELETE http://localhost:5000/room/{id} Replace "{id}" with id of the room that needs to be deleted
+
+7. POST http://localhost:5000/room/book/room
+    Book a room
+    Needs a json body.
+    Example:
+    {
+        "room": {
+            "capacity" : 20,
+            "roomDescription": "test room",
+            "roomNumber": 123
+        },
+        "user": {
+            "id" : "1",
+            "firstName" : "name",
+            "lastName": "lastname",
+            "email": "abv@avb.bg",
+            "password": "123123"
+        },
+        "checkIn" : " 2021-12-03 10:15:30",
+        "checkOut" : " 2021-12-03 11:15:30"
+    }
+
+    7. POST http://localhost:5000/room/book/room
+        Book a room
+        Needs a json body.
+        Example:
+        {
+            "room": {
+                "capacity" : 20,
+                "roomDescription": "test room",
+                "roomNumber": 123
+            },
+            "user": {
+                "id" : "1",
+                "firstName" : "name",
+                "lastName": "lastname",
+                "email": "abv@avb.bg",
+                "password": "123123"
+            },
+            "checkIn" : "2021-12-03T10:15:30",
+            "checkOut" : "2021-12-03T11:15:30"
+        }
+
+8. GET http://localhost:5000/room/date/{checkIn}/{checkOut}  for example http://localhost:5000/date/2021-12-03T10:15:30/2021-12-03T12:15:30
+        Get all rooms that are reserved between checkIn and checkOut
+
+9. GET http://localhost:5000/room/capacity/{cap} for example http://localhost:5000/room/capacity/100 - return all rooms with max capacity 100 people
+        Get all rooms for some capacity

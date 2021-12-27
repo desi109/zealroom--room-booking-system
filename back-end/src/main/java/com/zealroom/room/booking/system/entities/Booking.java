@@ -2,6 +2,7 @@ package com.zealroom.room.booking.system.entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "booking")
@@ -21,25 +22,25 @@ public class Booking {
     @Column(name = "is_booked", nullable = false)
     private Boolean isBooked = false;
 
-    @Column(name = "check_in", nullable = false)
-    private LocalDate checkIn;
+    @Column(name = "checkIn", nullable = false)
+    private LocalDateTime checkIn;
 
-    @Column(name = "check_out", nullable = false)
-    private LocalDate checkOut;
+    @Column(name = "checkOut", nullable = false)
+    private LocalDateTime checkOut;
 
-    public LocalDate getCheckOut() {
+    public LocalDateTime getCheckOut() {
         return checkOut;
     }
 
-    public void setCheckOut(LocalDate checkOut) {
+    public void setCheckOut(LocalDateTime checkOut) {
         this.checkOut = checkOut;
     }
 
-    public LocalDate getCheckIn() {
+    public LocalDateTime getCheckIn() {
         return checkIn;
     }
 
-    public void setCheckIn(LocalDate checkIn) {
+    public void setCheckIn(LocalDateTime checkIn) {
         this.checkIn = checkIn;
     }
 
