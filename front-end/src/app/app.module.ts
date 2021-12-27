@@ -31,6 +31,8 @@ import { UsersListComponent } from './users-list/users-list.component';
 import { AllRoomsListComponent } from './all-rooms-list/all-rooms-list.component';
 import { AllBookedRoomsListComponent } from './all-booked-rooms-list/all-booked-rooms-list.component';
 import { CreateRoomComponent } from './create-room/create-room.component';
+import { HttpClientModule } from '@angular/common/http';
+import {UserService} from "./services/user.service";
 
 @NgModule({
   declarations: [
@@ -65,9 +67,9 @@ import { CreateRoomComponent } from './create-room/create-room.component';
     CustomMaterialModule,
     RouterModule,
     AppRoutingModule,
-    BrowserAnimationsModule
-  ],
-  providers: [],
+    BrowserAnimationsModule,
+    HttpClientModule  ],
+  providers: [UserService],
   bootstrap: [AppComponent],
   entryComponents: [CreateSpaceComponent]
 })
