@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "localhost:3001")
+@CrossOrigin(origins = "localhost:4200")
 @RequestMapping("/room")
 public class RoomController {
     @Autowired
