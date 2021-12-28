@@ -26,16 +26,17 @@ export class AuthService {
     return this.userSubject.value;
   }
 
-  login(username: string, password: string) {
+  login(email: string, password: string) {
+    console.log(email + " " + password);
     return this.http
-      .post<any>(`${environment.apiUrl}/user/login`, { username, password })
+      .put<any>(`${environment.apiUrl}/user/login`, { email, password })
       .pipe(
         map(({token}) => {
           let user: { password: string; email: string } = {
             email: this.email,
             password: this.password,
           };
-          localStorage.setItem('currentUser', JSON.stringify(user));
+          localStorage.setItem('currentUser', JSON.stringify(email));
           if (user instanceof User) {
             this.userSubject.next(user);
           }
@@ -43,6 +44,27 @@ export class AuthService {
         })
       );
   }
+
+  registration(firstName: string, lastName: string, email: string, password: string) {
+    console.log(email + " " + password);
+    return this.http
+      .put<any>(`${environment.apiUrl}/user/register`, { firstName, lastName, email, password })
+      .pipe(
+        map(({token}) => {
+          let user: { password: string; email: string } = {
+            email: this.email,
+            password: this.password,
+          };
+          localStorage.setItem('currentUser', JSON.stringify(email));
+          if (user instanceof User) {
+            this.userSubject.next(user);
+          }
+          return user;
+        })
+      );
+  }
+
+
 
   // logout() {
   //   localStorage.removeItem('currentUser');
