@@ -34,7 +34,7 @@ public class UserController {
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @PostMapping("/register")
-    private ResponseEntity register(@RequestBody User newUser) {
+    public ResponseEntity register(@RequestBody User newUser) {
         if(!checkUser(newUser).equals("")){
             return new ResponseEntity<>(checkUser(newUser),HttpStatus.BAD_REQUEST);
         }
@@ -51,7 +51,7 @@ public class UserController {
     }
 
     @PostMapping("/register/admin/{sessionToken}")
-    private ResponseEntity registerAdmin(@RequestBody User newUser, @PathVariable String sessionToken) {
+    public ResponseEntity registerAdmin(@RequestBody User newUser, @PathVariable String sessionToken) {
         User admin = userRepository.findBySessionToken(sessionToken);
         if(admin == null){
             return new ResponseEntity<>("Incorrect sessionToken",HttpStatus.BAD_REQUEST);
@@ -77,29 +77,25 @@ public class UserController {
 
     private String checkUser(User user){
         String message = "";
-        if(user.getFirstName() == ""){
+        if(user.getFirstName() == null || user.getFirstName().equals("")){
             message = "First Name must not be empty.";
-        }else if(user.getLastName() == ""){
+        }else if(user.getLastName() == null || user.getLastName().equals("")){
             message = "Last Name must not be empty.";
-        }else if(user.getEmail() == ""){
+        }else if(user.getEmail() == null || user.getEmail().equals("")){
             message = "Email must not be empty.";
-        }else if(user.getPassword() == ""){
+        }else if(user.getPassword() == null || user.getPassword().equals("")){
             message = "Password must not be empty.";
         }
-        if(message.equals("")){
-            return "";
-        }else{
-            return message;
-        }
+        return message;
     }
 
     @GetMapping("/{uuid}")
-    private User user(@PathVariable String uuid) {
+    public User user(@PathVariable String uuid) {
         return userRepository.findByUuid(uuid);
     }
 
     @PutMapping("/login")
-    private User login(@RequestBody ObjectNode emailAndPasswordInJson) {
+    public User login(@RequestBody ObjectNode emailAndPasswordInJson) {
         String email = emailAndPasswordInJson.get("email").asText();
         String password = emailAndPasswordInJson.get("password").asText();
         User user;
@@ -115,7 +111,7 @@ public class UserController {
     }
 
     @PutMapping("/logout")
-    private String logout(@RequestBody String sessionToken){
+    public String logout(@RequestBody String sessionToken){
         User user = getUserBySessionTokenInJson(userRepository,sessionToken);
         if(user == null){
             return HelperService.toJson("error","Incorrect sessionToken");
@@ -126,12 +122,12 @@ public class UserController {
     }
 
     @GetMapping("/get")
-    private User getUserBySessionToken(@RequestBody String sessionToken){
+    public User getUserBySessionToken(@RequestBody String sessionToken){
         return getUserBySessionTokenInJson(userRepository,sessionToken);
     }
 
     @PostMapping("/register/moderator/{sessionToken}/{organizationUuid}")
-    private ResponseEntity registerModerator(@RequestBody User newUser, @PathVariable String sessionToken, @PathVariable String organizationUuid) {
+    public ResponseEntity registerModerator(@RequestBody User newUser, @PathVariable String sessionToken, @PathVariable String organizationUuid) {
         Organization organization = organizationRepository.findByUuid(organizationUuid);
         if(organization == null){
             return new ResponseEntity<>("Wrong organization uuid",HttpStatus.BAD_REQUEST);
