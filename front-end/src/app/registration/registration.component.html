@@ -1,68 +1,56 @@
 <mat-card class="card">
-  <div class="loginForm">
+  <div class="registrationForm">
     <mat-card-header>
       <mat-card-title class="title">Registration form</mat-card-title>
 
     </mat-card-header>
     <mat-card-content>
       <i class="description">Fill in this form to create an account.</i>
-      <form class="form">
+      <form [formGroup]="registerForm" (ngSubmit)="onFormSubmit()">
+
         <table class="full-width">
-
+          <div class="form-group">
           <tr>
             <td>
               <mat-form-field class="full-width">
-                <input matInput placeholder="Username" name="username" required>
+                <input formControlName="firstName" class="form-control" matInput placeholder="First name" name="firstName" required>
               </mat-form-field>
             </td>
           </tr>
+          </div>
+          <div class="form-group">
           <tr>
             <td>
               <mat-form-field class="full-width">
-                <input matInput placeholder="First name" name="firstName" required>
+                <input formControlName="lastName" class="form-control" matInput placeholder="Last name" name="lastName" required>
               </mat-form-field>
             </td>
           </tr>
+          </div>
+          <div class="form-group">
           <tr>
             <td>
               <mat-form-field class="full-width">
-                <input matInput placeholder="Last name" name="lastName" required>
+                <input formControlName="email" class="form-control" matInput placeholder="Email" name="email" required>
               </mat-form-field>
             </td>
           </tr>
-          <tr>
-            <td>
-              <mat-form-field class="full-width">
-                <input matInput placeholder="Email" name="email" required>
-              </mat-form-field>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <mat-form-field class="full-width">
-                <input matInput placeholder="Position in organization" name="position" required>
-              </mat-form-field>
-            </td>
-          </tr>
-
+          </div>
+          <div class="form-group">
           <tr>
             <td><mat-form-field class="full-width">
-              <input matInput placeholder="Password" type="password" name="password" required>
+              <input formControlName="password" class="form-control"  matInput placeholder="Password" type="password" name="password" required>
             </mat-form-field></td>
           </tr>
-          <tr>
-            <td><mat-form-field class="full-width">
-              <input matInput placeholder="Confirm password" type="password" name="passwordCheck" required>
-            </mat-form-field></td>
-          </tr>
+          </div>
 
         </table>
+        <mat-card-actions>
+          <div class="loginButton">
+            <button mat-raised-button color="primary">Make a registration</button>
+          </div>
+        </mat-card-actions>
       </form>
     </mat-card-content>
-    <mat-card-actions>
-      <div class="loginButton">
-        <button mat-raised-button color="primary">Make a registration</button>
-      </div>
-    </mat-card-actions>
   </div>
 </mat-card>
