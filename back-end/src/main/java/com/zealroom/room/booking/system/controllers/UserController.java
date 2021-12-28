@@ -7,6 +7,8 @@ import com.zealroom.room.booking.system.repositories.UserOrganizationConnectionR
 import com.zealroom.room.booking.system.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -17,7 +19,7 @@ import com.zealroom.room.booking.system.helpers.HelperService;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "localhost:3001")
+@CrossOrigin(origins = "localhost:4200")
 @RequestMapping("/user")
 public class UserController {
     @Autowired
@@ -32,45 +34,44 @@ public class UserController {
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @PostMapping("/register")
-    private String register(@RequestBody User newUser) {
+    private ResponseEntity register(@RequestBody User newUser) {
         if(!checkUser(newUser).equals("")){
-            return checkUser(newUser);
+            return new ResponseEntity<>(checkUser(newUser),HttpStatus.BAD_REQUEST);
         }
         if(userRepository.findByEmail(newUser.getEmail()) != null){
-            return HelperService.toJson("error", "Email already in use.");
-        }
+            return new ResponseEntity<>("Email already in use",HttpStatus.BAD_REQUEST);        }
         try{
             newUser.setPassword(encoder.encode(newUser.getPassword()));
             newUser.setIsAdmin(false);
             userRepository.save(newUser);
-            return HelperService.toJson("message","Register successful!");
+            return new ResponseEntity<>("Register successful",HttpStatus.OK);
         }catch(DataIntegrityViolationException e){
-            return HelperService.toJson("error", e.getMessage());
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping("/register/admin/{sessionToken}")
-    private String registerAdmin(@RequestBody User newUser, @PathVariable String sessionToken) {
+    private ResponseEntity registerAdmin(@RequestBody User newUser, @PathVariable String sessionToken) {
         User admin = userRepository.findBySessionToken(sessionToken);
         if(admin == null){
-            return HelperService.toJson("error", "Incorrect session token.");
+            return new ResponseEntity<>("Incorrect sessionToken",HttpStatus.BAD_REQUEST);
         }
         if(!admin.getIsAdmin()) {
-            return HelperService.toJson("error", "Only admins can add admin accounts !");
+            return new ResponseEntity<>("Only admins can create admin accounts",HttpStatus.BAD_REQUEST);
         }
         if(!checkUser(newUser).equals("")){
-            return checkUser(newUser);
+            return new ResponseEntity<>(checkUser(newUser),HttpStatus.BAD_REQUEST);
         }
         if(userRepository.findByEmail(newUser.getEmail()) != null){
-            return HelperService.toJson("error", "Email already in use.");
+            return new ResponseEntity<>("Email already in use",HttpStatus.BAD_REQUEST);
         }
         try{
             newUser.setPassword(encoder.encode(newUser.getPassword()));
             newUser.setIsAdmin(true);
             userRepository.save(newUser);
-            return HelperService.toJson("message","Register successful!");
+            return new ResponseEntity<>("Register successful",HttpStatus.OK);
         }catch(DataIntegrityViolationException e){
-            return HelperService.toJson("error", e.getMessage());
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -88,7 +89,7 @@ public class UserController {
         if(message.equals("")){
             return "";
         }else{
-            return HelperService.toJson("error",message);
+            return message;
         }
     }
 
@@ -130,23 +131,23 @@ public class UserController {
     }
 
     @PostMapping("/register/moderator/{sessionToken}/{organizationUuid}")
-    private String registerModerator(@RequestBody User newUser, @PathVariable String sessionToken, @PathVariable String organizationUuid) {
+    private ResponseEntity registerModerator(@RequestBody User newUser, @PathVariable String sessionToken, @PathVariable String organizationUuid) {
         Organization organization = organizationRepository.findByUuid(organizationUuid);
         if(organization == null){
-            return HelperService.toJson("error", "Incorrect organization uuid.");
+            return new ResponseEntity<>("Wrong organization uuid",HttpStatus.BAD_REQUEST);
         }
         User moderator = userRepository.findBySessionToken(sessionToken);
         if(moderator == null){
-            return HelperService.toJson("error", "Incorrect session token.");
+            return new ResponseEntity<>("Incorrect session token",HttpStatus.BAD_REQUEST);
         }
         if(!isModerator(moderator,organization)) {
-            return HelperService.toJson("error", "Only moderators can add moderator accounts !");
+            return new ResponseEntity<>("Only moderators can add moderator accounts",HttpStatus.BAD_REQUEST);
         }
         if(!checkUser(newUser).equals("")){
-            return checkUser(newUser);
+            return new ResponseEntity<>(checkUser(newUser),HttpStatus.BAD_REQUEST);
         }
         if(userRepository.findByEmail(newUser.getEmail()) != null){
-            return HelperService.toJson("error", "Email already in use.");
+            return new ResponseEntity<>("Email already in use",HttpStatus.BAD_REQUEST);
         }
         try{
             newUser.setPassword(encoder.encode(newUser.getPassword()));
@@ -154,9 +155,9 @@ public class UserController {
             userRepository.save(newUser);
             UserOrganizationConnection userOrganizationConnection = new UserOrganizationConnection(organization,newUser,true);
             userOrganizationConnectionRepository.save(userOrganizationConnection);
-            return HelperService.toJson("message","Manager creation successful!");
+            return new ResponseEntity<>("Manager creation successful",HttpStatus.OK);
         }catch(DataIntegrityViolationException e){
-            return HelperService.toJson("error", e.getMessage());
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 
