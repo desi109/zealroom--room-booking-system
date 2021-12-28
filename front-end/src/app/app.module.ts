@@ -31,8 +31,8 @@ import { UsersListComponent } from './users-list/users-list.component';
 import { AllRoomsListComponent } from './all-rooms-list/all-rooms-list.component';
 import { AllBookedRoomsListComponent } from './all-booked-rooms-list/all-booked-rooms-list.component';
 import { CreateRoomComponent } from './create-room/create-room.component';
-import { HttpClientModule } from '@angular/common/http';
-import {UserService} from "./services/user.service";
+import { HttpClientModule } from '@angular/common/http'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -68,8 +68,9 @@ import {UserService} from "./services/user.service";
     RouterModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule  ],
-  providers: [UserService],
+    HttpClientModule,
+    ReactiveFormsModule ],
+  providers: [],
   bootstrap: [AppComponent],
   entryComponents: [CreateSpaceComponent]
 })

@@ -1,10 +1,10 @@
 export class User {
   id: number;
-  username: string;
-  password: string;
   firstName: string;
   lastName: string;
-  token: string;
+  sessionToken: string;
+  email: string;
+  password: string;
   isAdmin: boolean;
 }
 // {

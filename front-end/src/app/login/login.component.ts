@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
-
-import { UserService } from '../services/user.service';
+import { Router } from '@angular/router';
+import {BehaviorSubject, first, map, Observable} from "rxjs";
+import {AuthService} from "../services/auth.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-login',
@@ -12,47 +11,42 @@ import { UserService } from '../services/user.service';
 })
 
 export class LoginComponent implements OnInit {
-  form: FormGroup;
-  loading = false;
-  submitted = false;
+  loginForm: FormGroup;
+  error = '';
 
   constructor(
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
     private router: Router,
-    private userService: UserService
-  ) { }
+    private authenticationService: AuthService
+  ) {}
 
   ngOnInit() {
-    this.form = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
+    this.loginForm = this.formBuilder.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required],
     });
   }
 
-  // convenience getter for easy access to form fields
-  get f() { return this.form.controls; }
+  get f() {
+    return this.loginForm.controls;
+  }
 
   onSubmit() {
-    this.submitted = true;
-
-    // stop here if form is invalid
-    if (this.form.invalid) {
+    console.log(this.f['email'].value + " " + this.f['password'].value);
+    if (this.loginForm.invalid) {
       return;
     }
 
-    this.loading = true;
-    this.userService.login(this.f['username'].value, this.f['password'].value)
+    this.authenticationService
+      .login(this.f['email'].value, this.f['password'].value)
       .pipe(first())
       .subscribe({
         next: () => {
-          // get return url from query parameters or default to home page
-          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-          this.router.navigateByUrl(returnUrl);
+          this.router.navigate(['/home']);
         },
-        error: error => {
-          this.loading = false;
-        }
+        error: (error) => {
+          this.error = error;
+        },
       });
   }
 }
