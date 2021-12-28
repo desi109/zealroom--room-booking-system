@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
 import com.fasterxml.jackson.databind.node.ObjectNode;
-
 import com.zealroom.room.booking.system.entities.User;
 import com.zealroom.room.booking.system.exceptions.UserAuthenticationException;
 import com.zealroom.room.booking.system.helpers.HelperService;
