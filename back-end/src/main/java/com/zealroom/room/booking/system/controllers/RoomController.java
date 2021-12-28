@@ -1,17 +1,14 @@
 package com.zealroom.room.booking.system.controllers;
-import com.zealroom.room.booking.system.entities.User;
-import com.zealroom.room.booking.system.repositories.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import com.zealroom.room.booking.system.entities.Room;
 import com.zealroom.room.booking.system.entities.Booking;
 import com.zealroom.room.booking.system.repositories.RoomRepository;
 import com.zealroom.room.booking.system.repositories.BookingRepository;
 
-import javax.sound.sampled.FloatControl;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,8 +45,8 @@ public class RoomController {
         }
     }
 
-    @GetMapping("/date/{checkIn}{checkOut}")
-    private List<Room> date(@PathVariable LocalDate checkIn, @PathVariable LocalDate checkOut) {
+    @GetMapping("/date/{checkIn}/{checkOut}")
+    private List<Room> date(@PathVariable LocalDateTime checkIn, @PathVariable LocalDateTime checkOut) {
         return bookingRepository.findByCheckInAndCheckOut(checkIn, checkOut);
     }
 
