@@ -18,6 +18,8 @@ public class HelperService {
     }
 
     public static String toJson(String type, String message) {
+        if (type.equals("error")) throw new IllegalArgumentException(message);
+
         return "{\"" + type + "\":\"" + message + "\"}";
     }
 
