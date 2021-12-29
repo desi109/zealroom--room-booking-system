@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -15,9 +16,31 @@ public class Organization {
     @Column(name = "organization_uuid")
     private String id;
 
+
+
+    @NotNull
+    @Column(name = "name")
+    private String name;
+
+    @NotNull
+    @Column(name = "description")
+    private String description;
+
     @OneToMany(mappedBy="organization",fetch = FetchType.LAZY)
     @JsonIgnore
     private List<UserOrganizationConnection> users;
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 
     public List<UserOrganizationConnection> getUsers(){
         return users;

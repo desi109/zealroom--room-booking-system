@@ -15,4 +15,7 @@ import java.util.List;
 public interface UserOrganizationConnectionRepository extends JpaRepository<UserOrganizationConnection, Long> {
     @Query("SELECT uoc.user FROM UserOrganizationConnection uoc WHERE uoc.organization = ?1 AND uoc.isManager = true")
     List<User> getOrganizationModerators(Organization organization);
+
+    @Query("SELECT uoc.organization FROM UserOrganizationConnection  uoc WHERE uoc.user.id = ?1")
+    List<Organization> getUserOrganizations(String id);
 }
