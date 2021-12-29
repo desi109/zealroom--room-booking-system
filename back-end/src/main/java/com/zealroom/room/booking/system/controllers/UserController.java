@@ -1,10 +1,13 @@
 package com.zealroom.room.booking.system.controllers;
 
+import com.zealroom.room.booking.system.entities.Booking;
 import com.zealroom.room.booking.system.entities.Organization;
 import com.zealroom.room.booking.system.entities.UserOrganizationConnection;
+import com.zealroom.room.booking.system.repositories.BookingRepository;
 import com.zealroom.room.booking.system.repositories.OrganizationRepository;
 import com.zealroom.room.booking.system.repositories.UserOrganizationConnectionRepository;
 import com.zealroom.room.booking.system.repositories.UserRepository;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -30,6 +33,9 @@ public class UserController {
 
     @Autowired
     private OrganizationRepository organizationRepository;
+
+    @Autowired
+    private BookingRepository bookingRepository;
 
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -90,12 +96,16 @@ public class UserController {
     }
 
     @GetMapping("/{uuid}")
-    public User user(@PathVariable String uuid) {
-        return userRepository.findByUuid(uuid);
+    public ResponseEntity user(@PathVariable String uuid) {
+        User user = userRepository.findByUuid(uuid);
+        if (user == null){
+            return new ResponseEntity<>("Incorrect uuid.",HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(user,HttpStatus.OK);
     }
 
     @PutMapping("/login")
-    public User login(@RequestBody ObjectNode emailAndPasswordInJson) {
+    public ResponseEntity login(@RequestBody ObjectNode emailAndPasswordInJson) {
         String email = emailAndPasswordInJson.get("email").asText();
         String password = emailAndPasswordInJson.get("password").asText();
         User user;
@@ -104,26 +114,52 @@ public class UserController {
             String newSessionToken = HelperService.generateNewToken();
             user.setSessionToken(newSessionToken);
             userRepository.save(user);
-            return user;
+            return new ResponseEntity<>(user,HttpStatus.OK);
         }catch(UserAuthenticationException e){
-            return null;
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 
     @PutMapping("/logout")
-    public String logout(@RequestBody String sessionToken){
+    public ResponseEntity logout(@RequestBody String sessionToken){
         User user = getUserBySessionTokenInJson(userRepository,sessionToken);
         if(user == null){
-            return HelperService.toJson("error","Incorrect sessionToken");
+            return new ResponseEntity<>("Incorrect sessionToken",HttpStatus.BAD_REQUEST);
+
         }
         user.setSessionToken(null);
         userRepository.save(user);
-        return HelperService.toJson("success", "Logout successful.");
+        return new ResponseEntity<>("Logout successful",HttpStatus.OK);
     }
 
     @GetMapping("/get")
-    public User getUserBySessionToken(@RequestBody String sessionToken){
-        return getUserBySessionTokenInJson(userRepository,sessionToken);
+    public ResponseEntity getUserBySessionToken(@RequestBody String sessionToken){
+        User user = getUserBySessionTokenInJson(userRepository,sessionToken);
+        if(user == null){
+            return new ResponseEntity<>("Incorrect sessionToken",HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(user,HttpStatus.OK);
+    }
+
+    @GetMapping("/get/organizations")
+    public ResponseEntity getUserOrganizations(@RequestBody String sessionToken){
+        User user = getUserBySessionTokenInJson(userRepository,sessionToken);
+        if(user == null){
+            return new ResponseEntity<>("Incorrect sessionToken.",HttpStatus.BAD_REQUEST);
+        }
+        List<Organization> organizations = userOrganizationConnectionRepository.getUserOrganizations(user.getId());
+        return new ResponseEntity<>(organizations,HttpStatus.OK);
+    }
+
+    @GetMapping("/get/bookings")
+    public ResponseEntity getUserBookings(@RequestBody String sessionToken){
+        User user = getUserBySessionTokenInJson(userRepository,sessionToken);
+        if(user == null){
+            return new ResponseEntity<>("Incorrect sessionToken.",HttpStatus.BAD_REQUEST);
+        }
+        List<Booking> bookings = bookingRepository.findAllByUserId(user.getId());
+
+        return new ResponseEntity<>(bookings,HttpStatus.OK);
     }
 
     @PostMapping("/register/moderator/{sessionToken}/{organizationUuid}")
