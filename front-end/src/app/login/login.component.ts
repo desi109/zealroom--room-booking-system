@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.f['email'].value + " " + this.f['password'].value);
+    //console.log(this.f['email'].value + " " + this.f['password'].value);
     if (this.loginForm.invalid) {
       return;
     }
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: () => {
-          this.router.navigate(['/home']);
+          this.router.navigate(['/']);
         },
         error: (error) => {
           this.error = error;
