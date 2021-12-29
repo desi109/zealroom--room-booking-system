@@ -222,7 +222,7 @@ public class UserControllerTest {
 
         when(userRepository.findByUuid(any())).thenReturn(user);
 
-        Assertions.assertEquals(userController.user("test"), user);
+        Assertions.assertEquals(userController.user("test"), new ResponseEntity<>(user,HttpStatus.OK));
     }
 
     @Test
