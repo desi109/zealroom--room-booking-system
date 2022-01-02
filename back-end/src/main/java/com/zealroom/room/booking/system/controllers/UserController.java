@@ -114,9 +114,9 @@ public class UserController {
             String newSessionToken = HelperService.generateNewToken();
             user.setSessionToken(newSessionToken);
             userRepository.save(user);
-            return new ResponseEntity<>(user,HttpStatus.OK);
-        }catch(UserAuthenticationException e){
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } catch (UserAuthenticationException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 

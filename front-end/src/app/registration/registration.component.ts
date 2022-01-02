@@ -19,6 +19,7 @@ export class RegistrationComponent implements OnInit {
   registerForm: FormGroup;
   loading = false;
   submitted = false;
+  isRegistrate = false;
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -27,20 +28,23 @@ export class RegistrationComponent implements OnInit {
       email: ['', [Validators.required,Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
+    this.isRegistrate = false;
   }
 
   get fval() { return this.registerForm.controls; }
 
   onFormSubmit(){
-
     this.userService
       .register(this.registerForm.value)
       .subscribe(
       (data)=>{
-        alert('User Registered successfully!!');
-        this.router.navigate(['/login']);
+        window.alert('User Registered successfully!');
       }
-    )
+    );
+    //window.location.reload();
+    this.isRegistrate = true;
+    this.router.navigate(['/registrate']);
+
   }
 
 }

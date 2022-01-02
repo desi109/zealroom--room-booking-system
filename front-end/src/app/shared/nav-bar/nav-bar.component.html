@@ -10,8 +10,8 @@
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav navbar-right">
         <li><a routerLink="/">HOME</a></li>
-        <li><a routerLink="/book-room">BOOK ROOM</a></li>
-        <li><a routerLink="/reservations">RESERVATIONS</a></li>
+        <li><a *ngIf="isLoggedIn" routerLink="/book-room">BOOK ROOM</a></li>
+        <li><a *ngIf="isLoggedIn" routerLink="/reservations">RESERVATIONS</a></li>
         <li><a routerLink="/faq">FAQ</a></li>
 
         <li>
@@ -19,17 +19,17 @@
             <button class="profileButton"mat-stroked-button [matMenuTriggerFor]="menuHero" color="primary" ng-init>
               <img class="profileImageNav" src="./assets/images/profile.png" alt=""> </button>
             <mat-menu #menuHero="matMenu" class="uxg-user-profile box">
-              <div class="uxg-menu-header">
+              <div *ngIf="isLoggedIn" class="uxg-menu-header">
                 <div class="uxg-avatar-hero-block content" >
-                  <h6 class="uxg-h6">Petar Petrov</h6>
-                  <span class="uxg-caption">p.petrov@zealroom.com</span>
+                  <h6 class="uxg-h6">{{ userFirstName }}  {{ userLastName }}</h6>
+                  <span  class="uxg-caption">{{ userEmail }}</span>
                 </div>
               </div>
-              <button class="dropdownNav" mat-raised-button routerLink="/login">LOG IN</button>
-              <button class="dropdownNav" mat-raised-button routerLink="//profile">PROFILE</button>
-              <button class="dropdownNav" mat-raised-button routerLink="/moderator">MODERATOR</button>
+              <button *ngIf="!isLoggedIn" class="dropdownNav" mat-raised-button routerLink="/login">LOG IN</button>
+              <button *ngIf="isLoggedIn" class="dropdownNav" mat-raised-button routerLink="/profile">PROFILE</button>
+              <button *ngIf="isLoggedIn" class="dropdownNav" mat-raised-button routerLink="/moderator">MODERATOR</button>
               <div class="uxg-menu-footer navButtons">
-                <button class="logoutButton" mat-flat-button color="primary" dense>
+                <button *ngIf="isLoggedIn" (click)="logout()" class="logoutButton" mat-flat-button color="primary" dense>
                   <mat-icon>exit_to_app</mat-icon>
                   Logout
                 </button>
