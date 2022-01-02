@@ -27,7 +27,7 @@
               </div>
               <button *ngIf="!isLoggedIn" class="dropdownNav" mat-raised-button routerLink="/login">LOG IN</button>
               <button *ngIf="isLoggedIn" class="dropdownNav" mat-raised-button routerLink="/profile">PROFILE</button>
-              <button *ngIf="isLoggedIn" class="dropdownNav" mat-raised-button routerLink="/moderator">MODERATOR</button>
+              <button *ngIf="isLoggedIn && showModeratorBoard" class="dropdownNav" mat-raised-button routerLink="/moderator">MODERATOR</button>
               <div class="uxg-menu-footer navButtons">
                 <button *ngIf="isLoggedIn" (click)="logout()" class="logoutButton" mat-flat-button color="primary" dense>
                   <mat-icon>exit_to_app</mat-icon>

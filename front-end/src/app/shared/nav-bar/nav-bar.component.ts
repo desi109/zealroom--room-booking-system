@@ -14,7 +14,7 @@ export class NavBarComponent implements OnInit {
   collapsed = true;
   private roles: string[] = [];
   isLoggedIn = false;
-  showAdminBoard = false;
+  //showAdminBoard = false;
   showModeratorBoard = false;
   email?: string;
 
@@ -22,6 +22,7 @@ export class NavBarComponent implements OnInit {
   userLastName: string = this.loginComponent.userLastName;
   userSessionToken: string = this.loginComponent.userSessionToken;
   userEmail: string = this.loginComponent.userEmail;
+  userIsAdmin: boolean = this.loginComponent.userIsAdmin;
 
   constructor( private authService: AuthService, private router: Router, public loginComponent: LoginComponent ){ }
 
@@ -32,17 +33,23 @@ export class NavBarComponent implements OnInit {
       const user = this.authService.getUser();
       this.roles = user.roles;
 
-      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
+      //this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+      //this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
 
       this.email = user.email;
+
+      if (this.userIsAdmin) {
+        this.showModeratorBoard = true;
+      }
     }
   }
 
   logout(): void {
     this.authService.signOut();
     this.isLoggedIn = false;
-    window.location.reload();
+    this.showModeratorBoard = false;
+    //window.location.reload();
+    this.router.navigate(['/']);
   }
 
 }

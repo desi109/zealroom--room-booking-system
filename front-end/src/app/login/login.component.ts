@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   public userLastName: string = '';
   public userSessionToken: string = '';
   public userEmail: string = '';
+  public userIsAdmin: boolean;
 
   form: any = {
     username: null,
@@ -56,6 +57,7 @@ export class LoginComponent implements OnInit {
           this.userLastName = data.lastName;
           this.userSessionToken = data.accessToken;
           this.userEmail = data.email;
+          this.userIsAdmin = data.isAdmin;
 
           this.authenticationService.saveUser(data);
   
