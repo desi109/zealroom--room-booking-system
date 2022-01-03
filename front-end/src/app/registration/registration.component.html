@@ -5,8 +5,12 @@
 
     </mat-card-header>
     <mat-card-content>
-      <i class="description">Fill in this form to create an account.</i>
-      <form [formGroup]="registerForm" (ngSubmit)="onFormSubmit()">
+      <div class="alert alert-success" *ngIf="isRegistrate">
+        User Registered successfully!
+      </div>
+
+      <i *ngIf="!isRegistrate" class="description">Fill in this form to create an account.</i>
+      <form [formGroup]="registerForm" *ngIf="!isRegistrate" (ngSubmit)="onFormSubmit()">
 
         <table class="full-width">
           <div class="form-group">

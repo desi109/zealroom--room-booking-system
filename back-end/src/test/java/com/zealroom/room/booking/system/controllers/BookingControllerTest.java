@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
@@ -45,7 +46,7 @@ class BookingControllerTest {
         room.setRoomNumber("test1");
 
         Booking booking1 = new Booking();
-        booking1.setId(1);
+        booking1.setId("1");
         booking1.setIsBooked(true);
         booking1.setUserUuid(user);
         LocalDateTime checkIn = LocalDateTime.of(2021,
@@ -57,7 +58,7 @@ class BookingControllerTest {
         booking1.setRoom(room);
 
         Booking booking2 = new Booking();
-        booking2.setId(2);
+        booking2.setId("2");
         booking2.setIsBooked(true);
         booking2.setUserUuid(user);
         LocalDateTime checkIn2 = LocalDateTime.of(2021,
@@ -69,7 +70,7 @@ class BookingControllerTest {
         booking2.setRoom(room);
 
         Booking booking3 = new Booking();
-        booking3.setId(3);
+        booking3.setId("3");
         booking3.setIsBooked(true);
         booking3.setUserUuid(user);
         LocalDateTime checkIn3 = LocalDateTime.of(2021,
@@ -107,7 +108,7 @@ class BookingControllerTest {
         room.setRoomNumber("test1");
 
         Booking booking1 = new Booking();
-        booking1.setId(1);
+        booking1.setId("1");
         booking1.setIsBooked(true);
         booking1.setUserUuid(user);
         LocalDateTime checkIn = LocalDateTime.of(2021,
@@ -119,7 +120,7 @@ class BookingControllerTest {
         booking1.setRoom(room);
 
         when(bookingRepository.findById("1")).thenReturn(Optional.of(booking1));
-        Booking actual = bookingController.getById("1");
+        ResponseEntity<?> actual = bookingController.getById("1");
         Assertions.assertEquals(booking1, actual);
     }
 
@@ -139,7 +140,7 @@ class BookingControllerTest {
         room.setRoomNumber("test1");
 
         Booking booking1 = new Booking();
-        booking1.setId(1);
+        booking1.setId("1");
         booking1.setIsBooked(true);
         booking1.setUserUuid(user);
         LocalDateTime checkIn = LocalDateTime.of(2021,
@@ -151,7 +152,7 @@ class BookingControllerTest {
         booking1.setRoom(room);
 
         Booking booking2 = new Booking();
-        booking2.setId(2);
+        booking2.setId("2");
         booking2.setIsBooked(true);
         booking2.setUserUuid(user);
         LocalDateTime checkIn2 = LocalDateTime.of(2021,
@@ -163,7 +164,7 @@ class BookingControllerTest {
         booking2.setRoom(room);
 
         Booking booking3 = new Booking();
-        booking3.setId(3);
+        booking3.setId("3");
         booking3.setIsBooked(true);
         booking3.setUserUuid(user);
         LocalDateTime checkIn3 = LocalDateTime.of(2021,

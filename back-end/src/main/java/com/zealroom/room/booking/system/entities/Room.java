@@ -11,6 +11,7 @@ public class Room {
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid",strategy = "uuid")
     @Column(name = "room_uuid")
+
     private String id;
 
     @Column(name = "capacity", nullable = false)

@@ -80,7 +80,7 @@ public class RoomControllerTest {
         room.setRoomNumber("test1");
 
         Booking booking1 = new Booking();
-        booking1.setId(1);
+        booking1.setId("1");
         booking1.setIsBooked(true);
         booking1.setUserUuid(user);
         LocalDateTime checkIn = LocalDateTime.of(2021,
@@ -114,7 +114,7 @@ public class RoomControllerTest {
         room.setRoomNumber("test1");
 
         Booking booking1 = new Booking();
-        booking1.setId(1);
+        booking1.setId("1");
         booking1.setIsBooked(true);
         booking1.setUserUuid(user);
         LocalDateTime checkIn = LocalDateTime.of(2021,
@@ -126,7 +126,7 @@ public class RoomControllerTest {
         booking1.setRoom(room);
 
         Booking booking2 = new Booking();
-        booking2.setId(2);
+        booking2.setId("2");
         booking2.setIsBooked(true);
         booking2.setUserUuid(user);
         LocalDateTime checkIn2 = LocalDateTime.of(2021,
@@ -138,7 +138,7 @@ public class RoomControllerTest {
         booking2.setRoom(room);
 
         Booking booking3 = new Booking();
-        booking3.setId(3);
+        booking3.setId("3");
         booking3.setIsBooked(true);
         booking3.setUserUuid(user);
         LocalDateTime checkIn3 = LocalDateTime.of(2021,
@@ -180,7 +180,7 @@ public class RoomControllerTest {
         room.setRoomNumber("test1");
 
         Booking booking1 = new Booking();
-        booking1.setId(1);
+        booking1.setId("1");
         booking1.setIsBooked(true);
         booking1.setUserUuid(user);
         LocalDateTime checkIn = LocalDateTime.of(2021,
@@ -192,7 +192,7 @@ public class RoomControllerTest {
         booking1.setRoom(room);
 
         Booking booking2 = new Booking();
-        booking2.setId(2);
+        booking2.setId("2");
         booking2.setIsBooked(true);
         booking2.setUserUuid(user);
         LocalDateTime checkIn2 = LocalDateTime.of(2021,
@@ -204,7 +204,7 @@ public class RoomControllerTest {
         booking2.setRoom(room);
 
         Booking booking3 = new Booking();
-        booking3.setId(3);
+        booking3.setId("3");
         booking3.setIsBooked(true);
         booking3.setUserUuid(user);
         LocalDateTime checkIn3 = LocalDateTime.of(2021,
@@ -244,7 +244,7 @@ public class RoomControllerTest {
         room.setRoomNumber("test1");
 
         Booking booking1 = new Booking();
-        booking1.setId(1);
+        booking1.setId("1");
         booking1.setIsBooked(true);
         booking1.setUserUuid(user);
         LocalDateTime checkIn = LocalDateTime.of(2021,
@@ -256,7 +256,7 @@ public class RoomControllerTest {
         booking1.setRoom(room);
 
         Booking booking2 = new Booking();
-        booking2.setId(2);
+        booking2.setId("2");
         booking2.setIsBooked(true);
         booking2.setUserUuid(user);
         LocalDateTime checkIn2 = LocalDateTime.of(2021,
@@ -268,7 +268,7 @@ public class RoomControllerTest {
         booking2.setRoom(room);
 
         Booking booking3 = new Booking();
-        booking3.setId(3);
+        booking3.setId("3");
         booking3.setIsBooked(true);
         booking3.setUserUuid(user);
         LocalDateTime checkIn3 = LocalDateTime.of(2021,
@@ -308,7 +308,7 @@ public class RoomControllerTest {
         room.setRoomNumber("test1");
 
         Booking booking1 = new Booking();
-        booking1.setId(1);
+        booking1.setId("1");
         booking1.setIsBooked(true);
         booking1.setUserUuid(user);
         LocalDateTime checkIn = LocalDateTime.of(2021,
@@ -320,7 +320,7 @@ public class RoomControllerTest {
         booking1.setRoom(room);
 
         Booking booking2 = new Booking();
-        booking2.setId(2);
+        booking2.setId("2");
         booking2.setIsBooked(true);
         booking2.setUserUuid(user);
         LocalDateTime checkIn2 = LocalDateTime.of(2021,
@@ -332,7 +332,7 @@ public class RoomControllerTest {
         booking2.setRoom(room);
 
         Booking booking3 = new Booking();
-        booking3.setId(3);
+        booking3.setId("3");
         booking3.setIsBooked(true);
         booking3.setUserUuid(user);
         LocalDateTime checkIn3 = LocalDateTime.of(2021,

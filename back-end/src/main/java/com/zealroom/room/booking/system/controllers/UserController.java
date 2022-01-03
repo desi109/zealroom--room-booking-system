@@ -7,7 +7,6 @@ import com.zealroom.room.booking.system.repositories.BookingRepository;
 import com.zealroom.room.booking.system.repositories.OrganizationRepository;
 import com.zealroom.room.booking.system.repositories.UserOrganizationConnectionRepository;
 import com.zealroom.room.booking.system.repositories.UserRepository;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -51,7 +50,7 @@ public class UserController {
             newUser.setIsAdmin(false);
             userRepository.save(newUser);
             return new ResponseEntity<>("Register successful",HttpStatus.OK);
-        }catch(DataIntegrityViolationException e){
+        } catch(DataIntegrityViolationException e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
@@ -114,9 +113,9 @@ public class UserController {
             String newSessionToken = HelperService.generateNewToken();
             user.setSessionToken(newSessionToken);
             userRepository.save(user);
-            return new ResponseEntity<>(user,HttpStatus.OK);
-        }catch(UserAuthenticationException e){
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } catch (UserAuthenticationException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
