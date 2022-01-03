@@ -22,9 +22,12 @@ public class Organization {
     @Column(name = "name")
     private String name;
 
+    @OneToMany(mappedBy = "organization")
+    List<Room> rooms;
+
     @NotNull
-    @Column(name = "description")
-    private String description;
+    @Column(name = "type")
+    private String type;
 
     @OneToMany(mappedBy="organization",fetch = FetchType.LAZY)
     @JsonIgnore
@@ -38,8 +41,8 @@ public class Organization {
         return name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getType() {
+        return type;
     }
 
     public List<UserOrganizationConnection> getUsers(){

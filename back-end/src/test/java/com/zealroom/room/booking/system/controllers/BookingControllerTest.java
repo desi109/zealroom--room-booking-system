@@ -40,7 +40,7 @@ class BookingControllerTest {
 
         Room room = new Room();
         room.setCapacity(100);
-        room.setId(1);
+        room.setId("1");
         room.setRoomDescription("testRoomDesc");
         room.setRoomNumber("test1");
 
@@ -102,7 +102,7 @@ class BookingControllerTest {
 
         Room room = new Room();
         room.setCapacity(100);
-        room.setId(1);
+        room.setId("1");
         room.setRoomDescription("testRoomDesc");
         room.setRoomNumber("test1");
 
@@ -134,7 +134,7 @@ class BookingControllerTest {
 
         Room room = new Room();
         room.setCapacity(100);
-        room.setId(1);
+        room.setId("1");
         room.setRoomDescription("testRoomDesc");
         room.setRoomNumber("test1");
 

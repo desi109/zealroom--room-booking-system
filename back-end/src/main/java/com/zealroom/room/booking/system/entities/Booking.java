@@ -12,7 +12,7 @@ public class Booking {
     private Integer id;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "room_id", nullable = false)
+    @JoinColumn(name = "room_uuid", nullable = false)
     private Room room;
 
     @ManyToOne(optional = false)

@@ -40,7 +40,7 @@ public class RoomControllerTest {
     void save_shouldReturnSavedRoom() {
         Room expected = new Room();
         expected.setCapacity(100);
-        expected.setId(1);
+        expected.setId("1");
         expected.setRoomDescription("testRoomDesc");
         expected.setRoomNumber("test1");
 
@@ -54,7 +54,7 @@ public class RoomControllerTest {
     void delete_shouldGoIntoDeleteMethodWIthGivenId() {
         Room expected = new Room();
         expected.setCapacity(100);
-        expected.setId(1);
+        expected.setId("1");
         expected.setRoomDescription("testRoomDesc");
         expected.setRoomNumber("test1");
 
@@ -75,7 +75,7 @@ public class RoomControllerTest {
 
         Room room = new Room();
         room.setCapacity(100);
-        room.setId(1);
+        room.setId("1");
         room.setRoomDescription("testRoomDesc");
         room.setRoomNumber("test1");
 
@@ -109,7 +109,7 @@ public class RoomControllerTest {
 
         Room room = new Room();
         room.setCapacity(100);
-        room.setId(1);
+        room.setId("1");
         room.setRoomDescription("testRoomDesc");
         room.setRoomNumber("test1");
 
@@ -175,7 +175,7 @@ public class RoomControllerTest {
 
         Room room = new Room();
         room.setCapacity(100);
-        room.setId(1);
+        room.setId("1");
         room.setRoomDescription("testRoomDesc");
         room.setRoomNumber("test1");
 
@@ -239,7 +239,7 @@ public class RoomControllerTest {
 
         Room room = new Room();
         room.setCapacity(100);
-        room.setId(1);
+        room.setId("1");
         room.setRoomDescription("testRoomDesc");
         room.setRoomNumber("test1");
 
@@ -303,7 +303,7 @@ public class RoomControllerTest {
 
         Room room = new Room();
         room.setCapacity(100);
-        room.setId(1);
+        room.setId("1");
         room.setRoomDescription("testRoomDesc");
         room.setRoomNumber("test1");
 
@@ -369,7 +369,7 @@ public class RoomControllerTest {
 
         Room room = new Room();
         room.setCapacity(100);
-        room.setId(1);
+        room.setId("1");
         room.setRoomDescription("testRoomDesc");
         room.setRoomNumber("test1");
         List<Room> rooms = new ArrayList<>();
