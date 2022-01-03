@@ -1,0 +1,16 @@
+INSERT INTO users(user_uuid,first_name,last_name,is_admin,email,pwd) VALUES ('1','admin','adminsky',true,'admin@abv.bg','$2a$10$XIx2TyD8YC.2zHsbclQrFurkN663Pvo4/FGlDh9WHfTMgIOAk7Dcu');
+INSERT INTO users(user_uuid,first_name,last_name,is_admin,email,pwd) VALUES ('2','moderator','moderatorsky',false,'moderator@abv.bg','$2a$10$XIx2TyD8YC.2zHsbclQrFurkN663Pvo4/FGlDh9WHfTMgIOAk7Dcu');
+INSERT INTO users(user_uuid,first_name,last_name,is_admin,email,pwd) VALUES ('3','user','usersky',false,'user@abv.bg','$2a$10$XIx2TyD8YC.2zHsbclQrFurkN663Pvo4/FGlDh9WHfTMgIOAk7Dcu');
+
+INSERT INTO organizations(organization_uuid,name,type) VALUES('1','Technical university', 'university');
+
+INSERT INTO userorganizationconnections(connection_id,user_uuid,organization_uuid,position,is_manager) VALUES(1,'2','1','teacher',true);
+INSERT INTO userorganizationconnections(connection_id,user_uuid,organization_uuid,position,is_manager) VALUES(1,'3','1','student',false);
+
+INSERT INTO rooms(room_uuid,room_number,room_name,organization_uuid,capacity) VALUES ('1','133','Administration room','1',42);
+
+INSERT INTO equipment(equipment_id,equipment_name) VALUES(1,'Admin computer');
+
+INSERT INTO equipmentroomconnections(connection_id,equipment_id,room_uuid) VALUES(1,1,'1',);
+
+INSERT INTO booking(booking_id,room_uuid,user_uuid,is_booked,check_in,check_out) VALUES(1,'1','3',true,'2000-01-02','2000-01-03');
