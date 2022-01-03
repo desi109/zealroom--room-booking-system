@@ -11,6 +11,6 @@ INSERT INTO rooms(room_uuid,room_number,room_name,organization_uuid,capacity) VA
 
 INSERT INTO equipment(equipment_id,equipment_name) VALUES(1,'Admin computer');
 
-INSERT INTO equipmentroomconnections(connection_id,equipment_id,room_uuid) VALUES(1,1,'1',);
+INSERT INTO equipmentroomconnections(connection_id,equipment_id,room_uuid) VALUES(1,1,'1');
 
-INSERT INTO booking(booking_id,room_uuid,user_uuid,is_booked,check_in,check_out) VALUES(1,'1','3',true,'2000-01-02','2000-01-03');
+INSERT INTO booking(booking_uuid,room_uuid,user_uuid,is_booked,check_in,check_out) VALUES(1,'1','3',true,'2000-01-02','2000-01-03');
