@@ -8,7 +8,7 @@
         "email": "abv@avb.bg",
         "password": "123123"
     }
-    Returns json message
+    Returns ResponseEntity with message
 
 2. PUT http://localhost:5000/user/login
     Logs a person in the platform
@@ -18,7 +18,7 @@
         "email": "abv@avb.bg",
         "password": "123123"
     }
-    Returns a json body with the user information.
+    Returns ResponseEntity with message(if not successful) or user body.
     Example:
     {
         "id": "3976a13a-4274-43f9-b219-8bfd098616b1",
@@ -31,12 +31,9 @@
     }
 3. PUT http://localhost:5000/user/logout
     Logs a person out from the platform
-    Needs a json body.
-    Example:
-    {
-        "sessionToken":"6AApE_2lqBGhqugHyJfqwxpV4V3-Z-el"
-    }
-    Returns a json message.
+    Requires a session-token header.
+
+    Returns ResponseEntity with message
     Example:
     {"success":"Logout successful."}
 
@@ -46,7 +43,7 @@
     Example:
         http://localhost:5000/user/3976a13a-4274-43f9-b219-8bfd098616b1
 
-    Returns a json body with the user.
+    Returns ResponseEntity with message(if not successful) or user body.
     Example:
     {
         "id": "3976a13a-4274-43f9-b219-8bfd098616b1",
@@ -60,12 +57,9 @@
 
 5. GET http://localhost:5000/user/get
     Gets a user by sessionToken.
-    Needs a body
-    Example:
-    {
-        "sessionToken":"nF6uZcAbmaDQw4QhIZ7bNsf_s--LFLCM"
-    }
-    Returns a json body with the user.
+    Needs a session-token header.
+
+    Returns ResponseEntity with message(if not successful) or user body.
     Example:
     {
         "id": "3976a13a-4274-43f9-b219-8bfd098616b1",
@@ -76,7 +70,7 @@
         "password": "$2a$10$yMjS8PUuvFEGDKKCjb4Ag.e9gdgozL4i58ZfBUcWVC.BdnWLA0yUa",
         "isAdmin": false
     }
-6. POST http://localhost:5000/user/register/admin/{sessionToken}
+6. POST http://localhost:5000/user/register/admin
     Registers a new user with admin privileges.
     Needs a user body.
     Example:
@@ -86,13 +80,12 @@
         "email" : "abvv@ab.bg",
         "password": "123123"
     }
-    Needs a sessionToken path variable (the registering user has to be an admin}
-    Example:
-    http://localhost:5000/user/register/admin/cn3_ZMq4XCyJL0h5yoDvkfd4e-ChtvdK
+    Requires a session-token header.
 
-    Returns a json message
 
-7. POST http://localhost:5000/user/register/moderator/{sessionToken}/{organizationUuid}
+    Returns ResponseEntity with message
+
+7. POST http://localhost:5000/user/register/moderator/{organizationUuid}
     Registers a new user with moderator privileges for the given organization.
     Needs a user body.
     Example:
@@ -102,6 +95,16 @@
             "email" : "abvv@ab.bg",
             "password": "123123"
         }
-    Needs a sessionToken and organizationUuid path variables (the registering user has to be a moderator for the given organization)
+    Requires a session-token header.
+    Needs organizationUuid path variable (the registering user has to be a moderator for the given organization)
     Example:
     http://localhost:5000/user/register/moderator/cn3_ZMq4XCyJL0h5yoDvkfd4e-ChtvdK/orgid123
+
+    Returns ResponseEntity with message
+
+8. DELETE http://localhost:5000/user/delete/{uuid}
+    Needs a uuid as path variable.
+    Requires a session-token header.
+    Only admins(the sessionToken user) can delete users.
+    The user with the corresponding uuid will be deleted if the sessionToken user is an admin.
+    Returns ResponseEntity with message

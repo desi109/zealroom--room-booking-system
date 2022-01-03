@@ -20,6 +20,10 @@ public class EquipmentRoomConnection {
         @JoinColumn(name = "equipment_id")
         private Equipment equipment;
 
+        @ManyToOne(fetch = FetchType.EAGER)
+        @JoinColumn(name = "organization_uuid")
+        private Organization organization;
+
         public EquipmentRoomConnection() {
 
         }

@@ -29,6 +29,12 @@ public class Organization {
     @Column(name = "type")
     private String type;
 
+    @Column(name = "invite_token")
+    private String inviteToken;
+
+    @Column(name = "moderator_invite_token")
+    private String moderatorInviteToken;
+
     @OneToMany(mappedBy="organization",fetch = FetchType.LAZY)
     @JsonIgnore
     private List<UserOrganizationConnection> users;
@@ -43,6 +49,22 @@ public class Organization {
 
     public String getType() {
         return type;
+    }
+
+    public String getInviteToken() {
+        return inviteToken;
+    }
+
+    public void setInviteToken(String inviteToken) {
+        this.inviteToken = inviteToken;
+    }
+
+    public String getModeratorInviteToken() {
+        return moderatorInviteToken;
+    }
+
+    public void setModeratorInviteToken(String managerInviteToken) {
+        this.moderatorInviteToken = managerInviteToken;
     }
 
     public List<UserOrganizationConnection> getUsers(){

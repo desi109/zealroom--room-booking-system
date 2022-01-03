@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -121,7 +122,7 @@ class BookingControllerTest {
 
         when(bookingRepository.findById("1")).thenReturn(Optional.of(booking1));
         ResponseEntity<?> actual = bookingController.getById("1");
-        Assertions.assertEquals(booking1, actual);
+        Assertions.assertEquals(new ResponseEntity(booking1, HttpStatus.OK), actual);
     }
 
     @Test

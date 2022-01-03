@@ -1,0 +1,36 @@
+1. POST http://localhost:5000/organization/register
+    Requires session-token header.
+    Requires organization body.
+    Example:
+    {
+        "name": "Office building 1",
+        "type": "Office"
+    }
+    Every user can create an organization. He will become moderator.
+
+    Returns ResponseEntity with message
+
+2. PUT http://localhost:5000/organization/generate/inviteToken/{uuid}
+    Requires session-token header.
+    Requires organization uuid as path variable.
+    Only users part of the organization can generate new inviteToken.
+
+    Returns ResponseEntity with the inviteToken if correct and an error message if not.
+
+3. PUT http://localhost:5000/organization/generate/moderatorInviteToken/{uuid}
+    Requires session-token header.
+    Requires organization uuid as path variable.
+    Only moderators part of the organization can generate new moderatorInviteToken.
+
+    Returns ResponseEntity with the moderatorInviteToken if correct and an error message if not.
+
+4. POST http://localhost:5000/organization/join/{invite_token}
+    Requires session-token header.
+    Requires invite token as path variable.
+
+    The request accepts both inviteToken and moderatorInviteToken
+    If the user is not part of the organization he will be added with the correct moderator flag
+    If the user is part of the organization but not a moderator and he is using the moderatorInviteToken he will be promoted to moderator
+    If the user is part of the organization with the correct permissions and error message will appear "User is already part of the organization with correct permissions"
+
+    Returns ResponseEntity with message

@@ -7,7 +7,7 @@ import javax.persistence.Id;
 @Entity
 public class Equipment {
     @Id
-    @Column(name = "equipment_id", nullable = false)
+    @Column(name = "equipment_id", nullable = false, unique = true)
     private Integer id;
 
     @Column(name = "equipment_name")
