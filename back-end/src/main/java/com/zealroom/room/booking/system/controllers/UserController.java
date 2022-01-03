@@ -161,6 +161,25 @@ public class UserController {
         return new ResponseEntity<>(bookings,HttpStatus.OK);
     }
 
+    @DeleteMapping("/delete/{uuid}")
+    public ResponseEntity deleteUser(@PathVariable String uuid, @RequestBody String sessionToken){
+        User admin = getUserBySessionTokenInJson(userRepository,sessionToken);
+        if(admin == null){
+            return new ResponseEntity<>("Incorrect sessionToken",HttpStatus.BAD_REQUEST);
+        }
+        if(!admin.getIsAdmin()){
+            return new ResponseEntity<>("Only admins can delete users",HttpStatus.BAD_REQUEST);
+        }
+
+        User toBeDeleted = userRepository.findByUuid(uuid);
+        if(toBeDeleted == null){
+            return new ResponseEntity<>("Incorrect uuid",HttpStatus.BAD_REQUEST);
+        }
+        userRepository.delete(toBeDeleted);
+        return new ResponseEntity<>("User deleted",HttpStatus.OK);
+
+    }
+
     @PostMapping("/register/moderator/{sessionToken}/{organizationUuid}")
     public ResponseEntity registerModerator(@RequestBody User newUser, @PathVariable String sessionToken, @PathVariable String organizationUuid) {
         Organization organization = organizationRepository.findByUuid(organizationUuid);

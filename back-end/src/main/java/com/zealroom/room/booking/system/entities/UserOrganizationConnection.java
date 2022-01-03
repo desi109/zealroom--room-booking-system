@@ -10,6 +10,7 @@ public class UserOrganizationConnection {
     @Column(unique = true,name = "connection_id")
     private long id;
 
+    @Column(name = "is_manager")
     private boolean isManager;
 
     @ManyToOne(fetch = FetchType.EAGER)

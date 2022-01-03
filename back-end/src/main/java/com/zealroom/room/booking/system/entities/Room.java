@@ -1,15 +1,16 @@
 package com.zealroom.room.booking.system.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "rooms")
 public class Room {
     @Id
-    @Column(name = "room_uuid", nullable = false)
+    @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid",strategy = "uuid")
+    @Column(name = "room_uuid")
     private String id;
 
     @Column(name = "capacity", nullable = false)
@@ -17,6 +18,10 @@ public class Room {
 
     @Column(name = "room_description", nullable = false)
     private String roomDescription;
+
+    @ManyToOne
+    @JoinColumn(name="organization_uuid", nullable=false)
+    private Organization organization;
 
     @Column(name = "room_number", nullable = false)
     private String roomNumber;

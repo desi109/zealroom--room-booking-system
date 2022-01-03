@@ -11,7 +11,7 @@ public class Booking {
     private String id;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "room_id", nullable = false)
+    @JoinColumn(name = "room_uuid", nullable = false)
     private Room room;
 
     @ManyToOne(optional = false)
