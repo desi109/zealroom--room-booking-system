@@ -10,7 +10,7 @@ import javax.persistence.Table;
 public class Room {
     @Id
     @Column(name = "room_uuid", nullable = false)
-    private Integer id;
+    private String id;
 
     @Column(name = "capacity", nullable = false)
     private Integer capacity;
@@ -45,11 +45,11 @@ public class Room {
         this.roomNumber = roomNumber;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 }

@@ -1,7 +1,6 @@
 package com.zealroom.room.booking.system.entities;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -9,7 +8,7 @@ import java.time.LocalDateTime;
 public class Booking {
     @Id
     @Column(name = "booking_uuid", nullable = false)
-    private Integer id;
+    private String id;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "room_id", nullable = false)
@@ -27,6 +26,17 @@ public class Booking {
 
     @Column(name = "check_out", nullable = false)
     private LocalDateTime checkOut;
+
+    public Booking(String id, Room room, User userUuid, Boolean isBooked, LocalDateTime checkIn, LocalDateTime checkOut) {
+        this.id = id;
+        this.room = room;
+        this.userUuid = userUuid;
+        this.isBooked = isBooked;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+    }
+
+    public Booking() { }
 
     public LocalDateTime getCheckOut() {
         return checkOut;
@@ -68,11 +78,11 @@ public class Booking {
         this.room = room;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 }
