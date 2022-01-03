@@ -33,7 +33,7 @@ export class UserService {
       }
     }
     const httpOptions = {
-      headers: new HttpHeaders({"session-token" : `${sessionToken}`})
+      headers: new HttpHeaders({"session-token" : `${sessionToken}`}),responseType: 'text' as 'json'
 
     };
     return this.http.post(`${environment.apiUrl}/organization/register`, {
@@ -60,6 +60,7 @@ export class UserService {
   generateCode() {
 
     let token = window.sessionStorage.getItem('auth-user');
+    let uuid = window.sessionStorage.getItem('uuid');
     let sessionToken;
     if (token != null) {
       let arr: Array<string> = JSON.parse(token);
@@ -74,8 +75,7 @@ export class UserService {
       headers: new HttpHeaders({"session-token" : `${sessionToken}`}),responseType: 'text' as 'json'
 
     };
-    let username="402881857e21b8ef017e21bd7c460000";
-     return this.http.put(`${environment.apiUrl}/organization/generate/inviteToken/${username}`,{},
+     return this.http.put(`${environment.apiUrl}/organization/generate/inviteToken/${uuid}`,{},
        httpOptions);
 
   }
