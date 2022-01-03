@@ -41,7 +41,7 @@ public class OrganizationController {
         }catch(DataIntegrityViolationException | IllegalArgumentException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>("Organization registered successfully.",HttpStatus.OK);
+        return new ResponseEntity<>(newOrganization.getId(),HttpStatus.OK);
     }
 
     @PutMapping("/generate/inviteToken/{uuid}")
