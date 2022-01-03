@@ -43,6 +43,40 @@ export class UserService {
   }
 
   joinWithCode(user: Observable<User>) {
+    let token = window.sessionStorage.getItem('auth-user');
+    let sessionToken;
+    if (token != null) {
+      let arr: Array<string> = JSON.parse(token);
+      for(var index in arr)
+      {
+        if(index=="sessionToken"){
+          sessionToken=arr[index];
+        }
+      }
+    }
     return this.http.post(`${environment.apiUrl}/organization/join/{invite_token}`, user);
+  }
+
+  generateCode() {
+
+    let token = window.sessionStorage.getItem('auth-user');
+    let sessionToken;
+    if (token != null) {
+      let arr: Array<string> = JSON.parse(token);
+      for(var index in arr)
+      {
+        if(index=="sessionToken"){
+          sessionToken=arr[index];
+        }
+      }
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({"session-token" : `${sessionToken}`}),responseType: 'text' as 'json'
+
+    };
+    let username="402881857e21b8ef017e21bd7c460000";
+     return this.http.put(`${environment.apiUrl}/organization/generate/inviteToken/${username}`,{},
+       httpOptions);
+
   }
 }
