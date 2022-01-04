@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {UserService} from "../services/user.service";
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-generate-code',
@@ -7,13 +10,38 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GenerateCodeComponent implements OnInit {
   toDisplay = false;
+  toDisplayModerator = false;
 
-  toggleData() {
-    this.toDisplay = !this.toDisplay;
-  }
-  constructor() { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private userService: UserService) { }
+  generateCodeForm: FormGroup;
+  userCode: string;
+  moderatorCode: string;
 
   ngOnInit(): void {
+  }
+  toggleData() {
+    this.userService
+      .generateCode()
+      .subscribe(
+        (data)=>{
+          this.userCode=data.toString();
+        }
+      );
+    this.toDisplay = !this.toDisplay;
+  }
+
+  toggleDataModerator() {
+    this.userService
+      .generateCodeModerator()
+      .subscribe(
+        (data)=>{
+          this.moderatorCode=data.toString();
+        }
+      );
+    this.toDisplayModerator = !this.toDisplayModerator;
   }
 
 

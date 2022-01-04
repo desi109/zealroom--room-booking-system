@@ -21,8 +21,8 @@
             <mat-menu #menuHero="matMenu" class="uxg-user-profile box">
               <div *ngIf="isLoggedIn" class="uxg-menu-header">
                 <div class="uxg-avatar-hero-block content" >
-                  <h6 class="uxg-h6">{{ userFirstName }}  {{ userLastName }}</h6>
-                  <span  class="uxg-caption">{{ userEmail }}</span>
+                  <h6 class="uxg-h6">{{ firstName }}  {{ lastName }}</h6>
+                  <span  class="uxg-caption">{{ email }}</span>
                 </div>
               </div>
               <button *ngIf="!isLoggedIn" class="dropdownNav" mat-raised-button routerLink="/login">LOG IN</button>

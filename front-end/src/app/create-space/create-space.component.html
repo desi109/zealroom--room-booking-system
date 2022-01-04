@@ -6,44 +6,30 @@
 </div>
 <mat-toolbar>
   <h1 mat-dialog-title>Send a request to create a space for your organization</h1>
-
 </mat-toolbar>
 <mat-card class="my-card">
   <i>Complete the form providing us your company name, address and type of organization. <br>
     When your request is approved, you can log in as a moderator of your company</i><br><br>
+  <form class="my-form" [formGroup]="organizationForm" (ngSubmit)="onFormSubmit()">
   <div mat-dialog-content>
-    <form class="my-form">
-      <form class="my-form">
+        <div class="form-group">
         <mat-form-field class="full-width">
           <mat-label>Your organization's name</mat-label>
-          <input  matInput  placeholder="Organization name"  name="organizationName"  required>
+          <input  formControlName="name" class="form-control" matInput  placeholder="Organization name"  name="organizationName"  required>
         </mat-form-field>
-        <mat-form-field class="full-width">
-          <mat-label>Address</mat-label>
-          <input  matInput  placeholder="Address" name="address"  required>
-        </mat-form-field>
+        </div>
+        <div class="form-group">
         <mat-form-field class="selectType">
           <mat-label>Select type of organization:</mat-label>
-          <mat-select  [(ngModel)]="selectedValue" name="type" required>
-            <mat-option *ngFor="let type of types" [value]="type.value">
-              {{type.viewValue}}
-            </mat-option>
-          </mat-select>
+          <input  formControlName="type" class="form-control" matInput  placeholder="Organization type"  name="organizationType"  required>
         </mat-form-field>
-        <mat-form-field class="full-width">
-          <mat-label>Your password</mat-label>
-          <input  matInput  placeholder="Password"  name="password" required>
-        </mat-form-field>
-      </form>
-    </form>
+        </div>
   </div>
   <div mat-dialog-actions>
     <div class="sendRequestForCompany">
       <button mat-raised-button color="primary">Send request</button>
     </div>
   </div>
+  </form>
 </mat-card>
-<mat-card-content>
-
-</mat-card-content>
 
