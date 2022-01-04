@@ -56,7 +56,7 @@ CREATE TABLE userorganizationconnections (
     connection_id integer NOT NULL,
     user_uuid character varying(255) NOT NULL,
     organization_uuid character varying(255) NOT NULL,
-    position character varying(255) NOT NULL,
+    position character varying(255),
     is_manager boolean NOT NULL
 );
 ALTER TABLE ONLY booking ADD CONSTRAINT booking_pkey PRIMARY KEY (booking_uuid);

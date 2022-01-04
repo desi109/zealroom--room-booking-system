@@ -41,7 +41,7 @@ public class OrganizationController {
         }catch(DataIntegrityViolationException | IllegalArgumentException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>("Organization registered successfully.",HttpStatus.OK);
+        return new ResponseEntity<>(newOrganization.getId(),HttpStatus.OK);
     }
 
     @PutMapping("/generate/inviteToken/{uuid}")
@@ -91,7 +91,7 @@ public class OrganizationController {
     }
 
     @PostMapping("/join/{inviteToken}")
-    public ResponseEntity joinOrganization(@PathVariable String inviteToken, @RequestHeader("session-token") String sessionToken,@RequestBody String position){
+    public ResponseEntity joinOrganization(@PathVariable String inviteToken, @RequestHeader("session-token") String sessionToken){
         Organization organization = organizationRepository.findByInviteToken(inviteToken);
         if (organization == null){
             return new ResponseEntity<>("Incorrect invite token",HttpStatus.BAD_REQUEST);
@@ -108,7 +108,7 @@ public class OrganizationController {
             return new ResponseEntity<>("User is already in the organization with the correct permissions",HttpStatus.BAD_REQUEST);
         }
 
-        String parsedPosition = HelperService.valueOfARepresentingKeyInJsonString("position",position);
+        String parsedPosition = HelperService.valueOfARepresentingKeyInJsonString("position","user");
         UserOrganizationConnection newUoc = new UserOrganizationConnection(organization,user,moderatorRequest,parsedPosition);
 
         String message;
@@ -127,6 +127,27 @@ public class OrganizationController {
         }
 
         return  new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @GetMapping("/{uuid}/isModerator")
+    public ResponseEntity getIsModerator(@PathVariable String uuid, @RequestHeader("session-token") String sessionToken){
+        Organization organization = organizationRepository.findByUuid(uuid);
+        if (organization == null){
+            return new ResponseEntity<>("Incorrect invite token",HttpStatus.BAD_REQUEST);
+        }
+
+        User user = userRepository.findBySessionToken(sessionToken);
+        if(user == null){
+            return new ResponseEntity<>("Incorrect session-token header.",HttpStatus.BAD_REQUEST);
+        }
+
+        UserOrganizationConnection userOrganizationConnection = uoc.getConnectionByUserAndOrganization(organization.getId(),user.getId());
+        if (userOrganizationConnection == null){
+            return new ResponseEntity<>("User is not part of the organization", HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(userOrganizationConnection.isManager(),HttpStatus.OK);
+
     }
 
 }
