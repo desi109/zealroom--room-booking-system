@@ -149,4 +149,16 @@ public class OrganizationController {
 
     }
 
+    @GetMapping("/all")
+    public ResponseEntity getAllUserOrganizations(@RequestHeader("session-token") String sessionToken){
+        User user = userRepository.findBySessionToken(sessionToken);
+        if(user == null){
+            return new ResponseEntity<>("Incorrect session-token header.",HttpStatus.BAD_REQUEST);
+        }
+
+        List<Organization> userOrganizations = uoc.getUserOrganizations(user.getId());
+
+        return new ResponseEntity<>(userOrganizations,HttpStatus.OK);
+    }
+
 }
