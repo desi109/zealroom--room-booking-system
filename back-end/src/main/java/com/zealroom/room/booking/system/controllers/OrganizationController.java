@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "localhost:4200")
 @RequestMapping("/organization")
 public class OrganizationController {
     @Autowired
@@ -91,7 +92,7 @@ public class OrganizationController {
     }
 
     @PostMapping("/join/{inviteToken}")
-    public ResponseEntity joinOrganization(@PathVariable String inviteToken, @RequestHeader("session-token") String sessionToken,@RequestBody String position){
+    public ResponseEntity joinOrganization(@PathVariable String inviteToken, @RequestHeader("session-token") String sessionToken){
         Organization organization = organizationRepository.findByInviteToken(inviteToken);
         if (organization == null){
             return new ResponseEntity<>("Incorrect invite token",HttpStatus.BAD_REQUEST);
@@ -101,15 +102,13 @@ public class OrganizationController {
         if(user == null){
             return new ResponseEntity<>("Incorrect session-token header.",HttpStatus.BAD_REQUEST);
         }
-        boolean moderatorRequest = organization.getModeratorInviteToken().equals(inviteToken);
-
+        boolean moderatorRequest = inviteToken.equals(organization.getModeratorInviteToken());
         UserOrganizationConnection existing = uoc.getConnectionByUserAndOrganization(organization.getId(),user.getId());
         if((existing != null && !moderatorRequest) || (existing != null && existing.isManager() == true)){
             return new ResponseEntity<>("User is already in the organization with the correct permissions",HttpStatus.BAD_REQUEST);
         }
 
-        String parsedPosition = HelperService.valueOfARepresentingKeyInJsonString("position",position);
-        UserOrganizationConnection newUoc = new UserOrganizationConnection(organization,user,moderatorRequest,parsedPosition);
+        UserOrganizationConnection newUoc = new UserOrganizationConnection(organization,user,moderatorRequest,"user");
 
         String message;
         try{

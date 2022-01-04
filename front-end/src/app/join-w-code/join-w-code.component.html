@@ -9,22 +9,22 @@
 
 </mat-toolbar>
 <mat-card class="my-card">
+  <form [formGroup]="joinForm" (ngSubmit)="onFormSubmit()">
   <i>The moderator of your team should give you the security code, provided in their profile.<br> Enter the code to join the organization</i><br><br>
   <div mat-dialog-content>
-    <form class="my-form">
-      <form class="my-form">
+    <div class="form-group">
         <mat-form-field class="full-width">
           <mat-label>Security code</mat-label>
-          <input  matInput  placeholder="Code"  name="code"  required>
+          <input  matInput  placeholder="Code"  name="code" formControlName="code" required>
         </mat-form-field>
-      </form>
-    </form>
+    </div>
   </div>
   <div mat-dialog-actions>
     <div class="submit">
       <button mat-raised-button color="primary">Confirm</button>
     </div>
   </div>
+  </form>
 </mat-card>
 <mat-card-content>
 

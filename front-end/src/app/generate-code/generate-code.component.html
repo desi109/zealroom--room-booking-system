@@ -11,15 +11,26 @@
 <mat-card class="my-card">
   <i>You should provide that code to the future members of this team.</i><br><br>
   <div mat-dialog-actions>
-    <button (click)="toggleData()" mat-raised-button color="primary">Show code</button>
+    <button (click)="toggleData()" mat-raised-button color="primary">Generate user code</button>
   </div>
   <br><br>
   <div mat-dialog-content>
       <div *ngIf="toDisplay">
         <div class="code" >
-          {{code}}
+          {{userCode}}
         </div>
       </div>
+  </div>
+  <div mat-dialog-actions>
+    <button (click)="toggleDataModerator()" mat-raised-button color="primary">Generate moderator code</button>
+  </div>
+  <br><br>
+  <div mat-dialog-content>
+    <div *ngIf="toDisplayModerator">
+      <div class="code" >
+        {{moderatorCode}}
+      </div>
+    </div>
   </div>
 </mat-card>
 

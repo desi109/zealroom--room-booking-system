@@ -10,13 +10,15 @@ import {Router} from "@angular/router";
 })
 export class GenerateCodeComponent implements OnInit {
   toDisplay = false;
+  toDisplayModerator = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private userService: UserService) { }
   generateCodeForm: FormGroup;
-  code: string;
+  userCode: string;
+  moderatorCode: string;
 
   ngOnInit(): void {
   }
@@ -25,10 +27,21 @@ export class GenerateCodeComponent implements OnInit {
       .generateCode()
       .subscribe(
         (data)=>{
-          this.code=data.toString();
+          this.userCode=data.toString();
         }
       );
     this.toDisplay = !this.toDisplay;
+  }
+
+  toggleDataModerator() {
+    this.userService
+      .generateCodeModerator()
+      .subscribe(
+        (data)=>{
+          this.moderatorCode=data.toString();
+        }
+      );
+    this.toDisplayModerator = !this.toDisplayModerator;
   }
 
 

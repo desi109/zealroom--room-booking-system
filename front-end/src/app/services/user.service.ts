@@ -42,7 +42,7 @@ export class UserService {
     }, httpOptions);
   }
 
-  joinWithCode(user: Observable<User>) {
+  joinWithCode(code: string) {
     let token = window.sessionStorage.getItem('auth-user');
     let sessionToken;
     if (token != null) {
@@ -54,7 +54,12 @@ export class UserService {
         }
       }
     }
-    return this.http.post(`${environment.apiUrl}/organization/join/{invite_token}`, user);
+    const httpOptions = {
+      headers: new HttpHeaders({"session-token" : `${sessionToken}`}),responseType: 'text' as 'json'
+
+    };
+    return this.http.post(`${environment.apiUrl}/organization/join/${code}`,{},
+      httpOptions);
   }
 
   generateCode() {
@@ -77,6 +82,29 @@ export class UserService {
     };
      return this.http.put(`${environment.apiUrl}/organization/generate/inviteToken/${uuid}`,{},
        httpOptions);
+
+  }
+
+  generateCodeModerator() {
+
+    let token = window.sessionStorage.getItem('auth-user');
+    let uuid = window.sessionStorage.getItem('uuid');
+    let sessionToken;
+    if (token != null) {
+      let arr: Array<string> = JSON.parse(token);
+      for(var index in arr)
+      {
+        if(index=="sessionToken"){
+          sessionToken=arr[index];
+        }
+      }
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({"session-token" : `${sessionToken}`}), responseType: 'text' as 'json'
+
+    };
+    return this.http.put(`${environment.apiUrl}/organization/generate/moderatorInviteToken/${uuid}`,{},
+      httpOptions);
 
   }
 }
