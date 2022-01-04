@@ -4,6 +4,10 @@ import com.zealroom.room.booking.system.entities.Organization;
 import com.zealroom.room.booking.system.entities.Room;
 import com.zealroom.room.booking.system.repositories.EquipmentRepository;
 import com.zealroom.room.booking.system.repositories.OrganizationRepository;
+import com.zealroom.room.booking.system.entities.Equipment;
+import com.zealroom.room.booking.system.entities.User;
+import com.zealroom.room.booking.system.repositories.UserRepository;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +17,6 @@ import com.zealroom.room.booking.system.entities.Booking;
 import com.zealroom.room.booking.system.repositories.RoomRepository;
 import com.zealroom.room.booking.system.repositories.BookingRepository;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 @RestController
@@ -22,10 +25,16 @@ import java.util.*;
 public class RoomController {
     @Autowired
     private RoomRepository roomRepository;
+
     @Autowired
     private BookingRepository bookingRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
     @Autowired
     private EquipmentRepository equipmentRepository;
+
     @Autowired
     private OrganizationRepository organizationRepository;
     @PostMapping("/add/{uuid}")
@@ -73,6 +82,7 @@ public class RoomController {
         return roomRepository.findByCapacityGreaterThanEqual(cap);
     }
 
+
 //    @GetMapping("/description/{desc}")
 //    public Set<Room> FindRoomByDescription(@PathVariable List<String> desc){
 //        Set<Room> rooms = new HashSet<>();
@@ -82,4 +92,15 @@ public class RoomController {
 //
 //        return rooms;
 //    }
+
+    @GetMapping("/get/rooms")
+    public ResponseEntity getUserBookings(@RequestHeader("session-token")  String sessionToken){
+        User user = userRepository.findBySessionToken(sessionToken);
+        if(user == null){
+            return new ResponseEntity<>("Incorrect sessionToken.", HttpStatus.BAD_REQUEST);
+        }
+        List<Room> rooms = roomRepository.findAll();
+
+        return new ResponseEntity<>(rooms, HttpStatus.OK);
+    }
 }

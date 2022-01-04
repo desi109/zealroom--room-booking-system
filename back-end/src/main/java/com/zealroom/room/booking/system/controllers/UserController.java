@@ -153,11 +153,11 @@ public class UserController {
     public ResponseEntity getUserBookings(@RequestHeader("session-token")  String sessionToken){
         User user = userRepository.findBySessionToken(sessionToken);
         if(user == null){
-            return new ResponseEntity<>("Incorrect sessionToken.",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Incorrect sessionToken.", HttpStatus.BAD_REQUEST);
         }
         List<Booking> bookings = bookingRepository.findAllByUserId(user.getId());
 
-        return new ResponseEntity<>(bookings,HttpStatus.OK);
+        return new ResponseEntity<>(bookings, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{uuid}")

@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {User} from "../models/user";
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
 import { HttpHeaders } from '@angular/common/http';
 import {AuthService} from "./auth.service";
-import {Equipment} from "../book-room/search-room/equipment-room.module";
 
 
 @Injectable({ providedIn: 'root' })
@@ -26,4 +24,16 @@ export class RoomService {
       }
     );
   }
+
+  getRoomEquipment(userSessionToken: string, roomId: string) : Observable<any> {
+    return this.http.get(`${environment.apiUrl}/equipment/get/${roomId}`,
+    { headers : {'session-token' : userSessionToken, 'Content-Type': 'application/json'}});
+  }
+
+   getAllRooms(userSessionToken: string) : Observable<any> {
+    return this.http.get(`${environment.apiUrl}/room/get/rooms`,
+    { headers : {'session-token' : userSessionToken, 'Content-Type': 'application/json'}});
+   }
+
 }
+

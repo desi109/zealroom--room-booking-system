@@ -23,6 +23,7 @@ export class NavBarComponent implements OnInit {
   isModerator = false;
 
 
+  userId: string = this.loginComponent.userId;
   userFirstName: string = this.loginComponent.userFirstName;
   userLastName: string = this.loginComponent.userLastName;
   userSessionToken: string = this.loginComponent.userSessionToken;
@@ -62,7 +63,6 @@ export class NavBarComponent implements OnInit {
     this.authService.signOut();
     this.isLoggedIn = false;
     this.showModeratorBoard = false;
-    //window.location.reload();
     this.router.navigate(['/']);
   }
 

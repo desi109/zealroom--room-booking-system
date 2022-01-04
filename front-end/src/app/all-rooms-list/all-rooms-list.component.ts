@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Room} from "../book-room/room.module";
 import {Equipment} from "../book-room/search-room/equipment-room.module";
+import { Room } from '../models/room';
 
 @Component({
   selector: 'app-all-rooms-list',
@@ -8,7 +8,8 @@ import {Equipment} from "../book-room/search-room/equipment-room.module";
   styleUrls: ['./all-rooms-list.component.css']
 })
 export class AllRoomsListComponent implements OnInit {
-  rooms: Room[] = [
+  rooms: Room[];
+  /*rooms: Room[] = [
     new Room( 1, 'Room 1', 100,
       [
         new Equipment( 3, 'Projector screen', ''),
@@ -50,7 +51,7 @@ export class AllRoomsListComponent implements OnInit {
         new Equipment( 5, 'HDMI', '')
       ]
     )
-  ];
+  ];*/
   constructor() { }
 
   ngOnInit(): void {
