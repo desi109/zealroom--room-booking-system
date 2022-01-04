@@ -7,7 +7,6 @@ import com.zealroom.room.booking.system.repositories.BookingRepository;
 import com.zealroom.room.booking.system.repositories.OrganizationRepository;
 import com.zealroom.room.booking.system.repositories.UserOrganizationConnectionRepository;
 import com.zealroom.room.booking.system.repositories.UserRepository;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -51,13 +50,13 @@ public class UserController {
             newUser.setIsAdmin(false);
             userRepository.save(newUser);
             return new ResponseEntity<>("Register successful",HttpStatus.OK);
-        }catch(DataIntegrityViolationException e){
+        } catch(DataIntegrityViolationException e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 
-    @PostMapping("/register/admin/{sessionToken}")
-    public ResponseEntity registerAdmin(@RequestBody User newUser, @PathVariable String sessionToken) {
+    @PostMapping("/register/admin")
+    public ResponseEntity registerAdmin(@RequestBody User newUser, @RequestHeader("session-token") String sessionToken) {
         User admin = userRepository.findBySessionToken(sessionToken);
         if(admin == null){
             return new ResponseEntity<>("Incorrect sessionToken",HttpStatus.BAD_REQUEST);
@@ -111,18 +110,17 @@ public class UserController {
         User user;
         try{
             user = authenticateAndReturnUser(email, password);
-            String newSessionToken = HelperService.generateNewToken();
-            user.setSessionToken(newSessionToken);
+            user.setSessionToken(HelperService.generateNewToken());
             userRepository.save(user);
-            return new ResponseEntity<>(user,HttpStatus.OK);
-        }catch(UserAuthenticationException e){
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } catch (UserAuthenticationException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
     @PutMapping("/logout")
-    public ResponseEntity logout(@RequestBody String sessionToken){
-        User user = getUserBySessionTokenInJson(userRepository,sessionToken);
+    public ResponseEntity logout(@RequestHeader("session-token") String sessionToken){
+        User user = userRepository.findBySessionToken(sessionToken);
         if(user == null){
             return new ResponseEntity<>("Incorrect sessionToken",HttpStatus.BAD_REQUEST);
 
@@ -133,8 +131,8 @@ public class UserController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity getUserBySessionToken(@RequestBody String sessionToken){
-        User user = getUserBySessionTokenInJson(userRepository,sessionToken);
+    public ResponseEntity getUserBySessionToken(@RequestHeader("session-token") String sessionToken){
+        User user = userRepository.findBySessionToken(sessionToken);
         if(user == null){
             return new ResponseEntity<>("Incorrect sessionToken",HttpStatus.BAD_REQUEST);
         }
@@ -142,8 +140,8 @@ public class UserController {
     }
 
     @GetMapping("/get/organizations")
-    public ResponseEntity getUserOrganizations(@RequestBody String sessionToken){
-        User user = getUserBySessionTokenInJson(userRepository,sessionToken);
+    public ResponseEntity getUserOrganizations(@RequestHeader("session-token") String sessionToken){
+        User user = userRepository.findBySessionToken(sessionToken);
         if(user == null){
             return new ResponseEntity<>("Incorrect sessionToken.",HttpStatus.BAD_REQUEST);
         }
@@ -152,8 +150,8 @@ public class UserController {
     }
 
     @GetMapping("/get/bookings")
-    public ResponseEntity getUserBookings(@RequestBody String sessionToken){
-        User user = getUserBySessionTokenInJson(userRepository,sessionToken);
+    public ResponseEntity getUserBookings(@RequestHeader("session-token")  String sessionToken){
+        User user = userRepository.findBySessionToken(sessionToken);
         if(user == null){
             return new ResponseEntity<>("Incorrect sessionToken.",HttpStatus.BAD_REQUEST);
         }
@@ -162,8 +160,27 @@ public class UserController {
         return new ResponseEntity<>(bookings,HttpStatus.OK);
     }
 
-    @PostMapping("/register/moderator/{sessionToken}/{organizationUuid}")
-    public ResponseEntity registerModerator(@RequestBody User newUser, @PathVariable String sessionToken, @PathVariable String organizationUuid) {
+    @DeleteMapping("/delete/{uuid}")
+    public ResponseEntity deleteUser(@PathVariable String uuid, @RequestHeader("session-token") String sessionToken){
+        User admin = userRepository.findBySessionToken(sessionToken);
+        if(admin == null){
+            return new ResponseEntity<>("Incorrect sessionToken",HttpStatus.BAD_REQUEST);
+        }
+        if(!admin.getIsAdmin()){
+            return new ResponseEntity<>("Only admins can delete users",HttpStatus.BAD_REQUEST);
+        }
+
+        User toBeDeleted = userRepository.findByUuid(uuid);
+        if(toBeDeleted == null){
+            return new ResponseEntity<>("Incorrect uuid",HttpStatus.BAD_REQUEST);
+        }
+        userRepository.delete(toBeDeleted);
+        return new ResponseEntity<>("User deleted",HttpStatus.OK);
+
+    }
+
+    @PostMapping("/register/moderator/{organizationUuid}")
+    public ResponseEntity registerModerator(@RequestBody User newUser, @RequestHeader("session-token") String sessionToken, @PathVariable String organizationUuid) {
         Organization organization = organizationRepository.findByUuid(organizationUuid);
         if(organization == null){
             return new ResponseEntity<>("Wrong organization uuid",HttpStatus.BAD_REQUEST);
@@ -185,7 +202,7 @@ public class UserController {
             newUser.setPassword(encoder.encode(newUser.getPassword()));
             newUser.setIsAdmin(false);
             userRepository.save(newUser);
-            UserOrganizationConnection userOrganizationConnection = new UserOrganizationConnection(organization,newUser,true);
+            UserOrganizationConnection userOrganizationConnection = new UserOrganizationConnection(organization,newUser,true,"manager");
             userOrganizationConnectionRepository.save(userOrganizationConnection);
             return new ResponseEntity<>("Manager creation successful",HttpStatus.OK);
         }catch(DataIntegrityViolationException e){
@@ -203,11 +220,6 @@ public class UserController {
         }else {
             throw new UserAuthenticationException("Wrong email or password.");
         }
-    }
-
-    public static User getUserBySessionTokenInJson(UserRepository userRepository,String jsonBody) {
-        String sessionToken = HelperService.valueOfARepresentingKeyInJsonString("sessionToken",jsonBody);
-        return userRepository.findBySessionToken(sessionToken);
     }
 
     public boolean isModerator(User user, Organization organization){

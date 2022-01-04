@@ -4,22 +4,31 @@
     <mat-card-title class="title">Login</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <form
+    <!--<form
       [formGroup]="loginForm"
       (ngSubmit)="onSubmit()"
       class="px-8 pt-6 pb-8 mb-4 bg-white rounded shadow-md"
+    >-->
+    <form
+      *ngIf="!isLoggedIn"
+      name="form"
+      (ngSubmit)="f.form.valid && onSubmit()"
+      #f="ngForm"
+      novalidate
     >
       <table class="full-width">
         <tr>
           <td>
             <mat-form-field class="full-width">
-              <input  formControlName="email" matInput placeholder="Email" name="email" required>
+              <input type="text"  matInput placeholder="Email" name="email" [(ngModel)]="form.email" required #email="ngModel"/>
+              <!--<input  formControlName="email" matInput placeholder="Email" name="email" required>-->
             </mat-form-field>
           </td>
         </tr>
         <tr>
           <td><mat-form-field class="full-width">
-            <input formControlName="password" matInput placeholder="Password" type="password" name="password" required>
+            <input type="password"  matInput placeholder="Password" name="password" [(ngModel)]="form.password" required minlength="6" #password="ngModel"/>
+            <!--<input formControlName="password" matInput placeholder="Password" type="password" name="password" required>-->
           </mat-form-field></td>
         </tr></table>
       <p>Don't have an account yet? Make a <a routerLink="/registration">registration</a></p>
@@ -27,9 +36,22 @@
         <div class="loginButton">
           <button mat-raised-button color="primary">Login</button>
         </div>
+        <div class="form-group">
+          <div
+            class="alert alert-danger"
+            role="alert"
+            *ngIf="f.submitted && isLoginFailed"
+          >
+            Login failed: {{ errorMessage }}
+          </div>
+        </div>
       </mat-card-actions>
     </form>
   </mat-card-content>
+
+  <div class="alert alert-success" *ngIf="isLoggedIn">
+    Logged in successfully!
+  </div>
 
 
   </div>

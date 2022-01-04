@@ -18,4 +18,10 @@ public interface UserOrganizationConnectionRepository extends JpaRepository<User
 
     @Query("SELECT uoc.organization FROM UserOrganizationConnection  uoc WHERE uoc.user.id = ?1")
     List<Organization> getUserOrganizations(String id);
+
+    @Query("SELECT uoc.user FROM UserOrganizationConnection  uoc WHERE uoc.organization.id = ?1")
+    List<User> getOrganizationUsers(String id);
+
+    @Query("SELECT uoc FROM UserOrganizationConnection  uoc WHERE uoc.organization.id = ?1 AND uoc.user.id = ?2")
+    UserOrganizationConnection getConnectionByUserAndOrganization(String organizationId,String userId);
 }

@@ -70,7 +70,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule ],
-  providers: [],
+  providers: [LoginComponent],
   bootstrap: [AppComponent],
   entryComponents: [CreateSpaceComponent]
 })

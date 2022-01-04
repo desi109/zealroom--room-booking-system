@@ -12,7 +12,21 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  error = '';
+  isLoggedIn = false;
+  isLoginFailed = false;
+  errorMessage = '';
+  //roles: string[] = [];
+
+  public userFirstName: string = '';
+  public userLastName: string = '';
+  public userSessionToken: string = '';
+  public userEmail: string = '';
+  public userIsAdmin: boolean;
+
+  form: any = {
+    username: null,
+    password: null
+  };
 
   constructor(
     private formBuilder: FormBuilder,
@@ -21,10 +35,10 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required],
-    });
+    if (this.authenticationService.getToken()) {
+      this.isLoggedIn = true;
+      //this.roles = this.authenticationService.getUser().roles;
+    }
   }
 
   get f() {
@@ -32,21 +46,35 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    //console.log(this.f['email'].value + " " + this.f['password'].value);
-    if (this.loginForm.invalid) {
-      return;
-    }
+    const { email, password } = this.form;
 
-    this.authenticationService
-      .login(this.f['email'].value, this.f['password'].value)
-      .pipe(first())
+    this.authenticationService.login(email, password)
       .subscribe({
-        next: () => {
-          this.router.navigate(['/']);
+        next: data => {
+          this.authenticationService.saveToken(data.accessToken);
+
+          this.userFirstName = data.firstName;
+          this.userLastName = data.lastName;
+          this.userSessionToken = data.accessToken;
+          this.userEmail = data.email;
+          this.userIsAdmin = data.isAdmin;
+
+          this.authenticationService.saveUser(data);
+
+          this.isLoginFailed = false;
+          this.isLoggedIn = true;
+          //this.roles = this.authenticationService.getUser().roles;
+          this.reloadPage();
         },
-        error: (error) => {
-          this.error = error;
-        },
+        error: err => {
+          this.errorMessage = err.error.message;
+          this.isLoginFailed = true;
+        }
       });
+      this.router.navigate(['/']);
+  }
+
+  reloadPage(): void {
+    window.location.reload();
   }
 }

@@ -22,9 +22,18 @@ public class Organization {
     @Column(name = "name")
     private String name;
 
+    @OneToMany(mappedBy = "organization")
+    List<Room> rooms;
+
     @NotNull
-    @Column(name = "description")
-    private String description;
+    @Column(name = "type")
+    private String type;
+
+    @Column(name = "invite_token")
+    private String inviteToken;
+
+    @Column(name = "moderator_invite_token")
+    private String moderatorInviteToken;
 
     @OneToMany(mappedBy="organization",fetch = FetchType.LAZY)
     @JsonIgnore
@@ -38,8 +47,24 @@ public class Organization {
         return name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getType() {
+        return type;
+    }
+
+    public String getInviteToken() {
+        return inviteToken;
+    }
+
+    public void setInviteToken(String inviteToken) {
+        this.inviteToken = inviteToken;
+    }
+
+    public String getModeratorInviteToken() {
+        return moderatorInviteToken;
+    }
+
+    public void setModeratorInviteToken(String managerInviteToken) {
+        this.moderatorInviteToken = managerInviteToken;
     }
 
     public List<UserOrganizationConnection> getUsers(){

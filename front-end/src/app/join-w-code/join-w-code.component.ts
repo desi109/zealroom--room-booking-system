@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {UserService} from "../services/user.service";
 
 @Component({
   selector: 'app-join-w-code',
@@ -14,13 +15,30 @@ export class JoinWCodeComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<JoinWCodeComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private formBuilder: FormBuilder,
+    private userService: UserService) { }
+
+    joinForm: FormGroup;
+
 
   onCancel(): void {
     this.dialogRef.close();
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.joinForm = this.formBuilder.group({
+      code: ['', Validators.required]
+    });
+  }
+
+  onFormSubmit(){
+    this.userService
+      .joinWithCode(this.joinForm.value.code)
+      .subscribe(
+        (data)=>{
+        }
+      );
   }
 
 }
