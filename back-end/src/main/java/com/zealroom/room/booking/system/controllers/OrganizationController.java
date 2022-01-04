@@ -128,4 +128,25 @@ public class OrganizationController {
         return  new ResponseEntity<>(message, HttpStatus.OK);
     }
 
+    @GetMapping("/{uuid}/isModerator")
+    public ResponseEntity getIsModerator(@PathVariable String uuid, @RequestHeader("session-token") String sessionToken){
+        Organization organization = organizationRepository.findByUuid(uuid);
+        if (organization == null){
+            return new ResponseEntity<>("Incorrect invite token",HttpStatus.BAD_REQUEST);
+        }
+
+        User user = userRepository.findBySessionToken(sessionToken);
+        if(user == null){
+            return new ResponseEntity<>("Incorrect session-token header.",HttpStatus.BAD_REQUEST);
+        }
+
+        UserOrganizationConnection userOrganizationConnection = uoc.getConnectionByUserAndOrganization(organization.getId(),user.getId());
+        if (userOrganizationConnection == null){
+            return new ResponseEntity<>("User is not part of the organization", HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(userOrganizationConnection.isManager(),HttpStatus.OK);
+
+    }
+
 }
