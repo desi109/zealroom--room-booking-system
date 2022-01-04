@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class NavBarComponent implements OnInit {
 
   collapsed = true;
-  private roles: string[] = [];
+  role: string;
   isLoggedIn = false;
   //showAdminBoard = false;
   showModeratorBoard = false;
@@ -33,7 +33,7 @@ export class NavBarComponent implements OnInit {
 
     if (this.isLoggedIn) {
       const user = this.authService.getUser();
-      this.roles = user.roles;
+      this.role = user.isAdmin;
 
       //this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
       //this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
@@ -41,7 +41,7 @@ export class NavBarComponent implements OnInit {
       this.lastName = user.lastName;
       this.email = user.email;
 
-      if (this.userIsAdmin) {
+      if (this.role) {
         this.showModeratorBoard = true;
       }
     }

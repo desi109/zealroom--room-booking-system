@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
-  roles: string[] = [];
+  //roles: string[] = [];
 
   public userFirstName: string = '';
   public userLastName: string = '';
@@ -60,10 +60,10 @@ export class LoginComponent implements OnInit {
           this.userIsAdmin = data.isAdmin;
 
           this.authenticationService.saveUser(data);
-  
+
           this.isLoginFailed = false;
           this.isLoggedIn = true;
-          this.roles = this.authenticationService.getUser().roles;
+          //this.roles = this.authenticationService.getUser().roles;
           this.reloadPage();
         },
         error: err => {
