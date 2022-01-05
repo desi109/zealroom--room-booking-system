@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import {BehaviorSubject, first, map, Observable} from "rxjs";
 import {AuthService} from "../services/auth.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {UserService} from "../services/user.service";
 
 @Component({
   selector: 'app-login',
@@ -31,7 +32,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private authenticationService: AuthService
+    private authenticationService: AuthService,
+    private userService: UserService
   ) {}
 
   ngOnInit() {
@@ -63,7 +65,10 @@ export class LoginComponent implements OnInit {
 
           this.isLoginFailed = false;
           this.isLoggedIn = true;
+          this.userService.getOrganizations();
+          this.userService.isModerator();
           //this.roles = this.authenticationService.getUser().roles;
+          this.reloadPage();
           this.reloadPage();
         },
         error: err => {

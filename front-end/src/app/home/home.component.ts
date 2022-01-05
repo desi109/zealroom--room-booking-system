@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {CreateSpaceComponent} from "../create-space/create-space.component";
 import {JoinWCodeComponent} from "../join-w-code/join-w-code.component";
+import {UserService} from "../services/user.service";
 
 @Component({
   selector: 'app-home',
@@ -11,9 +12,10 @@ import {JoinWCodeComponent} from "../join-w-code/join-w-code.component";
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private userService: UserService) {}
 
   ngOnInit(): void {
+    this.userService.getOrganizations();
     }
 
   openDialogCreate(): void {
@@ -32,4 +34,9 @@ export class HomeComponent implements OnInit {
       data: {  }
     });
   }
+
+  refresh(): void {
+    window.location.reload();
+  }
+
 }

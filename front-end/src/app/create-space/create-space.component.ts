@@ -55,7 +55,7 @@ export class CreateSpaceComponent implements OnInit {
       .registerOrganization(this.organizationForm.value.name, this.organizationForm.value.type)
       .subscribe(
         (data)=>{
-          window.sessionStorage.setItem("uuid", data.toString());
+         // window.sessionStorage.setItem("uuid", data.toString());
         }
       );
     window.alert('Organization Registered successfully!');

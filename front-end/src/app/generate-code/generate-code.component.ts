@@ -21,15 +21,19 @@ export class GenerateCodeComponent implements OnInit {
   moderatorCode: string;
 
   ngOnInit(): void {
+    if(window.sessionStorage.getItem("org-uuid")==null) {
+      this.userService.getOrganizations();
+    }
+
   }
   toggleData() {
     this.userService
-      .generateCode()
-      .subscribe(
-        (data)=>{
-          this.userCode=data.toString();
-        }
-      );
+      .generateCode().subscribe(
+      (data)=>{
+        this.userCode=data.toString();
+      }
+    );
+
     this.toDisplay = !this.toDisplay;
   }
 
@@ -43,7 +47,4 @@ export class GenerateCodeComponent implements OnInit {
       );
     this.toDisplayModerator = !this.toDisplayModerator;
   }
-
-
-
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { LoginComponent } from 'src/app/login/login.component';
 import { Router } from '@angular/router';
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-nav-bar',
@@ -19,6 +20,8 @@ export class NavBarComponent implements OnInit {
   email?: string;
   firstName?: string;
   lastName?: string;
+  isModerator = false;
+
 
   userFirstName: string = this.loginComponent.userFirstName;
   userLastName: string = this.loginComponent.userLastName;
@@ -26,10 +29,14 @@ export class NavBarComponent implements OnInit {
   userEmail: string = this.loginComponent.userEmail;
   userIsAdmin: boolean = this.loginComponent.userIsAdmin;
 
-  constructor( private authService: AuthService, private router: Router, public loginComponent: LoginComponent ){ }
+
+  constructor( private authService: AuthService, private router: Router, public loginComponent: LoginComponent, public userService: UserService){ }
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.authService.getToken();
+    // this.userService.getOrganizations();
+    this.userService.isModerator();
+    let isMod = window.sessionStorage.getItem('isModerator');
 
     if (this.isLoggedIn) {
       const user = this.authService.getUser();
@@ -41,7 +48,11 @@ export class NavBarComponent implements OnInit {
       this.lastName = user.lastName;
       this.email = user.email;
 
-      if (this.role) {
+      if (isMod=="true") {
+        this.isModerator = true;
+      }
+
+      if (this.isModerator) {
         this.showModeratorBoard = true;
       }
     }

@@ -62,10 +62,10 @@ export class UserService {
       httpOptions);
   }
 
-  generateCode() {
+   generateCode() {
 
     let token = window.sessionStorage.getItem('auth-user');
-    let uuid = window.sessionStorage.getItem('uuid');
+    let uuid = window.sessionStorage.getItem('org-uuid');
     let sessionToken;
     if (token != null) {
       let arr: Array<string> = JSON.parse(token);
@@ -76,19 +76,22 @@ export class UserService {
         }
       }
     }
+    //console.log("WAIT");
+    //console.log(organization_uuid);
+
     const httpOptions = {
       headers: new HttpHeaders({"session-token" : `${sessionToken}`}),responseType: 'text' as 'json'
 
     };
-     return this.http.put(`${environment.apiUrl}/organization/generate/inviteToken/${uuid}`,{},
+    console.log("WAIT3");
+    return this.http.put(`${environment.apiUrl}/organization/generate/inviteToken/${uuid}`,{},
        httpOptions);
-
   }
 
   generateCodeModerator() {
 
     let token = window.sessionStorage.getItem('auth-user');
-    let uuid = window.sessionStorage.getItem('uuid');
+    let uuid = window.sessionStorage.getItem('org-uuid');
     let sessionToken;
     if (token != null) {
       let arr: Array<string> = JSON.parse(token);
@@ -107,4 +110,76 @@ export class UserService {
       httpOptions);
 
   }
+
+  getOrganizations() {
+    let token = window.sessionStorage.getItem('auth-user');
+    let sessionToken;
+    if (token != null) {
+      let arr: Array<string> = JSON.parse(token);
+      for(var index in arr)
+      {
+        if(index=="sessionToken"){
+          sessionToken=arr[index];
+        }
+      }
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({"session-token" : `${sessionToken}`}), responseType: 'text' as 'json'
+
+    };
+
+    return this.http.get(`${environment.apiUrl}/organization/all`,
+      httpOptions).subscribe(
+      (data)=>{
+        // console.log("WAIT2");
+        // console.log(data.toString());
+        window.sessionStorage.setItem("org-uuid", data.toString());
+      }
+    );
+
+  }
+
+  isModerator() {
+    let token = window.sessionStorage.getItem('auth-user');
+    let uuid = window.sessionStorage.getItem('org-uuid');
+    let sessionToken;
+    if (token != null) {
+      let arr: Array<string> = JSON.parse(token);
+      for(var index in arr)
+      {
+        if(index=="sessionToken"){
+          sessionToken=arr[index];
+        }
+      }
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({"session-token" : `${sessionToken}`}), responseType: 'text' as 'json'
+
+    };
+    this.http.get(`${environment.apiUrl}/organization/${uuid}/isModerator`,
+      httpOptions).subscribe(
+      (data)=>{
+        data.toString();
+        window.sessionStorage.setItem("isModerator", data.toString());
+
+      }
+    );
+  }
+
+  // getSessionToken(): string | undefined {
+  //   let token = window.sessionStorage.getItem('auth-user');
+  //   let uuid = window.sessionStorage.getItem('org-uuid');
+  //   let sessionToken;
+  //   if (token != null) {
+  //     let arr: Array<string> = JSON.parse(token);
+  //     for(var index in arr)
+  //     {
+  //       if(index=="sessionToken"){
+  //         sessionToken=arr[index];
+  //       }
+  //     }
+  //   }
+  //
+  //   return sessionToken.toString();;
+  // }
 }
