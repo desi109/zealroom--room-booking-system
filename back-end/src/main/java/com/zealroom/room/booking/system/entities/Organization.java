@@ -1,6 +1,7 @@
 package com.zealroom.room.booking.system.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name="organizations")
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Organization {
     @Id
     @GeneratedValue(generator="system-uuid")
@@ -16,14 +18,9 @@ public class Organization {
     @Column(name = "organization_uuid")
     private String id;
 
-
-
     @NotNull
     @Column(name = "name")
     private String name;
-
-    @OneToMany(mappedBy = "organization")
-    List<Room> rooms;
 
     @NotNull
     @Column(name = "type")
