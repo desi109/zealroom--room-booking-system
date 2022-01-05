@@ -70,6 +70,7 @@ export class LoginComponent implements OnInit {
           //this.roles = this.authenticationService.getUser().roles;
           this.reloadPage();
           this.reloadPage();
+          window.alert("Welcome, " + this.userFirstName + " " + this.userLastName + "!");
         },
         error: err => {
           this.errorMessage = err.error.message;

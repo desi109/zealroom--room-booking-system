@@ -34,6 +34,7 @@ export class CreateSpaceComponent implements OnInit {
   form: FormGroup;
   description:string;
   authService: AuthService;
+  submitted = false;
 
   constructor(
     public dialogRef: MatDialogRef<CreateSpaceComponent>,
@@ -50,16 +51,29 @@ export class CreateSpaceComponent implements OnInit {
     });
   }
 
+  get createOrganizationFormControl() {
+    return this.organizationForm.controls;
+  }
+
   onFormSubmit() {
-    this.userService
-      .registerOrganization(this.organizationForm.value.name, this.organizationForm.value.type)
-      .subscribe(
-        (data)=>{
-         // window.sessionStorage.setItem("uuid", data.toString());
-        }
-      );
-    window.alert('Organization Registered successfully!');
-    this.dialogRef.close();
+    this.submitted = true;
+    if(this.organizationForm.valid) {
+      this.userService
+        .registerOrganization(this.organizationForm.value.name, this.organizationForm.value.type)
+        .subscribe(
+          (data) => {
+          },
+          (err) => {
+            window.alert(err.error.toString());
+          }
+        );
+      window.alert('Organization Registered successfully!');
+      this.dialogRef.close();
+    }
+    else {
+      window.alert("Please, fill all required fields!");
+    }
+
   }
 
   onCancel(): void {

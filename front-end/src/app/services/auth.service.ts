@@ -59,6 +59,7 @@ export class AuthService {
 
   signOut(): void {
     window.sessionStorage.clear();
+    window.alert("You signed out of your account")
   }
 
   public saveToken(token: string): void {
