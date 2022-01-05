@@ -1,10 +1,13 @@
 package com.zealroom.room.booking.system.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "booking")
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Booking {
     @Id
     @Column(name = "booking_uuid", nullable = false)

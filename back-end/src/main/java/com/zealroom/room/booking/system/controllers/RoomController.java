@@ -1,8 +1,8 @@
 package com.zealroom.room.booking.system.controllers;
 
+import com.zealroom.room.booking.system.entities.Equipment;
+import com.zealroom.room.booking.system.repositories.EquipmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.relational.core.query.Criteria;
-import org.springframework.data.relational.core.query.Query;
 import org.springframework.web.bind.annotation.*;
 
 import com.zealroom.room.booking.system.entities.Room;
@@ -24,9 +24,17 @@ public class RoomController {
     private RoomRepository roomRepository;
     @Autowired
     private BookingRepository bookingRepository;
-
+    @Autowired
+    private EquipmentRepository equipmentRepository;
     @PostMapping
     public Room add(@RequestBody Room room){
+        List<Equipment> equipments = new ArrayList<>();
+        for (Equipment equipment :
+                room.getEquipment()) {
+            equipments.add(equipmentRepository.getById(equipment.getId()));
+        }
+
+        room.setEquipment(equipments);
         return roomRepository.save(room);
     }
 
@@ -49,6 +57,11 @@ public class RoomController {
         }
     }
 
+    @GetMapping("/{id}")
+    public Room findById(@PathVariable String id) {
+        return roomRepository.getById(id);
+    }
+
     @GetMapping("/date/{checkIn}/{checkOut}")
     public List<Room> date(@PathVariable LocalDateTime checkIn, @PathVariable LocalDateTime checkOut) {
         return bookingRepository.findByCheckInAndCheckOut(checkIn, checkOut);
@@ -57,11 +70,6 @@ public class RoomController {
     @GetMapping("/capacity/{cap}")
     public List<Room> capacity(@PathVariable int cap) {
         return roomRepository.findByCapacityGreaterThanEqual(cap);
-    }
-
-    @GetMapping("/number/{roomNum}")
-    public List<Room> roomNumber(@PathVariable String roomNum) {
-        return roomRepository.findByRoomNumber(roomNum);
     }
 
     @GetMapping("/description/{desc}")
@@ -73,73 +81,4 @@ public class RoomController {
 
         return rooms;
     }
-
-    /*@GetMapping("/search")
-    public List<Room> getRoomsBySearch(@RequestParam("firstName") String firstName,
-                                                 @RequestParam("lastName") String lastName) {
-
-        List<Criteria> andCriteriaList = new ArrayList<Criteria>();
-        boolean ok = false;
-
-        if (firstName != null && firstName.length() > 0) {
-            Criteria c1 = Criteria.where("firstName").regex(firstName, "i");
-            andCriteriaList.add(c1);
-            ok = true;
-        }
-        if (lastName != null && lastName.length() > 0) {
-            Criteria c1 = Criteria.where("lastName").regex(lastName, "i");
-            andCriteriaList.add(c1);
-            ok = true;
-        }
-
-        if (ok) {
-            query.addCriteria(new Criteria().andOperator(andCriteriaList
-                    .toArray(new Criteria[andCriteriaList.size()])));
-
-            return mongoTemplate.find(query, Employee.class,
-                    COLLECTION_NAME);
-        } else {
-            return null;
-        }
-    }
-
-    public List<Employee> getEmployeesBySelectionCriteria(
-            List<SelectionCriteria> criteriaList) {
-
-        List<Criteria> andCriteriaList = new ArrayList<Criteria>();
-
-        Query query = new Query();
-
-        for (SelectionCriteria criteriaElem : criteriaList) {
-            if (criteriaElem.getOperator().getId().equals("equalTo")) {
-                Criteria c1 = Criteria.where(criteriaElem.getField().getId())
-                        .is(criteriaElem.getValue());
-                andCriteriaList.add(c1);
-            } else if (criteriaElem.getOperator().getId().equals("like")) {
-                Criteria c1 = Criteria.where(criteriaElem.getField().getId())
-                        .regex(criteriaElem.getValue(), "i");
-                andCriteriaList.add(c1);
-            } else if (criteriaElem.getOperator().getId()
-                    .equals("notEqualTo")) {
-                Criteria c1 = Criteria.where(criteriaElem.getField().getId())
-                        .ne(criteriaElem.getValue());
-                andCriteriaList.add(c1);
-            } else if (criteriaElem.getOperator().getId()
-                    .equals("greaterThan")) {
-                Criteria c1 = Criteria.where(criteriaElem.getField().getId())
-                        .gt(DateUtility.getDate(criteriaElem.getValue()));
-                andCriteriaList.add(c1);
-            } else if (criteriaElem.getOperator().getId()
-                    .equals("lessThan")) {
-                Criteria c1 = Criteria.where(criteriaElem.getField().getId())
-                        .lt(DateUtility.getDate(criteriaElem.getValue()));
-                andCriteriaList.add(c1);
-            }
-            logger.info(criteriaElem.toString());
-        }
-        query.addCriteria(new Criteria().andOperator(andCriteriaList
-                .toArray(new Criteria[andCriteriaList.size()])));
-
-        return mongoTemplate.find(query, Employee.class, COLLECTION_NAME);
-    }*/
 }
