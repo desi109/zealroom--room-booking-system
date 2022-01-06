@@ -28,13 +28,15 @@ public class RoomController {
     private EquipmentRepository equipmentRepository;
     @PostMapping
     public Room add(@RequestBody Room room){
-        List<Equipment> equipments = new ArrayList<>();
-        for (Equipment equipment :
-                room.getEquipment()) {
-            equipments.add(equipmentRepository.getById(equipment.getId()));
-        }
+        if (room.getEquipment()!=null) {
+            List<Equipment> equipments = new ArrayList<>();
+            for (Equipment equipment :
+                    room.getEquipment()) {
+                equipments.add(equipmentRepository.getById(equipment.getId()));
+            }
 
-        room.setEquipment(equipments);
+            room.setEquipment(equipments);
+        }
         return roomRepository.save(room);
     }
 
