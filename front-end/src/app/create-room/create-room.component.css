@@ -20,3 +20,7 @@
 .createRoomImage {
   width: 60px;
 }
+
+.form-control {
+ border: none;
+}

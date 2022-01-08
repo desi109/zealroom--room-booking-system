@@ -1,6 +1,8 @@
 package com.zealroom.room.booking.system.entities;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -21,10 +23,6 @@ public class Room {
     @NotNull
     private Integer capacity;
 
-    @Column(name = "room_description")
-    @NotNull
-    private String roomDescription;
-
     @ManyToOne
     @JoinColumn(name = "organization_uuid", referencedColumnName = "organization_uuid")
     private Organization organization;
@@ -33,34 +31,16 @@ public class Room {
     @NotNull
     private String roomName;
 
-    @OneToMany(mappedBy="room", fetch = FetchType.EAGER)
-    private List<Equipment> equipment;
+    @Column(name = "equipments")
+    private String equipments;
 
-    public Room() {
+
+    public String getEquipments() {
+        return equipments;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Integer getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(Integer capacity) {
-        this.capacity = capacity;
-    }
-
-    public String getRoomDescription() {
-        return roomDescription;
-    }
-
-    public void setRoomDescription(String roomDescription) {
-        this.roomDescription = roomDescription;
+    public void setEquipments(String equipments) {
+        this.equipments = equipments;
     }
 
     public Organization getOrganization() {
@@ -79,11 +59,19 @@ public class Room {
         this.roomName = roomName;
     }
 
-    public List<Equipment> getEquipment() {
-        return equipment;
+    public Integer getCapacity() {
+        return capacity;
     }
 
-    public void setEquipment(List<Equipment> equipment) {
-        this.equipment = equipment;
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

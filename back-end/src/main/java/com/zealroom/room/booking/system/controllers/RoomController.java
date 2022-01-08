@@ -1,20 +1,20 @@
 package com.zealroom.room.booking.system.controllers;
 
-import com.zealroom.room.booking.system.entities.Equipment;
+import com.zealroom.room.booking.system.entities.Organization;
+import com.zealroom.room.booking.system.entities.Room;
 import com.zealroom.room.booking.system.repositories.EquipmentRepository;
+import com.zealroom.room.booking.system.repositories.OrganizationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.zealroom.room.booking.system.entities.Room;
 import com.zealroom.room.booking.system.entities.Booking;
 import com.zealroom.room.booking.system.repositories.RoomRepository;
 import com.zealroom.room.booking.system.repositories.BookingRepository;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @CrossOrigin(origins = "localhost:4200")
@@ -26,18 +26,17 @@ public class RoomController {
     private BookingRepository bookingRepository;
     @Autowired
     private EquipmentRepository equipmentRepository;
-    @PostMapping
-    public Room add(@RequestBody Room room){
-        if (room.getEquipment()!=null) {
-            List<Equipment> equipments = new ArrayList<>();
-            for (Equipment equipment :
-                    room.getEquipment()) {
-                equipments.add(equipmentRepository.getById(equipment.getId()));
-            }
-
-            room.setEquipment(equipments);
+    @Autowired
+    private OrganizationRepository organizationRepository;
+    @PostMapping("/add/{uuid}")
+    public ResponseEntity add(@PathVariable String uuid, @RequestBody Room room){
+        Organization organization = organizationRepository.findByUuid(uuid);
+        if (organization == null) {
+            return new ResponseEntity<>("Incorrect invite token",HttpStatus.BAD_REQUEST);
         }
-        return roomRepository.save(room);
+        room.setOrganization(organization);
+        roomRepository.save(room);
+        return  new ResponseEntity<>("Room added successfully", HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
@@ -74,13 +73,13 @@ public class RoomController {
         return roomRepository.findByCapacityGreaterThanEqual(cap);
     }
 
-    @GetMapping("/description/{desc}")
-    public Set<Room> FindRoomByDescription(@PathVariable List<String> desc){
-        Set<Room> rooms = new HashSet<>();
-        for (String description: desc) {
-            rooms.addAll(roomRepository.findByRoomDescriptionIsContaining(description));
-        }
-
-        return rooms;
-    }
+//    @GetMapping("/description/{desc}")
+//    public Set<Room> FindRoomByDescription(@PathVariable List<String> desc){
+//        Set<Room> rooms = new HashSet<>();
+//        for (String description: desc) {
+//            rooms.addAll(roomRepository.findByRoomDescriptionIsContaining(description));
+//        }
+//
+//        return rooms;
+//    }
 }

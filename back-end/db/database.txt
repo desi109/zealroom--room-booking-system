@@ -18,7 +18,6 @@ CREATE TABLE booking (
 CREATE TABLE rooms (
     capacity integer NOT NULL,
     room_uuid character varying(255) NOT NULL,
-    room_description character varying(255),
     room_name character varying (255) NOT NULL,
     organization_uuid character varying(255) NOT NULL
 );

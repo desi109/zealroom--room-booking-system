@@ -10,35 +10,34 @@
 </mat-toolbar>
 <mat-card class="my-card">
   <i>Complete the fields to create a room.</i><br><br>
-  <div mat-dialog-content>
-    <form class="my-form">
-      <form class="my-form">
+  <div>
+    <form class="my-form" [formGroup]="addRoomForm" (ngSubmit)="onFormSubmit()">
         <mat-form-field class="full-width">
           <mat-label>Room name</mat-label>
-          <input  matInput  placeholder="Room name"  name="roomName"  required>
+          <input  formControlName="roomName" class="form-control" matInput  placeholder="Room name"  name="roomName"  required>
         </mat-form-field>
         <mat-form-field class="full-width">
           <mat-label>Capacity</mat-label>
-          <input  matInput  placeholder="Capacity" name="capacity"  required>
+          <input formControlName="capacity" class="form-control" matInput  placeholder="Capacity" name="capacity"  required>
         </mat-form-field>
         <div class="row">
           <div class="search">
             <div class="col-md-12">
-              <label for="validationCustom01" class="form-label">Equipment:</label>
-              <ng-select [items]="equipments"  bindLabel="name" placeholder="Select equipment" appendTo="body" [multiple]="true"
+              <label class="form-label">Equipment:</label>
+              <ng-select formControlName="equipments" class="form-control" [items]="equipments"  bindLabel="name" placeholder="Select equipment" appendTo="body" [multiple]="true"
                          [(ngModel)]="selectedEquipments">
               </ng-select>
             </div>
           </div>
         </div>
+      <div mat-dialog-actions>
+        <div class="createRoom">
+          <button mat-raised-button color="primary">Create</button>
+        </div>
+      </div>
       </form>
-    </form>
   </div>
-  <div mat-dialog-actions>
-    <div class="createRoom">
-      <button mat-raised-button color="primary">Create</button>
-    </div>
-  </div>
+
 </mat-card>
 <mat-card-content>
 
