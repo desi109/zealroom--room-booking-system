@@ -1,22 +1,22 @@
-import { Equipment } from "./search-room/equipment-room.module";
+import { Equipment } from "../book-room/search-room/equipment-room.module";
 
 export class Room {
-    public id: number;
-    public name: string;
+    public id: string;
     public capacity: number;
-    public equipment: Equipment [];
+    public roomDescription: string;
+    public roomName: string;
   
     
-    constructor(id: number, name: string, capacity: number, equipment: Equipment []) {
+    constructor(id: string, capacity: number, roomDescription: string, roomName: string) {
       this.id = id;
-      this.name = name;
       this.capacity = capacity;
-      this.equipment = equipment;
+      this.roomDescription = roomDescription;
+      this.roomName = roomName;
     }
 
-    getEquipment(room: Room): String {
+    /*getEquipment(room: Room): String {
       let equipmentOutput = '';
-      let equipmentNumber = room.equipment.length;
+      //let equipmentNumber = room.equipment.length;
       let counter = 1;
   
       room.equipment.forEach((equipment) => {
@@ -29,5 +29,5 @@ export class Room {
       });
   
       return equipmentOutput;
-    }
+    }*/
   }

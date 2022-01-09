@@ -2,14 +2,14 @@
    Returns all bookings as a json message
 
 2. GET http://localhost:5000/booking/{id} - replace "{id}" in the url with some booking id as path variable
-   Ex.: http://localhost:5000/booking/b1
+   Ex.: http://localhost:5000/booking/1
    Returns booking by id as a json message
 
 3. GET http://localhost:5000/booking/user/{id} replace "{id}" in the url with some user id as a path variable
-     Ex.: http://localhost:5000/booking/user/u1
+     Ex.: http://localhost:5000/booking/user/3
      Returns all bookings for some user
 
-//5. POST http://localhost:5000/room
+//4. POST http://localhost:5000/room
    Add a room
    Needs a json body.
    Example:
@@ -19,9 +19,9 @@
         "roomNumber": 123
     }
 
-//6. DELETE http://localhost:5000/room/{id} Replace "{id}" with id of the room that needs to be deleted
+//5. DELETE http://localhost:5000/room/{id} Replace "{id}" with id of the room that needs to be deleted
 
-//7. POST http://localhost:5000/room/book/room
+//6. POST http://localhost:5000/room/book/room
     Book a room
     Needs a json body.
     Example:

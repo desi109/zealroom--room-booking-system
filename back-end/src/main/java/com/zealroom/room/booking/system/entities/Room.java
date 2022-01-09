@@ -1,13 +1,10 @@
 package com.zealroom.room.booking.system.entities;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Entity
 @Table(name = "rooms")
@@ -73,5 +70,8 @@ public class Room {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void setRoomNumber(String test1) {
     }
 }

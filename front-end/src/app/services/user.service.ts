@@ -6,7 +6,6 @@ import {Observable} from "rxjs";
 import { HttpHeaders } from '@angular/common/http';
 import {AuthService} from "./auth.service";
 
-
 @Injectable({ providedIn: 'root' })
 export class UserService {
 
@@ -62,8 +61,7 @@ export class UserService {
       httpOptions);
   }
 
-   generateCode() {
-
+  generateCode() {
     let token = window.sessionStorage.getItem('auth-user');
     let uuid = window.sessionStorage.getItem('org-uuid');
     let sessionToken;
@@ -89,7 +87,6 @@ export class UserService {
   }
 
   generateCodeModerator() {
-
     let token = window.sessionStorage.getItem('auth-user');
     let uuid = window.sessionStorage.getItem('org-uuid');
     let sessionToken;
@@ -108,7 +105,11 @@ export class UserService {
     };
     return this.http.put(`${environment.apiUrl}/organization/generate/moderatorInviteToken/${uuid}`,{},
       httpOptions);
+  }
 
+  getUserBookings(userSessionToken: string) {
+    return this.http.get(`${environment.apiUrl}/user/get/bookings`, 
+    { headers : {'session-token' : userSessionToken, 'Content-Type': 'application/json'}});
   }
 
   getOrganizations() {
@@ -166,20 +167,14 @@ export class UserService {
     );
   }
 
-  // getSessionToken(): string | undefined {
-  //   let token = window.sessionStorage.getItem('auth-user');
-  //   let uuid = window.sessionStorage.getItem('org-uuid');
-  //   let sessionToken;
-  //   if (token != null) {
-  //     let arr: Array<string> = JSON.parse(token);
-  //     for(var index in arr)
-  //     {
-  //       if(index=="sessionToken"){
-  //         sessionToken=arr[index];
-  //       }
-  //     }
-  //   }
-  //
-  //   return sessionToken.toString();;
-  // }
+  deleteUserReservation(userSessionToken: string, reservationId: string) : Observable<any> {
+    return this.http.delete(`${environment.apiUrl}/booking/delete/${reservationId}`,
+    { headers : {'session-token' : userSessionToken, 'Content-Type': 'application/json'}});
+  }
+
+  bookRoom(userSessionToken: string, reservationId: string) : Observable<any> {
+    return this.http.post(`${environment.apiUrl}/room/book/room`,
+    { headers : {'session-token' : userSessionToken, 'Content-Type': 'application/json'}});
+  }
+
 }

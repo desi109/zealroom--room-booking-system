@@ -6,6 +6,7 @@ export class User {
   email: string;
   password: string;
   isAdmin: boolean;
+  userSessionToken: any;
 }
 // {
 //   "id": "3976a13a-4274-43f9-b219-8bfd098616b1",

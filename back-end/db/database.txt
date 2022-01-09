@@ -11,8 +11,8 @@ CREATE TABLE booking (
     booking_uuid character varying NOT NULL,
     user_uuid character varying NOT NULL,
     is_booked boolean NOT NULL,
-    check_in date NOT NULL,
-    check_out date NOT NULL
+    check_in timestamp NOT NULL,
+    check_out timestamp NOT NULL
 );
 
 CREATE TABLE rooms (

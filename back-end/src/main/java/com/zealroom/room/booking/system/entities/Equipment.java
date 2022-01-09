@@ -16,7 +16,7 @@ public class Equipment {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name="room_id")
+    @JoinColumn(name="room_uuid")
     @JsonIgnore
     private Room room;
 

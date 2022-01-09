@@ -18,10 +18,11 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   //roles: string[] = [];
 
-  public userFirstName: string = '';
-  public userLastName: string = '';
-  public userSessionToken: string = '';
-  public userEmail: string = '';
+  public userId: string;
+  public userFirstName: string;
+  public userLastName: string;
+  public userSessionToken: string;
+  public userEmail: string;
   public userIsAdmin: boolean;
 
   form: any = {
@@ -55,9 +56,11 @@ export class LoginComponent implements OnInit {
         next: data => {
           this.authenticationService.saveToken(data.accessToken);
 
+          this.userId = data.userUuid
           this.userFirstName = data.firstName;
           this.userLastName = data.lastName;
-          this.userSessionToken = data.accessToken;
+          this.userSessionToken = data.sessionToken;
+          var sessionToken = data.sessionToken;
           this.userEmail = data.email;
           this.userIsAdmin = data.isAdmin;
 
