@@ -20,7 +20,7 @@ export class UserService {
   }
 
   registerOrganization(name: string, type: string) {
-    let token = window.sessionStorage.getItem('auth-user');
+    let token = window.sessionStorage.getItem('session-token');
     let sessionToken;
     if (token != null) {
       let arr: Array<string> = JSON.parse(token);
@@ -42,7 +42,7 @@ export class UserService {
   }
 
   joinWithCode(code: string) {
-    let token = window.sessionStorage.getItem('auth-user');
+    let token = window.sessionStorage.getItem('session-token');
     let sessionToken;
     if (token != null) {
       let arr: Array<string> = JSON.parse(token);
@@ -62,7 +62,7 @@ export class UserService {
   }
 
   generateCode() {
-    let token = window.sessionStorage.getItem('auth-user');
+    let token = window.sessionStorage.getItem('session-token');
     let uuid = window.sessionStorage.getItem('org-uuid');
     let sessionToken;
     if (token != null) {
@@ -87,7 +87,7 @@ export class UserService {
   }
 
   generateCodeModerator() {
-    let token = window.sessionStorage.getItem('auth-user');
+    let token = window.sessionStorage.getItem('session-token');
     let uuid = window.sessionStorage.getItem('org-uuid');
     let sessionToken;
     if (token != null) {
@@ -108,12 +108,12 @@ export class UserService {
   }
 
   getUserBookings(userSessionToken: string) {
-    return this.http.get(`${environment.apiUrl}/user/get/bookings`, 
+    return this.http.get(`${environment.apiUrl}/user/get/bookings`,
     { headers : {'session-token' : userSessionToken, 'Content-Type': 'application/json'}});
   }
 
   getOrganizations() {
-    let token = window.sessionStorage.getItem('auth-user');
+    let token = window.sessionStorage.getItem('session-token');
     let sessionToken;
     if (token != null) {
       let arr: Array<string> = JSON.parse(token);
@@ -141,7 +141,7 @@ export class UserService {
   }
 
   isModerator() {
-    let token = window.sessionStorage.getItem('auth-user');
+    let token = window.sessionStorage.getItem('session-token');
     let uuid = window.sessionStorage.getItem('org-uuid');
     let sessionToken;
     if (token != null) {

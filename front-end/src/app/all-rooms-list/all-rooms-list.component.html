@@ -1,8 +1,8 @@
 <div class="main-content">
-  <a href="#" class="list-group-item clearfix" *ngFor="let room of rooms">
+  <a href="#" class="list-group-item clearfix" *ngFor="let room of d[0]">
     <div class="row room-list">
 
-      <div class="row row-content">
+      <div class="row row-content" >
         <div class="col-md-8">
           <h4 class="list-group-item-heading"><img class="image-write" src="../../../assets/images/content-writing.png">
             {{ room.roomName}}</h4>
@@ -12,7 +12,7 @@
             <h5 class="list-group-item-text"><b>Capacity: {{ room.capacity }}</b></h5>
           </div>
           <div class="row">
-            <h6 class="list-group-item-text"><b>Equipment:</b> ... </h6>
+            <h6 class="list-group-item-text"><b>Equipment:</b> {{room.equipments}} </h6>
           </div>
         </div>
       </div>

@@ -53,5 +53,6 @@ export class CreateRoomComponent implements OnInit {
     } else {
       window.alert("Please, fill all required fields!");
     }
+    window.location.reload();
   }
 }
