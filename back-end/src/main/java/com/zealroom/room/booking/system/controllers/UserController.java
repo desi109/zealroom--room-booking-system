@@ -1,8 +1,6 @@
 package com.zealroom.room.booking.system.controllers;
 
-import com.zealroom.room.booking.system.entities.Booking;
-import com.zealroom.room.booking.system.entities.Organization;
-import com.zealroom.room.booking.system.entities.UserOrganizationConnection;
+import com.zealroom.room.booking.system.entities.*;
 import com.zealroom.room.booking.system.repositories.BookingRepository;
 import com.zealroom.room.booking.system.repositories.OrganizationRepository;
 import com.zealroom.room.booking.system.repositories.UserOrganizationConnectionRepository;
@@ -14,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.zealroom.room.booking.system.entities.User;
 import com.zealroom.room.booking.system.exceptions.UserAuthenticationException;
 import com.zealroom.room.booking.system.helpers.HelperService;
 
@@ -229,6 +226,15 @@ public class UserController {
            return true;
        }
        return false;
+    }
+
+    @GetMapping("/getOrganizationUsers/{uuid}")
+    public ResponseEntity getUsersInOrganization(@PathVariable String uuid){
+
+        List<User> users = userOrganizationConnectionRepository.findUsersByOrganizationId(uuid);
+
+
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
 }

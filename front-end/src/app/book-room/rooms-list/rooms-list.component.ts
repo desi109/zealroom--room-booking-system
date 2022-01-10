@@ -24,7 +24,6 @@ export class RoomsListComponent implements OnInit {
       .subscribe({
         next: data => {
            this.rooms = data as Room[];
-           
         },
         error: err => {
           this.errorMessage = err.error.message;
@@ -40,7 +39,7 @@ export class RoomsListComponent implements OnInit {
     .subscribe({
       next: data => {
         this.equipment = data.toString();
-         
+
       },
       error: err => {
         this.errorMessage = err.error.message;
@@ -62,7 +61,7 @@ export class RoomsListComponent implements OnInit {
     .subscribe({
         next: data => {
            console.log(data);
-           
+
         },
         error: err => {
           this.errorMessage = err.error.message;
