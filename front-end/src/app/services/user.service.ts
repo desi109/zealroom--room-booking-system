@@ -5,12 +5,15 @@ import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
 import { HttpHeaders } from '@angular/common/http';
 import {AuthService} from "./auth.service";
+import * as EventEmitter from "events";
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
 
   constructor(private http: HttpClient, authService: AuthService) { }
   authService: AuthService;
+  public moderatorEvent: EventEmitter = new EventEmitter();
+
   register(user: User) {
     return this.http.post(`${environment.apiUrl}/user/register`, user);
   }
@@ -128,16 +131,13 @@ export class UserService {
       headers: new HttpHeaders({"session-token" : `${sessionToken}`}), responseType: 'text' as 'json'
 
     };
-
-    return this.http.get(`${environment.apiUrl}/organization/all`,
-      httpOptions).subscribe(
+    const observable = this.http.get(`${environment.apiUrl}/organization/all`,
+      httpOptions);
+    observable.subscribe(
       (data)=>{
-        // console.log("WAIT2");
-        // console.log(data.toString());
         window.sessionStorage.setItem("org-uuid", data.toString());
-      }
-    );
-
+      })
+    return observable;
   }
 
   isModerator() {
@@ -160,9 +160,17 @@ export class UserService {
     this.http.get(`${environment.apiUrl}/organization/${uuid}/isModerator`,
       httpOptions).subscribe(
       (data)=>{
-        data.toString();
-        window.sessionStorage.setItem("isModerator", data.toString());
-
+        const currentModeratorStatus = window.sessionStorage.getItem("isModerator");
+        if(data == true) {
+          this.moderatorEvent.emit('moderatorRightsGranted', true);
+        }
+        if(data == false) {
+          this.moderatorEvent.emit('moderatorRightsRejected', false);
+        }
+        if(data != currentModeratorStatus) {
+          window.sessionStorage.setItem("isModerator", data.toString());
+          this.moderatorEvent.emit('change', data);
+        }
       }
     );
   }

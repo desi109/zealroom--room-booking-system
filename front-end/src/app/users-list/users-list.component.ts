@@ -39,7 +39,29 @@ export class UsersListComponent implements OnInit {
         console.log(data);
         this.d.push(data as any);
         console.log(this.d);
+
       }
     );
+  }
+
+  deleteUser() {
+    let token = window.sessionStorage.getItem('session-token');
+    let userId;
+    if (token != null) {
+      let arr: Array<string> = JSON.parse(token);
+      for(var index in arr)
+      {
+        if(index=="id"){
+          userId=arr[index];
+        }
+      }
+    }
+    this.http.delete(`${environment.apiUrl}/user/delete/${this.d[0].id}`).subscribe(
+      (data)=>{
+        console.log(data);
+      }
+    );
+    alert("User deleted.")
+    window.location.reload();
   }
 }

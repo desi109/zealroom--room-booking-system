@@ -62,21 +62,19 @@ export class CreateSpaceComponent implements OnInit {
         .registerOrganization(this.organizationForm.value.name, this.organizationForm.value.type)
         .subscribe(
           (data) => {
+            window.alert('Organization Registered successfully!');
+            window.sessionStorage.setItem("org-uuid", data.toString());
+            window.location.reload();
           },
           (err) => {
             window.alert(err.error.toString());
           }
         );
-
-      window.alert('Organization Registered successfully!');
       this.dialogRef.close();
     }
     else {
       window.alert("Please, fill all required fields!");
     }
-    window.sessionStorage.clear();
-    window.location.reload();
-    alert("Please log in again in order to gain moderator rights!")
   }
 
   onCancel(): void {

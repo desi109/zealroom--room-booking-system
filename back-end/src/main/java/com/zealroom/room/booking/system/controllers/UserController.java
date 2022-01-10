@@ -163,10 +163,6 @@ public class UserController {
         if(admin == null){
             return new ResponseEntity<>("Incorrect sessionToken",HttpStatus.BAD_REQUEST);
         }
-        if(!admin.getIsAdmin()){
-            return new ResponseEntity<>("Only admins can delete users",HttpStatus.BAD_REQUEST);
-        }
-
         User toBeDeleted = userRepository.findByUuid(uuid);
         if(toBeDeleted == null){
             return new ResponseEntity<>("Incorrect uuid",HttpStatus.BAD_REQUEST);
@@ -232,9 +228,9 @@ public class UserController {
     public ResponseEntity getUsersInOrganization(@PathVariable String uuid){
 
         List<User> users = userOrganizationConnectionRepository.findUsersByOrganizationId(uuid);
-
-
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
+
+
 
 }

@@ -38,7 +38,11 @@ export class JoinWCodeComponent implements OnInit {
         .joinWithCode(this.joinForm.value.code)
         .subscribe(
           (data) => {
-            window.alert(data.toString());
+            this.userService.getOrganizations().
+              subscribe( ()=> {
+              window.alert(data.toString());
+              window.location.reload();
+            })
           },
           (err) => {
             window.alert(err.error.toString());
@@ -49,6 +53,7 @@ export class JoinWCodeComponent implements OnInit {
     else {
       window.alert("Please, enter an invite code.")
     }
+
 
   }
 

@@ -57,6 +57,13 @@ export class NavBarComponent implements OnInit {
         this.showModeratorBoard = true;
       }
     }
+    //Listen for changes
+    this.userService.moderatorEvent.on('change', this.updateModeratorStatus.bind(this));
+  }
+
+  updateModeratorStatus(status: boolean) {
+    this.isModerator = status;
+    this.showModeratorBoard = status;
   }
 
   logout(): void {
