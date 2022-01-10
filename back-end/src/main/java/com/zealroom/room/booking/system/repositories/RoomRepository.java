@@ -12,9 +12,6 @@ import java.util.List;
 @Transactional
 public interface RoomRepository extends JpaRepository<Room, String> {
 
-//    @Query("select r from Room r where r.roomDescription like concat('%', ?1, '%')")
-//    List<Room> findByRoomDescriptionIsContaining(String roomDescription);
-
     @Query("select r from Room r where r.capacity >= ?1")
     List<Room> findByCapacityGreaterThanEqual(Integer capacity);
 

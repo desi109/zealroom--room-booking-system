@@ -31,7 +31,7 @@ public class BookingController {
     @GetMapping("/{id}")
     public ResponseEntity getById(@PathVariable String id) {
         Optional<Booking> result = bookingRepository.findById(id);
-        return result.isPresent() ? ResponseEntity.ok(result.get()) : ResponseEntity.ok("No booking found!");
+        return result.isPresent() ? ResponseEntity.ok(result.get()) : new ResponseEntity<>("No booking found!", HttpStatus.BAD_REQUEST);
     }
 
     @DeleteMapping("/delete/{bookingUuid}")

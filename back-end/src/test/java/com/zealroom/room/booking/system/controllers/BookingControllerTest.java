@@ -4,6 +4,7 @@ import com.zealroom.room.booking.system.entities.Booking;
 import com.zealroom.room.booking.system.entities.Room;
 import com.zealroom.room.booking.system.entities.User;
 import com.zealroom.room.booking.system.repositories.BookingRepository;
+import com.zealroom.room.booking.system.repositories.UserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
@@ -28,6 +30,8 @@ class BookingControllerTest {
 
     @Mock
     private BookingRepository bookingRepository;
+    @Mock
+    private UserRepository userRepository;
     @InjectMocks
     private BookingController bookingController;
 
@@ -43,8 +47,6 @@ class BookingControllerTest {
         Room room = new Room();
         room.setCapacity(100);
         room.setId("1");
-//        room.setRoomDescription("testRoomDesc");
-//        room.setRoomNumber("testRoomDescest1");
 
         Booking booking1 = new Booking();
         booking1.setId("1");
@@ -105,8 +107,6 @@ class BookingControllerTest {
         Room room = new Room();
         room.setCapacity(100);
         room.setId("1");
-//        room.setRoomDescription("testRoomDesc");
-//        room.setRoomNumber("test1");
 
         Booking booking1 = new Booking();
         booking1.setId("1");
@@ -126,6 +126,12 @@ class BookingControllerTest {
     }
 
     @Test
+    void getById_shouldReturnBadRequest_whenNoBookingFound() {
+        ResponseEntity<?> actual = bookingController.getById("1");
+        Assertions.assertEquals(new ResponseEntity<>("No booking found!", HttpStatus.BAD_REQUEST), actual);
+    }
+
+    @Test
     void getByUserId_shouldReturnListOfBookings() {
         User user = new User();
         user.setUuid("test");
@@ -137,8 +143,6 @@ class BookingControllerTest {
         Room room = new Room();
         room.setCapacity(100);
         room.setId("1");
-//        room.setRoomDescription("testRoomDesc");
-//        room.setRoomNumber("test1");
 
         Booking booking1 = new Booking();
         booking1.setId("1");
@@ -185,5 +189,83 @@ class BookingControllerTest {
 
         List<Booking> actual = bookingController.getByUserId(user.getId());
         Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void deleteByBookingId_shouldReturnResponseWithStatusOk() {
+        User user = new User();
+        user.setUuid("test");
+        user.setEmail("test@test.com");
+        user.setFirstName("testName");
+        user.setLastName("testLastName");
+        user.setPassword("testPassword");
+        when(userRepository.findBySessionToken(any())).thenReturn(user);
+
+        Room room = new Room();
+        room.setCapacity(100);
+        room.setId("1");
+
+        Booking booking1 = new Booking();
+        booking1.setId("1");
+        booking1.setIsBooked(true);
+        booking1.setUserUuid(user);
+        LocalDateTime checkIn = LocalDateTime.of(2021,
+                Month.DECEMBER, 29, 19, 30, 40);
+        LocalDateTime checkOut = LocalDateTime.of(2021,
+                Month.DECEMBER, 29, 20, 30, 40);
+        booking1.setCheckIn(checkIn);
+        booking1.setCheckOut(checkOut);
+        booking1.setRoom(room);
+
+        when(bookingRepository.findBookingById(booking1.getId())).thenReturn(booking1);
+
+        ResponseEntity actual = bookingController.deleteBooking(booking1.getId(), "token");
+
+        Assertions.assertEquals(HttpStatus.OK, actual.getStatusCode());
+        Assertions.assertEquals("Booking deleted", actual.getBody());
+    }
+
+    @Test
+    void deleteByBookingId_shouldReturnResponseWithStatusBadRequest_whenNoBooking() {
+        User user = new User();
+        user.setUuid("test");
+        user.setEmail("test@test.com");
+        user.setFirstName("testName");
+        user.setLastName("testLastName");
+        user.setPassword("testPassword");
+        when(userRepository.findBySessionToken(any())).thenReturn(user);
+
+        Room room = new Room();
+        room.setCapacity(100);
+        room.setId("1");
+
+        Booking booking1 = new Booking();
+        booking1.setId("1");
+        booking1.setIsBooked(true);
+        booking1.setUserUuid(user);
+        LocalDateTime checkIn = LocalDateTime.of(2021,
+                Month.DECEMBER, 29, 19, 30, 40);
+        LocalDateTime checkOut = LocalDateTime.of(2021,
+                Month.DECEMBER, 29, 20, 30, 40);
+        booking1.setCheckIn(checkIn);
+        booking1.setCheckOut(checkOut);
+        booking1.setRoom(room);
+
+        when(bookingRepository.findBookingById(booking1.getId())).thenReturn(null);
+
+        ResponseEntity actual = bookingController.deleteBooking(booking1.getId(), "token");
+
+        Assertions.assertEquals(actual.getStatusCode(), HttpStatus.BAD_REQUEST);
+        Assertions.assertEquals(actual.getBody(), "Incorrect uuid");
+    }
+
+    @Test
+    void deleteByBookingId_shouldReturnResponseWithStatusBadRequest_whenNoUser() {
+        when(userRepository.findBySessionToken(any())).thenReturn(null);
+
+        ResponseEntity actual = bookingController.deleteBooking("1", "token");
+
+        Assertions.assertEquals(actual.getStatusCode(), HttpStatus.BAD_REQUEST);
+        Assertions.assertEquals(actual.getBody(), "Incorrect sessionToken");
     }
 }
