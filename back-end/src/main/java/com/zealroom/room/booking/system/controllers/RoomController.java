@@ -78,17 +78,6 @@ public class RoomController {
         return roomRepository.findByCapacityGreaterThanEqual(cap);
     }
 
-
-//    @GetMapping("/description/{desc}")
-//    public Set<Room> FindRoomByDescription(@PathVariable List<String> desc){
-//        Set<Room> rooms = new HashSet<>();
-//        for (String description: desc) {
-//            rooms.addAll(roomRepository.findByRoomDescriptionIsContaining(description));
-//        }
-//
-//        return rooms;
-//    }
-
     @GetMapping("/get/rooms")
     public ResponseEntity getUserBookings(@RequestHeader("session-token")  String sessionToken){
         User user = userRepository.findBySessionToken(sessionToken);
