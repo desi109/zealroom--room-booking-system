@@ -14,15 +14,18 @@ import java.util.Optional;
 @Repository
 @Transactional
 public interface BookingRepository extends JpaRepository<Booking, String> {
-    @Query("select r from Room r JOIN Booking b where b.checkIn >= ?1 and b.checkOut <= ?1")
+    @Query("SELECT r FROM Room r JOIN Booking b WHERE b.checkIn >= :checkIn AND b.checkOut <= :checkOut")
     List<Room> findByCheckInAndCheckOut(LocalDateTime checkIn, LocalDateTime checkOut);
 
-    @Query("select b from Booking b where b.room = ?1 AND ((b.checkIn<?1 AND b.checkOut>?1) OR (b.checkIn<?2 AND b.checkOut>?2))")
-    List<Booking> findAllByRoomAndCheckInCheckOut(Room room, LocalDateTime checkIn, LocalDateTime checkout);
+    @Query("SELECT b FROM Booking b WHERE b.room = :room AND ((b.checkIn < :room AND b.checkOut > :room) OR (b.checkIn < :checkIn  AND b.checkOut > :checkOut))")
+    List<Booking> findAllByRoomAndCheckInCheckOut(Room room, LocalDateTime checkIn, LocalDateTime checkOut);
 
-    @Query("select b from Booking b where b.userUuid.id = ?1")
+    @Query("SELECT b FROM Booking b WHERE b.userUuid.id = :id")
     List<Booking> findAllByUserId(String id);
 
     @Query("SELECT b FROM Booking b WHERE b.id = :id")
     Optional<Booking> findById(String id);
+
+    @Query("SELECT b FROM Booking b WHERE b.id = :id")
+    Booking findBookingById(String id);
 }

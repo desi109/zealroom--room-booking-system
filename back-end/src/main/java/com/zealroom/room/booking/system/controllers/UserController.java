@@ -1,8 +1,6 @@
 package com.zealroom.room.booking.system.controllers;
 
-import com.zealroom.room.booking.system.entities.Booking;
-import com.zealroom.room.booking.system.entities.Organization;
-import com.zealroom.room.booking.system.entities.UserOrganizationConnection;
+import com.zealroom.room.booking.system.entities.*;
 import com.zealroom.room.booking.system.repositories.BookingRepository;
 import com.zealroom.room.booking.system.repositories.OrganizationRepository;
 import com.zealroom.room.booking.system.repositories.UserOrganizationConnectionRepository;
@@ -14,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.zealroom.room.booking.system.entities.User;
 import com.zealroom.room.booking.system.exceptions.UserAuthenticationException;
 import com.zealroom.room.booking.system.helpers.HelperService;
 
@@ -153,11 +150,11 @@ public class UserController {
     public ResponseEntity getUserBookings(@RequestHeader("session-token")  String sessionToken){
         User user = userRepository.findBySessionToken(sessionToken);
         if(user == null){
-            return new ResponseEntity<>("Incorrect sessionToken.",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Incorrect sessionToken.", HttpStatus.BAD_REQUEST);
         }
         List<Booking> bookings = bookingRepository.findAllByUserId(user.getId());
 
-        return new ResponseEntity<>(bookings,HttpStatus.OK);
+        return new ResponseEntity<>(bookings, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{uuid}")
@@ -166,10 +163,6 @@ public class UserController {
         if(admin == null){
             return new ResponseEntity<>("Incorrect sessionToken",HttpStatus.BAD_REQUEST);
         }
-        if(!admin.getIsAdmin()){
-            return new ResponseEntity<>("Only admins can delete users",HttpStatus.BAD_REQUEST);
-        }
-
         User toBeDeleted = userRepository.findByUuid(uuid);
         if(toBeDeleted == null){
             return new ResponseEntity<>("Incorrect uuid",HttpStatus.BAD_REQUEST);
@@ -230,5 +223,14 @@ public class UserController {
        }
        return false;
     }
+
+    @GetMapping("/getOrganizationUsers/{uuid}")
+    public ResponseEntity getUsersInOrganization(@PathVariable String uuid){
+
+        List<User> users = userOrganizationConnectionRepository.findUsersByOrganizationId(uuid);
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+
 
 }

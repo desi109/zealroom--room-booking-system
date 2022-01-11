@@ -33,12 +33,28 @@ export class JoinWCodeComponent implements OnInit {
   }
 
   onFormSubmit(){
-    this.userService
-      .joinWithCode(this.joinForm.value.code)
-      .subscribe(
-        (data)=>{
-        }
-      );
+    if(this.joinForm.valid) {
+      this.userService
+        .joinWithCode(this.joinForm.value.code)
+        .subscribe(
+          (data) => {
+            this.userService.getOrganizations().
+              subscribe( ()=> {
+              window.alert(data.toString());
+              window.location.reload();
+            })
+          },
+          (err) => {
+            window.alert(err.error.toString());
+          }
+        );
+      this.dialogRef.close();
+    }
+    else {
+      window.alert("Please, enter an invite code.")
+    }
+
+
   }
 
 }

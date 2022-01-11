@@ -1,18 +1,18 @@
 <div class="main-content">
-  <a href="#" class="list-group-item clearfix" *ngFor="let user of users">
+  <a class="list-group-item clearfix" *ngFor="let user of d[0]">
     <div class="row room-list">
 
       <div class="row row-content">
         <div class="col-md-8">
           <h4 class="list-group-item-heading"><img class="image-write" src="../../assets/images/userIcon1.png">
-            {{ user.name }}</h4>
+            {{ user.firstName }} {{ user.lastName }}</h4>
           <div class="buttons">
-            <button class="addButton" mat-mini-fab color="light-green">
-              <mat-icon class="matIcon">done</mat-icon>
-            </button>
-            <button class="deleteButton" mat-mini-fab color="red">
-              <mat-icon class="matIcon">delete</mat-icon>
-            </button>
+<!--            <button class="addButton" mat-mini-fab color="light-green">-->
+<!--              <mat-icon class="matIcon">done</mat-icon>-->
+<!--            </button>-->
+<!--            <button class="deleteButton" mat-mini-fab color="red" (click)="deleteUser()">-->
+<!--              <mat-icon class="matIcon">delete</mat-icon>-->
+<!--            </button>-->
 
           </div>
         </div>
@@ -21,9 +21,9 @@
           <div class="row">
             <h5 class="list-group-item-text"><b>{{ user.email }}</b></h5>
           </div>
-          <div class="row">
-            <h6 class="list-group-item-text"><b>Position:</b> {{ user.position }}</h6>
-          </div>
+<!--          <div class="row">-->
+<!--            <h6 class="list-group-item-text"><b>Position:</b>user</h6>-->
+<!--          </div>-->
 
         </div>
       </div>

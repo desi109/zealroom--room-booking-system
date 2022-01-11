@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import {BehaviorSubject, first, map, Observable} from "rxjs";
 import {AuthService} from "../services/auth.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {UserService} from "../services/user.service";
 
 @Component({
   selector: 'app-login',
@@ -17,10 +18,11 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   //roles: string[] = [];
 
-  public userFirstName: string = '';
-  public userLastName: string = '';
-  public userSessionToken: string = '';
-  public userEmail: string = '';
+  public userId: string;
+  public userFirstName: string;
+  public userLastName: string;
+  public userSessionToken: string;
+  public userEmail: string;
   public userIsAdmin: boolean;
 
   form: any = {
@@ -31,7 +33,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private authenticationService: AuthService
+    private authenticationService: AuthService,
+    private userService: UserService
   ) {}
 
   ngOnInit() {
@@ -53,9 +56,11 @@ export class LoginComponent implements OnInit {
         next: data => {
           this.authenticationService.saveToken(data.accessToken);
 
+          this.userId = data.userUuid
           this.userFirstName = data.firstName;
           this.userLastName = data.lastName;
-          this.userSessionToken = data.accessToken;
+          this.userSessionToken = data.sessionToken;
+          var sessionToken = data.sessionToken;
           this.userEmail = data.email;
           this.userIsAdmin = data.isAdmin;
 
@@ -63,8 +68,12 @@ export class LoginComponent implements OnInit {
 
           this.isLoginFailed = false;
           this.isLoggedIn = true;
+          this.userService.getOrganizations();
+          this.userService.isModerator();
           //this.roles = this.authenticationService.getUser().roles;
           this.reloadPage();
+          this.reloadPage();
+          window.alert("Welcome, " + this.userFirstName + " " + this.userLastName + "!");
         },
         error: err => {
           this.errorMessage = err.error.message;

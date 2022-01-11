@@ -7,9 +7,6 @@ import {environment} from "../../environments/environment";
 import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 
-const TOKEN_KEY = 'auth-token';
-const USER_KEY = 'auth-user';
-
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -53,34 +50,37 @@ export class AuthService {
 
 
   logout() {
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem('session-token');
     this.userSubject.next(new User());
   }
 
   signOut(): void {
     window.sessionStorage.clear();
+    window.alert("You signed out of your account")
   }
 
   public saveToken(token: string): void {
-    window.sessionStorage.removeItem(TOKEN_KEY);
-    window.sessionStorage.setItem(TOKEN_KEY, token);
+    window.sessionStorage.removeItem('session-token');
+    window.sessionStorage.setItem('session-token', token);
   }
 
   public getToken(): string | null {
-    return window.sessionStorage.getItem(TOKEN_KEY);
+    return window.sessionStorage.getItem('session-token');
+    //return localStorage.getItem('session-token');
   }
 
   public saveUser(user: any): void {
-    window.sessionStorage.removeItem(USER_KEY);
-    window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+    window.sessionStorage.removeItem('session-token');
+    window.sessionStorage.setItem('session-token', JSON.stringify(user));
+    localStorage.setItem('session-token', user.sessionToken);
   }
 
   public getUser(): any {
-    const user = window.sessionStorage.getItem(USER_KEY);
+    const user = window.sessionStorage.getItem('session-token');
     if (user) {
       return JSON.parse(user);
+    } else {
+      return {};
     }
-
-    return {};
   }
 }

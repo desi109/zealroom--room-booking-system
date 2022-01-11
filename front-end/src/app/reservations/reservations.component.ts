@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Room } from '../book-room/room.module';
+import { stringify } from 'querystring';
 import { Equipment } from '../book-room/search-room/equipment-room.module';
-import { Reservation } from '../reservations/reservation.module';
+import { LoginComponent } from '../login/login.component';
+import { Reservation } from '../models/reservation';
+import { Room } from '../models/room';
+import { AuthService } from '../services/auth.service';
+import { RoomService } from '../services/room.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-reservations',
@@ -9,46 +14,80 @@ import { Reservation } from '../reservations/reservation.module';
   styleUrls: ['./reservations.component.css'],
 })
 export class ReservationsComponent implements OnInit {
-  reservations: Reservation[] = [
-    new Reservation(
-      1,
-      new Room(1, 'Room 1', 100, [
-        new Equipment(3, 'Projector screen', ''),
-        new Equipment(4, 'Projector', ''),
-        new Equipment(5, 'HDMI', ''),
-      ]),
-      new Date(2021, 12, 21),
-      '10:20 AM',
-      '11:00 AM'
-    ),
-    new Reservation(
-      2,
-      new Room(2, 'Room 2', 20, [
-        new Equipment(1, 'Computers', ''),
-        new Equipment(2, 'Board', ''),
-      ]),
-      new Date(2021, 12, 23,),
-      '8:00 AM',
-      '8:40 AM'
-    ),
-    new Reservation(
-      3,
-      new Room(3, 'Room 3', 30, [
-        new Equipment(1, 'Board', ''),
-        new Equipment(6, 'TV', ''),
-        new Equipment(5, 'HDMI', ''),
-      ]),
-      new Date(2021, 12, 22),
-      '9:20 AM',
-      '12:00 AM'
-    ),
-  ];
+  /*public id: number;
+  public room: Room;
+  public startTime: string;
+  public endTime: string;*/
+  
+  constructor(private userService: UserService, public loginComponent: LoginComponent, public authService: AuthService, public roomService: RoomService){ }
 
-  constructor() {}
+  userSessionToken: string;
+  reservations: Reservation[];
+  errorMessage = '';
+  dataLenght: number = 0;
+  equipment: string[];
 
-  ngOnInit(): void {}
+  getUserBoookings() {
+    const user = this.authService.getUser();
+    this.userSessionToken = user.sessionToken;
+
+    this.userService.getUserBookings(this.userSessionToken)
+      .subscribe({
+        next: data => {
+           this.reservations = data as Reservation[];
+           
+        },
+        error: err => {
+          this.errorMessage = err.error.message;
+        }
+      });
+  }
+
+    getRoomEquipment(roomId: string) {
+      const user = this.authService.getUser();
+      this.userSessionToken = user.sessionToken;
+  
+      this.roomService.getRoomEquipment(this.userSessionToken, roomId)
+      .subscribe({
+        next: data => {
+           this.equipment = data as string[];
+           
+        },
+        error: err => {
+          this.errorMessage = err.error.message;
+        }
+      });
+  }
+
+  getEquipment() {
+    return this.equipment;
+  }
+
+  deleteUserReservation(reservationId: string) {
+    const user = this.authService.getUser();
+    this.userSessionToken = user.sessionToken;
+
+    this.userService.deleteUserReservation(this.userSessionToken, reservationId)
+    .subscribe({
+        next: data => {
+           console.log(data);
+           
+        },
+        error: err => {
+          this.errorMessage = err.error.message;
+        }
+      });
+  }
+
+
+  ngOnInit(): void {
+    this.getUserBoookings();
+  }
 
   getDateOnly(date: Date): string{
     return date.toDateString();
   }
 }
+
+
+

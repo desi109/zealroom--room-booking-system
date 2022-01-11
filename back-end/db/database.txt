@@ -1,10 +1,9 @@
 DROP TABLE IF EXISTS booking;
 DROP TABLE IF EXISTS userorganizationconnections;
-DROP TABLE IF EXISTS equipmentroomconnections;
+DROP TABLE IF EXISTS equipment;
 DROP TABLE IF EXISTS rooms;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS organizations;
-DROP TABLE IF EXISTS equipment;
 
 
 CREATE TABLE booking (
@@ -12,29 +11,23 @@ CREATE TABLE booking (
     booking_uuid character varying NOT NULL,
     user_uuid character varying NOT NULL,
     is_booked boolean NOT NULL,
-    check_in date NOT NULL,
-    check_out date NOT NULL
+    check_in timestamp NOT NULL,
+    check_out timestamp NOT NULL
 );
 
 CREATE TABLE rooms (
     capacity integer NOT NULL,
     room_uuid character varying(255) NOT NULL,
-    room_description character varying(255),
-    room_number character varying(255) NOT NULL,
     room_name character varying (255) NOT NULL,
     organization_uuid character varying(255) NOT NULL
 );
 
 CREATE TABLE equipment (
     equipment_id integer NOT NULL,
-    equipment_name character varying (255) NOT NULL
+    equipment_name character varying (255) NOT NULL,
+    room_uuid character varying(255)
 );
 
-CREATE TABLE equipmentroomconnections (
-    connection_id integer NOT NULL,
-    room_uuid character varying(255) NOT NULL,
-    equipment_id integer NOT NULL
-);
 
 CREATE TABLE users (
     user_uuid character varying(255) NOT NULL,
@@ -63,11 +56,11 @@ ALTER TABLE ONLY booking ADD CONSTRAINT booking_pkey PRIMARY KEY (booking_uuid);
 ALTER TABLE ONLY rooms ADD CONSTRAINT rooms_pkey PRIMARY KEY (room_uuid);
 ALTER TABLE ONLY users ADD CONSTRAINT users_pkey PRIMARY KEY (user_uuid);
 ALTER TABLE ONLY equipment ADD CONSTRAINT equipment_pkey PRIMARY KEY (equipment_id);
+ALTER TABLE ONLY equipment ADD CONSTRAINT fk_equipment_room FOREIGN KEY (room_uuid) REFERENCES rooms(room_uuid) ON DELETE CASCADE;
+
 ALTER TABLE ONLY organizations ADD CONSTRAINT organizations_pkey PRIMARY KEY (organization_uuid);
 ALTER TABLE ONLY booking ADD CONSTRAINT fk_rooms FOREIGN KEY (room_uuid) REFERENCES rooms(room_uuid) ON DELETE CASCADE;
 ALTER TABLE ONLY booking ADD CONSTRAINT fk_users FOREIGN KEY (user_uuid) REFERENCES users(user_uuid) ON DELETE CASCADE;
 ALTER TABLE ONLY userorganizationconnections ADD CONSTRAINT fk_users FOREIGN KEY (user_uuid) REFERENCES users(user_uuid) ON DELETE CASCADE;
 ALTER TABLE ONLY userorganizationconnections ADD CONSTRAINT fk_organizations FOREIGN KEY (organization_uuid) REFERENCES organizations(organization_uuid) ON DELETE CASCADE;
 ALTER TABLE ONLY rooms ADD CONSTRAINT fk_organization FOREIGN KEY (organization_uuid) REFERENCES organizations(organization_uuid);
-ALTER TABLE ONLY equipmentroomconnections ADD CONSTRAINT fk_equipment FOREIGN KEY (equipment_id) REFERENCES equipment(equipment_id) ON DELETE CASCADE;
-ALTER TABLE ONLY equipmentroomconnections ADD CONSTRAINT fk_room FOREIGN KEY (room_uuid) REFERENCES rooms(room_uuid) ON DELETE CASCADE;

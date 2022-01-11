@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "9a34ddbc-4787-4ea5-94f6-44a502873ea4",
+		"_postman_id": "930b19bd-8eed-4f1b-bdaf-a62ce652db18",
 		"name": "Zealroom",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -346,6 +346,67 @@
 						"header": [],
 						"url": {
 							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Room",
+			"item": [
+				{
+					"name": "Add room without equipment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"capacity\" : 100,\r\n    \"roomDescription\": \"sfksdfadsk\",\r\n    \"roomName\": \"asfdksalfsa1\",\r\n    \"organization\" : {\r\n        \"id\": 1\r\n    }, \r\n    \"equipment\" : [{\"id\":1}, {\"id\":2}]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/room",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"room"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add room with equipment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"capacity\" : 100,\r\n    \"roomDescription\": \"sfksdfadsk\",\r\n    \"roomName\": \"asfdksalfsa1\",\r\n    \"organization\" : {\r\n        \"id\": 1\r\n    }, \r\n    \"equipment\" : [{\"id\":1}, {\"id\":2}]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/room",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"room"
+							]
 						}
 					},
 					"response": []

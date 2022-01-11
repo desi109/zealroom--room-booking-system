@@ -14,9 +14,10 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.jetbrains:annotations:20.1.0'
-    implementation 'junit:junit:4.13.1'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.jetbrains:annotations:22.0.0'
+    implementation 'junit:junit:4.13.2'
+    implementation 'org.projectlombok:lombok:1.18.22'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'

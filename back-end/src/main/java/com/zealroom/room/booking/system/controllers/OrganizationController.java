@@ -158,7 +158,7 @@ public class OrganizationController {
 
         List<Organization> userOrganizations = uoc.getUserOrganizations(user.getId());
 
-        return new ResponseEntity<>(userOrganizations,HttpStatus.OK);
+        return new ResponseEntity<>(userOrganizations.get(0).getId(),HttpStatus.OK);
     }
 
 }

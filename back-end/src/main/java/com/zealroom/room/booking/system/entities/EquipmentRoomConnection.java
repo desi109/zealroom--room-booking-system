@@ -9,7 +9,7 @@ public class EquipmentRoomConnection {
         @Id
         @GeneratedValue
         @Column(unique = true,name = "connection_id")
-        private long id;
+        private Long id;
 
 
         @ManyToOne(fetch = FetchType.EAGER)

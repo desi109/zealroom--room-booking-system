@@ -7,15 +7,14 @@
                 <div class="col-md-8">
                     <h4 class="list-group-item-heading"><img class="image-write"
                             src="../../../assets/images/content-writing.png">
-                        {{ reservation.room.name }}</h4>
+                       Room {{ reservation.room.roomName }}</h4>
                 </div>
                 <div class="col-md-4">
                     <div class="row">
                         <h5 class="list-group-item-text"><b>Capacity: {{ reservation.room.capacity }}</b></h5>
                     </div>
                     <div class="row">
-                        <h6 class="list-group-item-text"><b>Equipment:</b> {{
-                            reservation.room.getEquipment(reservation.room) }}</h6>
+                        <!--<h6 class="list-group-item-text"><b>Equipment:</b> {{ getRoomEquipment(reservation.room.id) }}</h6>-->
                     </div>
                 </div>
             </div>
@@ -30,14 +29,13 @@
 
             <div class="row">
                 <div class="col-md-8">
-                    <h5 class="text-booked">{{ getDateOnly(reservation.date) }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>{{
-                            reservation.startTime }} - {{ reservation.endTime }}</b></h5>
+                    <h5 class="text-booked"><b>From:</b> {{reservation.checkIn }}  <br><p><b>To:</b>   {{ reservation.checkOut }}</p></h5>
                 </div>
-                <div class="col-md-2">
+                <!--<div class="col-md-2">
                     <button class="button-reservation-edit btn btn-secondary btn-md">Edit reservation</button>
-                </div>
+                </div>-->
                 <div class="col-md-2">
-                    <button class="button-reservation-delete btn btn-secondary btn-md">Delete reservation</button>
+                    <button class="button-reservation-delete btn btn-secondary btn-md" (click)="deleteUserReservation(this.reservation.id)">Delete reservation</button>
                 </div>
             </div>
         </div>
